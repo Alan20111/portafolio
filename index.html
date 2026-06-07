@@ -23,6 +23,7 @@
   .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
   .avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--violet));
     display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:700;color:#fff;
+    object-fit:cover;border:2px solid rgba(255,255,255,.12);
     box-shadow:0 8px 30px rgba(59,130,246,.35)}
   h1{font-size:2rem;font-weight:700;letter-spacing:-.5px}
   .role{color:var(--muted);font-size:1.05rem}
@@ -71,7 +72,7 @@
 <body>
 <header>
   <div class="wrap hero">
-    <div class="avatar">AM</div>
+    <img class="avatar" src="https://github.com/Alan20111.png?size=200" alt="Alan Daniel Méndez Jiménez" onerror="this.outerHTML='&lt;div class=\'avatar\'&gt;AM&lt;/div&gt;'" />
     <h1>Alan Daniel Méndez Jiménez</h1>
     <div class="role">Ingeniería en Sistemas Computacionales · TecNM Celaya<br>Desarrollador Full-Stack (Java &amp; Web)</div>
     <div class="contacts">
