@@ -128,10 +128,10 @@ const projects = [
     gh:"Ajedrez_IA", live:"https://ajedrez-ia.vercel.app/", liveLabel:"♟ Jugar demo"
   },
   {
-    name:"Analizador Lineal", cat:"desktop", status:"code",
-    desc:"Herramienta en Java para álgebra lineal: encuentra espacios vectoriales, combinaciones lineales y bases.",
-    stack:["Java","Álgebra lineal"],
-    gh:"Analizador_Lineal"
+    name:"Analizador Lineal", cat:"desktop", status:"terminal",
+    desc:"Herramienta de consola en Java para álgebra lineal: combinación lineal (Ax=b), dependencia (LI/LD), conjunto generador (Span) y verificación de bases, con eliminación de Gauss.",
+    stack:["Java","Álgebra lineal","Gauss"],
+    gh:"Analizador_Lineal", live:"https://analizador-lineal.vercel.app/", liveLabel:"⌨️ Abrir terminal"
   },
   {
     name:"Administrador Gráfico Binario", cat:"desktop", status:"interactive",
@@ -146,16 +146,16 @@ const projects = [
     gh:"Monitor_Presion_Arterial", live:"https://monitor-presion-three.vercel.app/", liveLabel:"🖥️ Abrir demo"
   },
   {
-    name:"FormsApp", cat:"desktop", status:"code",
-    desc:"Aplicación de formularios desarrollada en Java con interfaz gráfica para captura y gestión de datos.",
-    stack:["Java","Swing"],
-    gh:"FormsApp"
+    name:"FormsApp", cat:"desktop", status:"template",
+    desc:"Proyecto JavaFX en etapa de plantilla inicial (estructura base con ventana de inicio). Pendiente de implementar los formularios.",
+    stack:["JavaFX","Gradle"],
+    gh:"FormsApp", live:"https://formsapp-demo.vercel.app/", liveLabel:"🖥️ Ver ventana"
   },
   {
-    name:"Perder Peso Corriendo", cat:"desktop", status:"code",
-    desc:"Aplicación en Java para el seguimiento de peso y rutinas de carrera, orientada a objetivos de salud.",
-    stack:["Java"],
-    gh:"Perder_Peso_Corriendo"
+    name:"Perder Peso Corriendo", cat:"desktop", status:"template",
+    desc:"Proyecto JavaFX en etapa de plantilla inicial (estructura base con ventana de inicio). Pendiente de implementar la lógica del simulador.",
+    stack:["JavaFX","Gradle"],
+    gh:"Perder_Peso_Corriendo", live:"https://perder-peso.vercel.app/", liveLabel:"🖥️ Ver ventana"
   },
   {
     name:"GymMachine", cat:"mobile", status:"code",
@@ -176,7 +176,9 @@ const badgeMap = {
   demo:{cls:"b-demo", txt:"🟡 Demo en vivo"},
   code:{cls:"b-code", txt:"🔵 Código"},
   play:{cls:"b-demo", txt:"🎮 Demo jugable"},
-  interactive:{cls:"b-demo", txt:"🖥️ Demo interactivo"}
+  interactive:{cls:"b-demo", txt:"🖥️ Demo interactivo"},
+  terminal:{cls:"b-demo", txt:"⌨️ Demo terminal"},
+  template:{cls:"b-code", txt:"🧩 Plantilla JavaFX"}
 };
 
 const grid = document.getElementById("grid");
