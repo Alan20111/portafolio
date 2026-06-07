@@ -113,19 +113,19 @@ const projects = [
     name:"MiPlaza", cat:"web", status:"demo",
     desc:"Sitio web para el supermercado MiPlaza: catálogo de productos por categorías, sección \"Nosotros\" y panel de administración. La app completa usa MySQL.",
     stack:["PHP","CodeIgniter 3","MySQL","Bootstrap"],
-    gh:"Sitio_Web_Negocio", live:"https://miplaza-demo.vercel.app", liveLabel:"Demo en vivo"
+    gh:"Sitio_Web_Negocio", live:"https://mi-plaza.vercel.app", liveLabel:"Demo en vivo"
   },
   {
     name:"TreFoods", cat:"web", status:"demo",
     desc:"Sistema de gestión para una planta de producción: login de administrador y panel de pedidos, exportador y peticiones. El backend requiere hosting PHP + MySQL.",
     stack:["PHP","CodeIgniter 3","MySQL","Bootstrap"],
-    gh:"Sistema_Gestion_De_Planta", live:"https://trefoods-demo.vercel.app", liveLabel:"Demo visual"
+    gh:"Sistema_Gestion_De_Planta", live:"https://trefoods.vercel.app", liveLabel:"Demo visual"
   },
   {
     name:"Ajedrez con IA", cat:"desktop", status:"play",
     desc:"Juego de ajedrez en Java con una inteligencia artificial basada en el algoritmo Minimax con poda Alfa-Beta. Aquí puedes jugar una versión web contra la IA.",
     stack:["Java","IA","Minimax"],
-    gh:"Ajedrez_IA", live:"ajedrez.html", liveLabel:"♟ Jugar demo"
+    gh:"Ajedrez_IA", live:"https://ajedrez-ia.vercel.app/", liveLabel:"♟ Jugar demo"
   },
   {
     name:"Analizador Lineal", cat:"desktop", status:"code",
@@ -140,10 +140,10 @@ const projects = [
     gh:"Administrador_Grafico_Binario"
   },
   {
-    name:"Monitor de Presión Arterial", cat:"desktop", status:"code",
-    desc:"Aplicación de escritorio en Java para registrar y dar seguimiento a mediciones de presión arterial.",
-    stack:["Java","Swing"],
-    gh:"Monitor_Presion_Arterial"
+    name:"Monitor de Presión Arterial", cat:"desktop", status:"interactive",
+    desc:"App de escritorio JavaFX (con MySQL) para registrar pacientes y dar seguimiento a sus mediciones de presión, con diagnóstico de IMC y clasificación de presión arterial.",
+    stack:["JavaFX","MySQL"],
+    gh:"Monitor_Presion_Arterial", live:"https://monitor-presion-three.vercel.app/", liveLabel:"🖥️ Abrir demo"
   },
   {
     name:"FormsApp", cat:"desktop", status:"code",
@@ -175,7 +175,8 @@ const badgeMap = {
   live:{cls:"b-live", txt:"🟢 En vivo"},
   demo:{cls:"b-demo", txt:"🟡 Demo en vivo"},
   code:{cls:"b-code", txt:"🔵 Código"},
-  play:{cls:"b-demo", txt:"🎮 Demo jugable"}
+  play:{cls:"b-demo", txt:"🎮 Demo jugable"},
+  interactive:{cls:"b-demo", txt:"🖥️ Demo interactivo"}
 };
 
 const grid = document.getElementById("grid");
