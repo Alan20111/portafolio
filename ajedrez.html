@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ajedrez con IA — Demo (Alan Méndez)</title>
+<style>
+  :root{--bg:#0d1117;--panel:#161b22;--line:#2a3140;--txt:#e6edf3;--muted:#9aa7b8;--accent:#3b82f6;
+    --light:#ebecd0;--dark:#739552;--sel:#f6f669;--mv:#bbcb44;--cap:#e88;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 12px}
+  a{color:var(--accent);text-decoration:none}
+  h1{font-size:1.5rem;margin-bottom:4px;text-align:center}
+  .sub{color:var(--muted);font-size:.9rem;margin-bottom:18px;text-align:center}
+  .wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .board{width:min(88vw,520px);aspect-ratio:1;display:grid;grid-template-columns:repeat(8,1fr);
+    grid-template-rows:repeat(8,1fr);border:3px solid #3a4150;border-radius:6px;overflow:hidden;
+    box-shadow:0 12px 40px rgba(0,0,0,.5)}
+  .sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    font-size:min(9vw,46px);line-height:1;user-select:none}
+  .sq.l{background:var(--light)}.sq.d{background:var(--dark)}
+  .sq.sel{box-shadow:inset 0 0 0 4px var(--sel)}
+  .piece-w{color:#fff;text-shadow:0 1px 1px #000,0 0 2px #555}
+  .piece-b{color:#222;text-shadow:0 1px 1px #aaa}
+  .dot{position:absolute;width:30%;height:30%;border-radius:50%;background:rgba(20,30,10,.35);pointer-events:none}
+  .ring{position:absolute;inset:6%;border-radius:50%;border:5px solid rgba(200,40,40,.55);pointer-events:none}
+  .coord{position:absolute;font-size:10px;color:rgba(0,0,0,.35);font-weight:700}
+  .coord.f{bottom:2px;right:3px}.coord.r{top:1px;left:3px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;width:260px;min-width:240px}
+  .status{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+  .ai{color:var(--muted);font-size:.85rem;min-height:18px;margin-bottom:14px}
+  .row{display:flex;justify-content:space-between;font-size:.86rem;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--line)}
+  .btn{margin-top:14px;width:100%;background:var(--accent);color:#fff;border:none;border-radius:9px;
+    padding:10px;font-size:.95rem;font-weight:600;cursor:pointer}
+  .btn:hover{filter:brightness(1.1)}
+  .btn.sec{background:var(--panel);border:1px solid var(--line);color:var(--txt);margin-top:8px}
+  .note{margin-top:14px;font-size:.78rem;color:var(--muted);line-height:1.5}
+  .back{margin-top:22px;font-size:.9rem}
+  select{background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:5px 8px;font-size:.85rem}
+</style>
+</head>
+<body>
+  <h1>♛ Ajedrez con IA</h1>
+  <div class="sub">Demo web del proyecto Java <b>Ajedrez_IA</b> · juegas con <b>Blancas</b> contra la IA (Minimax + poda Alfa‑Beta)</div>
+  <div class="wrap">
+    <div class="board" id="board"></div>
+    <div class="panel">
+      <div class="status" id="status">Turno: Blancas</div>
+      <div class="ai" id="aimsg"></div>
+      <div class="row"><span>Dificultad (profundidad)</span>
+        <select id="depth"><option value="1">Fácil</option><option value="2" selected>Media</option><option value="3">Difícil</option></select>
+      </div>
+      <div class="row"><span>Piezas capturadas por ti</span><span id="capW">—</span></div>
+      <div class="row"><span>Piezas capturadas por IA</span><span id="capB">—</span></div>
+      <button class="btn" id="reset">Nueva partida</button>
+      <button class="btn sec" id="undo">Deshacer jugada</button>
+      <div class="note">Haz clic en una pieza blanca y luego en la casilla destino. Las jugadas legales se marcan con puntos. Hay detección de jaque y jaque mate; el peón corona en reina automáticamente.</div>
+      <div class="back"><a href="index.html">← Volver al portafolio</a></div>
+    </div>
+  </div>
+
+<script>
+/* ---------- Motor de ajedrez (representación 0=arriba/negras, 7=abajo/blancas) ---------- */
+const GLYPH={w:{k:'♔',q:'♕',r:'♖',b:'♗',n:'♘',p:'♙'},b:{k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'}};
+const VAL={p:100,n:320,b:330,r:500,q:900,k:20000};
+let board, turn, selected, legalForSel, history, gameOver;
+
+function initBoard(){
+  const b=Array.from({length:8},()=>Array(8).fill(null));
+  const back=['r','n','b','q','k','b','n','r'];
+  for(let c=0;c<8;c++){
+    b[0][c]={t:back[c],col:'b'}; b[1][c]={t:'p',col:'b'};
+    b[7][c]={t:back[c],col:'w'}; b[6][c]={t:'p',col:'w'};
+  }
+  return b;
+}
+function inside(r,c){return r>=0&&r<8&&c>=0&&c<8;}
+function cloneBoard(b){return b.map(row=>row.map(x=>x?{t:x.t,col:x.col}:null));}
+
+/* Movimientos pseudo-legales de una pieza */
+function pseudoMoves(b,r,c){
+  const p=b[r][c]; if(!p) return [];
+  const moves=[]; const col=p.col; const dir=col==='w'?-1:1;
+  const add=(rr,cc)=>{ if(!inside(rr,cc))return false; const t=b[rr][cc];
+    if(!t){moves.push([rr,cc]);return true;} if(t.col!==col)moves.push([rr,cc]); return false; };
+  if(p.t==='p'){
+    if(inside(r+dir,c)&&!b[r+dir][c]){moves.push([r+dir,c]);
+      const start=col==='w'?6:1;
+      if(r===start&&!b[r+2*dir][c])moves.push([r+2*dir,c]);}
+    for(const dc of [-1,1]){const rr=r+dir,cc=c+dc;
+      if(inside(rr,cc)&&b[rr][cc]&&b[rr][cc].col!==col)moves.push([rr,cc]);}
+  } else if(p.t==='n'){
+    for(const[dr,dc] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]){
+      const rr=r+dr,cc=c+dc; if(inside(rr,cc)&&(!b[rr][cc]||b[rr][cc].col!==col))moves.push([rr,cc]);}
+  } else if(p.t==='k'){
+    for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;
+      const rr=r+dr,cc=c+dc; if(inside(rr,cc)&&(!b[rr][cc]||b[rr][cc].col!==col))moves.push([rr,cc]);}
+  } else {
+    let dirs=[];
+    if(p.t==='r'||p.t==='q')dirs=dirs.concat([[-1,0],[1,0],[0,-1],[0,1]]);
+    if(p.t==='b'||p.t==='q')dirs=dirs.concat([[-1,-1],[-1,1],[1,-1],[1,1]]);
+    for(const[dr,dc] of dirs){let rr=r+dr,cc=c+dc; while(add(rr,cc)){rr+=dr;cc+=dc;}}
+  }
+  return moves;
+}
+/* ¿La casilla (r,c) está atacada por 'byCol'? */
+function attacked(b,r,c,byCol){
+  for(let i=0;i<8;i++)for(let j=0;j<8;j++){
+    const p=b[i][j]; if(p&&p.col===byCol){
+      for(const[rr,cc] of pseudoMoves(b,i,j)) if(rr===r&&cc===c) return true;
+    }
+  }
+  return false;
+}
+function findKing(b,col){
+  for(let i=0;i<8;i++)for(let j=0;j<8;j++){const p=b[i][j]; if(p&&p.t==='k'&&p.col===col)return[i,j];}
+  return null;
+}
+function inCheck(b,col){const k=findKing(b,col); return k?attacked(b,k[0],k[1],col==='w'?'b':'w'):false;}
+
+/* Aplica un movimiento sobre una copia y la devuelve (con coronación) */
+function applyMove(b,fr,fc,tr,tc){
+  const nb=cloneBoard(b); const p=nb[fr][fc]; nb[tr][tc]=p; nb[fr][fc]=null;
+  if(p.t==='p'&&(tr===0||tr===7))nb[tr][tc]={t:'q',col:p.col};
+  return nb;
+}
+/* Movimientos legales (no dejan al rey en jaque) */
+function legalMoves(b,r,c){
+  const p=b[r][c]; if(!p) return [];
+  return pseudoMoves(b,r,c).filter(([tr,tc])=>!inCheck(applyMove(b,r,c,tr,tc),p.col));
+}
+function allLegal(b,col){
+  const out=[];
+  for(let i=0;i<8;i++)for(let j=0;j<8;j++){const p=b[i][j]; if(p&&p.col===col)
+    for(const m of legalMoves(b,i,j)) out.push([i,j,m[0],m[1]]);}
+  return out;
+}
+
+/* ---------- IA: minimax con poda alfa-beta ---------- */
+const PST_PAWN=[[0,0,0,0,0,0,0,0],[50,50,50,50,50,50,50,50],[10,10,20,30,30,20,10,10],
+  [5,5,10,25,25,10,5,5],[0,0,0,20,20,0,0,0],[5,-5,-10,0,0,-10,-5,5],
+  [5,10,10,-20,-20,10,10,5],[0,0,0,0,0,0,0,0]];
+function evaluate(b){ // positivo = ventaja negras (IA)
+  let s=0;
+  for(let i=0;i<8;i++)for(let j=0;j<8;j++){const p=b[i][j]; if(!p)continue;
+    let v=VAL[p.t];
+    if(p.t==='p'){ v += p.col==='b'?PST_PAWN[i][j]:PST_PAWN[7-i][j]; }
+    s += p.col==='b'? v : -v;
+  }
+  return s;
+}
+function minimax(b,depth,alpha,beta,maxing){
+  const col=maxing?'b':'w';
+  const moves=allLegal(b,col);
+  if(depth===0||moves.length===0){
+    if(moves.length===0){ // mate o ahogado
+      if(inCheck(b,col)) return maxing?-99999+(3-depth):99999-(3-depth);
+      return 0;
+    }
+    return evaluate(b);
+  }
+  if(maxing){let best=-1e9;
+    for(const[fr,fc,tr,tc] of moves){const v=minimax(applyMove(b,fr,fc,tr,tc),depth-1,alpha,beta,false);
+      if(v>best)best=v; alpha=Math.max(alpha,v); if(beta<=alpha)break;} return best;
+  } else {let best=1e9;
+    for(const[fr,fc,tr,tc] of moves){const v=minimax(applyMove(b,fr,fc,tr,tc),depth-1,alpha,beta,true);
+      if(v<best)best=v; beta=Math.min(beta,v); if(beta<=alpha)break;} return best;
+  }
+}
+function bestAIMove(b,depth){
+  const moves=allLegal(b,'b'); if(!moves.length)return null;
+  let best=-1e9,pick=moves[0];
+  for(const m of moves){const v=minimax(applyMove(b,m[0],m[1],m[2],m[3]),depth-1,-1e9,1e9,false);
+    const jitter=Math.random()*8; if(v+jitter>best){best=v+jitter;pick=m;}}
+  return pick;
+}
+
+/* ---------- UI ---------- */
+const boardEl=document.getElementById('board');
+const statusEl=document.getElementById('status');
+const aiEl=document.getElementById('aimsg');
+let capByW=[],capByB=[];
+
+function newGame(){board=initBoard();turn='w';selected=null;legalForSel=[];history=[];gameOver=false;
+  capByW=[];capByB=[];aiEl.textContent='';render();updateStatus();}
+function render(){
+  boardEl.innerHTML='';
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    const sq=document.createElement('div');
+    sq.className='sq '+((r+c)%2===0?'l':'d');
+    sq.dataset.r=r;sq.dataset.c=c;
+    const p=board[r][c];
+    if(p){const sp=document.createElement('span');sp.className=p.col==='w'?'piece-w':'piece-b';
+      sp.textContent=GLYPH[p.col][p.t];sq.appendChild(sp);}
+    if(selected&&selected[0]===r&&selected[1]===c)sq.classList.add('sel');
+    if(legalForSel.some(m=>m[0]===r&&m[1]===c)){
+      const mk=document.createElement('div');mk.className=board[r][c]?'ring':'dot';sq.appendChild(mk);}
+    if(c===0){const cr=document.createElement('div');cr.className='coord r';cr.textContent=8-r;sq.appendChild(cr);}
+    if(r===7){const cf=document.createElement('div');cf.className='coord f';cf.textContent='abcdefgh'[c];sq.appendChild(cf);}
+    sq.addEventListener('click',()=>onClick(r,c));
+    boardEl.appendChild(sq);
+  }
+  document.getElementById('capW').textContent=capByW.length?capByW.map(t=>GLYPH.b[t]).join(' '):'—';
+  document.getElementById('capB').textContent=capByB.length?capByB.map(t=>GLYPH.w[t]).join(' '):'—';
+}
+function onClick(r,c){
+  if(gameOver||turn!=='w')return;
+  const p=board[r][c];
+  if(selected){
+    if(legalForSel.some(m=>m[0]===r&&m[1]===c)){ humanMove(selected[0],selected[1],r,c); return; }
+    if(p&&p.col==='w'){ selected=[r,c]; legalForSel=legalMoves(board,r,c); render(); return; }
+    selected=null;legalForSel=[];render();return;
+  }
+  if(p&&p.col==='w'){selected=[r,c];legalForSel=legalMoves(board,r,c);render();}
+}
+function doMove(fr,fc,tr,tc){
+  const moving=board[fr][fc]; const target=board[tr][tc];
+  history.push({b:cloneBoard(board),turn,capW:[...capByW],capB:[...capByB]});
+  if(target){ if(moving.col==='w')capByW.push(target.t); else capByB.push(target.t); }
+  board=applyMove(board,fr,fc,tr,tc);
+}
+function humanMove(fr,fc,tr,tc){
+  doMove(fr,fc,tr,tc); selected=null;legalForSel=[];turn='b';render();
+  if(checkEnd('b'))return;
+  updateStatus(); aiEl.textContent='La IA está pensando…';
+  setTimeout(aiTurn,180);
+}
+function aiTurn(){
+  const depth=parseInt(document.getElementById('depth').value,10);
+  const t0=performance.now();
+  const mv=bestAIMove(board,depth);
+  const dt=Math.round(performance.now()-t0);
+  if(!mv){checkEnd('b');return;}
+  doMove(mv[0],mv[1],mv[2],mv[3]); turn='w'; render();
+  aiEl.textContent=`La IA movió ${'abcdefgh'[mv[1]]}${8-mv[0]} → ${'abcdefgh'[mv[3]]}${8-mv[2]} (${dt} ms)`;
+  if(checkEnd('w'))return;
+  updateStatus();
+}
+function checkEnd(col){
+  const moves=allLegal(board,col);
+  if(moves.length===0){
+    gameOver=true;
+    if(inCheck(board,col)) statusEl.textContent='♚ Jaque mate — '+(col==='w'?'¡Ganó la IA (Negras)!':'¡Ganaste tú (Blancas)!');
+    else statusEl.textContent='Tablas por ahogado (sin jugadas legales).';
+    aiEl.textContent='Pulsa “Nueva partida” para volver a jugar.';
+    return true;
+  }
+  return false;
+}
+function updateStatus(){
+  let s='Turno: '+(turn==='w'?'Blancas (tú)':'Negras (IA)');
+  if(inCheck(board,turn)) s+=' — ¡Jaque!';
+  statusEl.textContent=s;
+}
+document.getElementById('reset').addEventListener('click',newGame);
+document.getElementById('undo').addEventListener('click',()=>{
+  if(turn!=='w'||gameOver||history.length<2){return;}
+  // deshace tu jugada + la de la IA (2 plies)
+  const prev=history[history.length-2]||history[0];
+  board=cloneBoard(prev.b);turn='w';capByW=[...prev.capW];capByB=[...prev.capB];
+  history=history.slice(0,history.length-2);
+  selected=null;legalForSel=[];gameOver=false;render();updateStatus();aiEl.textContent='';
+});
+newGame();
+</script>
+</body>
+</html>

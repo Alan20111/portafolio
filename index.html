@@ -122,10 +122,10 @@ const projects = [
     gh:"Sistema_Gestion_De_Planta", live:"https://trefoods-demo.vercel.app", liveLabel:"Demo visual"
   },
   {
-    name:"Ajedrez con IA", cat:"desktop", status:"code",
-    desc:"Juego de ajedrez en Java con una inteligencia artificial basada en el algoritmo Minimax con poda Alfa-Beta.",
+    name:"Ajedrez con IA", cat:"desktop", status:"play",
+    desc:"Juego de ajedrez en Java con una inteligencia artificial basada en el algoritmo Minimax con poda Alfa-Beta. Aquí puedes jugar una versión web contra la IA.",
     stack:["Java","IA","Minimax"],
-    gh:"Ajedrez_IA"
+    gh:"Ajedrez_IA", live:"ajedrez.html", liveLabel:"♟ Jugar demo"
   },
   {
     name:"Analizador Lineal", cat:"desktop", status:"code",
@@ -174,7 +174,8 @@ const projects = [
 const badgeMap = {
   live:{cls:"b-live", txt:"🟢 En vivo"},
   demo:{cls:"b-demo", txt:"🟡 Demo en vivo"},
-  code:{cls:"b-code", txt:"🔵 Código"}
+  code:{cls:"b-code", txt:"🔵 Código"},
+  play:{cls:"b-demo", txt:"🎮 Demo jugable"}
 };
 
 const grid = document.getElementById("grid");
