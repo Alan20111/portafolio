@@ -76,7 +76,7 @@
     <h1>Alan Daniel Méndez Jiménez</h1>
     <div class="role">Ingeniería en Sistemas Computacionales · TecNM Celaya<br>Desarrollador Full-Stack (Java &amp; Web)</div>
     <div class="contacts">
-      <a class="chip" href="https://github.com/Alan20111" target="_blank" rel="noopener">⌨️ github.com/Alan20111</a>
+      <a class="chip" href="https://github.com/Alan20111">⌨️ github.com/Alan20111</a>
       <a class="chip" href="mailto:alannicanor62@gmail.com">✉️ alannicanor62@gmail.com</a>
       <span class="chip">📍 Tarimoro, Guanajuato, México</span>
     </div>
@@ -96,7 +96,7 @@
 
 <footer>
   <div class="wrap">
-    Hecho con ❤️ por Alan Méndez · <a href="https://github.com/Alan20111" target="_blank" rel="noopener">GitHub</a> ·
+    Hecho con ❤️ por Alan Méndez · <a href="https://github.com/Alan20111">GitHub</a> ·
     <a href="mailto:alannicanor62@gmail.com">Contacto</a>
   </div>
 </footer>
@@ -189,7 +189,7 @@ function render(filter){
   projects.filter(p=>filter==="all"||p.cat===filter).forEach(p=>{
     const b = badgeMap[p.status];
     const liveBtn = p.live
-      ? `<a class="btn btn-live" href="${p.live}" target="_blank" rel="noopener">↗ ${p.liveLabel}</a>`
+      ? `<a class="btn btn-live" href="${p.live}">${p.liveLabel}</a>`
       : `<span class="btn btn-live" aria-disabled="true">Próximamente</span>`;
     const card = document.createElement("article");
     card.className = "card";
@@ -201,7 +201,7 @@ function render(filter){
       <p class="desc">${p.desc}</p>
       <div class="stack">${p.stack.map(s=>`<span class="tag">${s}</span>`).join("")}</div>
       <div class="actions">
-        <a class="btn btn-gh" href="${GH+p.gh}" target="_blank" rel="noopener">⌨️ GitHub</a>
+        <a class="btn btn-gh" href="${GH+p.gh}">⌨️ GitHub</a>
         ${liveBtn}
       </div>`;
     grid.appendChild(card);
