@@ -23,7 +23,7 @@ Para verlo en local: `npx serve .` y abre http://localhost:3000.
 
 ```
 index.html            página principal (generada)
-casos/<slug>.html     caso de estudio imprimible (generado)
+casos/<slug>.html     página completa de cada caso (generada); src/pdf/<slug>.html es la hoja imprimible de la que sale el PDF
 casos/pdf/*.pdf       PDF de 1 página por caso (generado)
 demos/                prototipos autocontenidos hospedados aquí (KonCafe, MediConsulta, GymMachine)
 img/alan.jpg          tu foto (hoy es el avatar de GitHub, 460 px; se muestra a 220 px). Sustitúyela por una de ≥600 px cuadrada cuando quieras.

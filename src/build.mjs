@@ -4,7 +4,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sitio, casos, faq } from './datos.mjs';
-import { cssIndex, cssCaso, fuentesHead } from './estilos.mjs';
+import { cssIndex, cssCaso, cssDetalle, fuentesHead } from './estilos.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -27,34 +27,29 @@ const ico = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
   mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>',
   pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  sol: '<svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+  luna: '<svg class="luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>',
   gh: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>',
 };
 
-/* ---------- Tarjeta de caso ---------- */
+/* ---------- Tarjeta de caso (anzuelo: imagen, título, una línea, botón) ---------- */
 const tarjetaCaso = (c) => {
   const e = ESTADOS[c.estado];
-  const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
   return `
 <article class="caso" data-estado="${c.estado}" data-sector="${esc(c.sector)}" id="caso-${c.slug}">
-  <img class="caso-img" src="img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/${c.slug}" data-track="caso_abrir" data-caso="${c.slug}" aria-label="Ver caso ${esc(c.nombre)}">
+    <img class="caso-img" src="img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>${esc(c.nombre)}</h3><div class="cli">${esc(c.cliente)} · ${esc(c.fecha)}</div></div>
-    <span class="estado ${e.cls}">${esc(c.estadoTexto)}</span>
-  </div>
-  <p class="resumen">${esc(c.resumen)}</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>${esc(c.problema[0])}</p><ul>${li(c.problema)}</ul></div>
-    <div class="s"><b>La solución</b><p>${esc(c.solucion[0])}</p><ul>${li(c.solucion)}</ul></div>
-    <div class="r"><b>El resultado</b><p>${esc(c.resultado[0])}</p><ul>${li(c.resultado)}</ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-${c.slug}" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack">${c.stack.map((s) => `<span>${esc(s)}</span>`).join('')}</div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/${nombrePdf(c)}" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="${c.slug}">${ico.pdf} PDF de 1 página</a>
-    ${c.demo ? `<a class="btn btn-sm" href="#demo-${c.slug}" data-track="caso_demo" data-caso="${c.slug}">${ico.ext} Ver demo</a>` : ''}
-    ${c.url ? `<a class="btn btn-sm" href="${esc(c.url)}" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="${c.slug}">${ico.ext} Sitio</a>` : ''}
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">${esc(c.sector)}</span><h3><a href="casos/${c.slug}" data-track="caso_abrir" data-caso="${c.slug}">${esc(c.nombre)}</a></h3></div>
+      <span class="estado ${e.cls}">${esc(e.txt)}</span>
+    </div>
+    <p class="resumen">${esc(c.resumen)}</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/${c.slug}" data-track="caso_abrir" data-caso="${c.slug}">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/${nombrePdf(c)}" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="${c.slug}">${ico.pdf} PDF</a>
+    </div>
   </div>
 </article>`;
 };
@@ -128,17 +123,20 @@ const js = `
     var p={};['caso','demo','origen'].forEach(function(k){if(el.dataset[k])p[k]=el.dataset[k]});
     track(el.dataset.track,p);
   });
+  // Tema: sigue al sistema; el botón fuerza claro/oscuro y lo recuerda
+  var mq=window.matchMedia('(prefers-color-scheme: light)');
+  function temaActual(){return document.documentElement.dataset.theme||(mq.matches?'light':'dark')}
+  var bt=document.getElementById('tema');
+  if(bt)bt.addEventListener('click',function(){
+    var nuevo=temaActual()==='light'?'dark':'light';
+    document.documentElement.dataset.theme=nuevo;
+    try{localStorage.setItem('tema',nuevo)}catch(e){}
+    track('tema',{tema:nuevo});
+  });
   // Copiar credenciales
   document.addEventListener('click',function(ev){
     var b=ev.target.closest('[data-copy]');if(!b)return;
     navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copiado ✓';setTimeout(function(){b.textContent=t},1500)});
-  });
-  // Expandir caso
-  document.addEventListener('click',function(ev){
-    var b=ev.target.closest('[data-toggle]');if(!b)return;
-    var c=document.getElementById(b.dataset.toggle);var ab=c.classList.toggle('abierto');
-    b.setAttribute('aria-expanded',ab);b.textContent=ab?'Ver menos ↑':'Ver caso completo ↓';
-    if(ab)track('caso_expandir',{caso:b.dataset.toggle.replace('caso-','')});
   });
   // Filtros
   var chips=document.querySelectorAll('.filtros .chip');
@@ -184,7 +182,9 @@ const index = `<!DOCTYPE html>
 <meta property="og:image" content="${sitio.dominio}/img/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#171721">
+<meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 ${fuentesHead}
 <link rel="apple-touch-icon" href="img/icon-180.png">
@@ -204,7 +204,10 @@ ${fuentesHead}
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a class="btn btn-wa btn-sm" href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="nav">${ico.wa} Agendar demo</a>
+    <div class="nav-acc">
+      <button class="tema" type="button" id="tema" aria-label="Cambiar tema claro/oscuro" title="Tema claro / oscuro">${ico.sol}${ico.luna}</button>
+      <a class="btn btn-wa btn-sm" href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="nav">${ico.wa} Agendar demo</a>
+    </div>
   </div>
 </nav>
 
@@ -213,7 +216,7 @@ ${fuentesHead}
     <div>
       <span class="kicker">Celaya, Gto. · Remoto en todo México</span>
       <h1>Software a medida y automatización para <em>eliminar cuellos de botella</em> en tu negocio local.</h1>
-      <p class="lead">Tiendas en línea que cobran solas, agendas que confirman citas sin que estés al teléfono y paneles que responden «¿cuánto me quedó?». Lo construyo yo, lo ves funcionando cada semana y el código es tuyo.</p>
+      <p class="lead">Tiendas que cobran solas, agendas que confirman citas por ti y paneles que responden «¿cuánto me quedó?». Lo construyo yo y el código es tuyo.</p>
       <div class="ctas">
         <a class="btn btn-wa" href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="hero">${ico.wa} Agendar una demo por WhatsApp</a>
         <a class="btn" href="#casos">Ver casos reales</a>
@@ -245,7 +248,7 @@ ${fuentesHead}
 
 <section id="casos">
   <div class="wrap">
-    <div class="sec-head"><h2>Casos de estudio.</h2><p>Problema, solución y resultado de cada proyecto. Cada uno tiene un PDF de una página que puedes mandar por WhatsApp.</p></div>
+    <div class="sec-head"><h2>Casos de estudio.</h2><p>Negocios reales, problemas reales. Entra a cada uno para ver el antes, el después y la demo.</p></div>
     <div class="filtros" role="group" aria-label="Filtrar casos">
       <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
       <button class="chip" data-f="produccion" aria-pressed="false">En producción</button>
@@ -327,8 +330,98 @@ ${fuentesHead}
 </body>
 </html>`;
 
-/* ---------- Caso de estudio (1 página, imprimible) ---------- */
-const paginaCaso = (c) => {
+/* ---------- Página del caso (toda la información, con el tema del sitio) ---------- */
+const cabeceraComun = (titulo, descripcion, canonical, og) => `<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(titulo)}</title>
+<meta name="description" content="${esc(descripcion)}">
+<link rel="canonical" href="${canonical}">
+<meta property="og:type" content="article"><meta property="og:locale" content="es_MX">
+<meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descripcion)}">
+<meta property="og:url" content="${canonical}"><meta property="og:image" content="${og}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+${fuentesHead}`;
+
+const paginaCaso = (c, i) => {
+  const e = ESTADOS[c.estado];
+  const sig = casos[(i + 1) % casos.length];
+  const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
+  const d = c.demo;
+  return `${cabeceraComun(`${c.nombre} · Caso de estudio · Alan Méndez`, c.resumen, `${sitio.dominio}/casos/${c.slug}`, `${sitio.dominio}/img/casos/${c.slug}.jpg`)}
+<style>${cssIndex}${cssDetalle}</style>
+</head>
+<body>
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="dot"></span>Alan Méndez</a>
+    <ul><li><a href="../#casos">Casos</a></li><li><a href="../#demos">Demos</a></li><li><a href="../#sobre-mi">Sobre mí</a></li><li><a href="../#contacto">Contacto</a></li></ul>
+    <div class="nav-acc">
+      <button class="tema" type="button" id="tema" aria-label="Cambiar tema claro/oscuro" title="Tema claro / oscuro">${ico.sol}${ico.luna}</button>
+      <a class="btn btn-wa btn-sm" href="${wa(`Hola Alan, vi el caso de ${c.nombre} y quiero algo parecido para mi negocio`)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="caso-${c.slug}">${ico.wa} Quiero algo así</a>
+    </div>
+  </div>
+</nav>
+
+<main class="detalle">
+  <header class="wrap det-head">
+    <a class="volver" href="../#casos">← Todos los casos</a>
+    <span class="eyebrow">${esc(c.sector)} · ${esc(c.fecha)}</span>
+    <h1>${esc(c.nombre)}</h1>
+    <p class="det-cli">${esc(c.cliente)} <span class="estado ${e.cls}">${esc(c.estadoTexto)}</span></p>
+    <p class="det-lead">${esc(c.resumen)}</p>
+    <div class="det-acc">
+      ${d ? `<a class="btn btn-wa" href="${d.url.startsWith('http') ? esc(d.url) : '../' + esc(d.url)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}">${ico.ext} Abrir demo</a>` : ''}
+      ${d && d.urlPanel ? `<a class="btn" href="${esc(d.urlPanel)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}-panel">${ico.ext} Abrir panel</a>` : ''}
+      ${c.url ? `<a class="btn" href="${esc(c.url)}" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="${c.slug}">${ico.ext} Sitio</a>` : ''}
+      <a class="btn" href="pdf/${nombrePdf(c)}" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="${c.slug}">${ico.pdf} PDF de 1 página</a>
+    </div>
+  </header>
+
+  <figure class="wrap det-img"><img src="../img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}" width="1000" height="625"></figure>
+
+  <section class="wrap det-psr">
+    <div class="det-bloque"><span class="eyebrow">El problema</span><ul>${li(c.problema)}</ul></div>
+    <div class="det-bloque"><span class="eyebrow">La solución</span><ul>${li(c.solucion)}</ul></div>
+    <div class="det-bloque"><span class="eyebrow">El resultado</span><ul>${li(c.resultado)}</ul></div>
+  </section>
+
+  <section class="wrap det-extra">
+    <div>
+      <span class="eyebrow">Tecnología</span>
+      <div class="stack">${c.stack.map((t) => `<span>${esc(t)}</span>`).join('')}</div>
+    </div>
+    ${d ? `<div>
+      <span class="eyebrow">Demo</span>
+      <p class="det-demo">${esc(d.descripcion)}</p>
+      ${d.credenciales ? `<div class="cred">${d.credenciales.usuario ? `<div class="row"><span>Usuario</span><span><code>${esc(d.credenciales.usuario)}</code> <button type="button" data-copy="${esc(d.credenciales.usuario)}">Copiar</button></span></div>` : ''}<div class="row"><span>${esc(d.credenciales.etiqueta || 'Contraseña')}</span><span><code>${esc(d.credenciales.clave)}</code> <button type="button" data-copy="${esc(d.credenciales.clave)}">Copiar</button></span></div>${d.credenciales.nota ? `<small>${esc(d.credenciales.nota)}</small>` : ''}</div>` : d.solicitar ? `<div class="cred"><div class="row"><span>Cuenta de prueba</span><a href="${wa(`Hola Alan, quiero una cuenta de prueba de ${d.titulo}`)}" target="_blank" rel="noopener" data-track="demo_solicitar" data-demo="${c.slug}">Pedir por WhatsApp →</a></div></div>` : ''}
+    </div>` : ''}
+  </section>
+
+  <section class="wrap det-cta">
+    <h2>¿Tu negocio tiene un cuello de botella parecido?</h2>
+    <p>Cuéntamelo por WhatsApp y te propongo cómo resolverlo. Sin compromiso.</p>
+    <a class="btn btn-wa" href="${wa(`Hola Alan, vi el caso de ${c.nombre} y quiero algo parecido para mi negocio`)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="caso-cta-${c.slug}">${ico.wa} Agendar una demo</a>
+    <a class="siguiente" href="${sig.slug}">Siguiente caso: ${esc(sig.nombre)} →</a>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© ${new Date().getFullYear()} ${esc(sitio.nombreCompleto)} · Celaya, Guanajuato</span><span><a href="../">Inicio</a> · <a href="${sitio.github}" target="_blank" rel="noopener">GitHub</a></span></div></footer>
+<a class="wa-float" href="${wa()}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-track="whatsapp_click" data-origen="flotante">${ico.wa}<span>Agendar demo</span></a>
+<script>${js}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>`;
+};
+
+/* ---------- Hoja imprimible (fuente del PDF de 1 página; se guarda en src/pdf/) ---------- */
+const hojaImprimible = (c) => {
   const e = ESTADOS[c.estado];
   const colores = { 'e-prod': 'color:#4f8a58;border-color:#8fb996', 'e-prop': 'color:#b0703f;border-color:#cc9166', 'e-acad': 'color:#5e616e;border-color:#9194a1' };
   const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
@@ -336,19 +429,11 @@ const paginaCaso = (c) => {
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Caso de estudio · ${esc(c.nombre)} · Alan Méndez</title>
-<meta name="description" content="${esc(c.resumen)}">
-<link rel="canonical" href="${sitio.dominio}/casos/${c.slug}">
-<meta property="og:title" content="Caso de estudio · ${esc(c.nombre)}">
-<meta property="og:description" content="${esc(c.resumen)}">
-<meta property="og:image" content="${sitio.dominio}/img/og.png">
-<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
 ${fuentesHead}
 <style>${cssCaso}</style>
 </head>
 <body>
-<div class="barra"><a href="../#casos">← Volver</a><a href="pdf/${nombrePdf(c)}" target="_blank" rel="noopener">Descargar PDF</a><button type="button" onclick="print()">Imprimir</button></div>
 <main class="hoja">
   <header class="cab">
     <div>
@@ -360,15 +445,15 @@ ${fuentesHead}
     <div class="yo"><b>${esc(sitio.nombreCompleto)}</b>Software a medida · Celaya, Gto.<br>${esc(sitio.telefonoBonito)}<br>${sitio.email}</div>
   </header>
   <p class="resumen">${esc(c.resumen)}</p>
-  <img class="img-pdf" src="../img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}">
+  <img class="img-pdf" src="../../img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul>${li(c.problema)}</ul></section>
     <section class="bloque s"><h2>La solución</h2><ul>${li(c.solucion)}</ul></section>
     <section class="bloque r"><h2>El resultado</h2><ul>${li(c.resultado)}</ul></section>
   </div>
-  <div class="stack-pdf">${c.stack.map((s) => `<span>${esc(s)}</span>`).join('')}</div>
+  <div class="stack-pdf">${c.stack.map((t) => `<span>${esc(t)}</span>`).join('')}</div>
   <footer class="pie">
-    <span>${c.url ? `Demo: <a href="${esc(c.url)}">${esc(c.url.replace(/^https?:\/\//, ''))}</a> · ` : ''}Más casos: <a href="${sitio.dominio}">${sitio.dominio.replace(/^https?:\/\//, '')}</a></span>
+    <span>${c.url ? `Demo: <a href="${esc(c.url)}">${esc(c.url.replace(/^https?:\/\//, ''))}</a> · ` : ''}Caso completo: <a href="${sitio.dominio}/casos/${c.slug}">${sitio.dominio.replace(/^https?:\/\//, '')}/casos/${c.slug}</a></span>
     <a class="cta" href="${wa(`Hola Alan, vi el caso de ${c.nombre} y quiero algo parecido para mi negocio`)}">Quiero algo así · WhatsApp</a>
   </footer>
 </main>
@@ -379,7 +464,11 @@ ${fuentesHead}
 /* ---------- Escribir archivos ---------- */
 mkdirSync(join(raiz, 'casos', 'pdf'), { recursive: true });
 writeFileSync(join(raiz, 'index.html'), index);
-for (const c of casos) writeFileSync(join(raiz, 'casos', `${c.slug}.html`), paginaCaso(c));
+mkdirSync(join(raiz, 'src', 'pdf'), { recursive: true });
+casos.forEach((c, i) => {
+  writeFileSync(join(raiz, 'casos', `${c.slug}.html`), paginaCaso(c, i));
+  writeFileSync(join(raiz, 'src', 'pdf', `${c.slug}.html`), hojaImprimible(c));
+});
 
 const urls = ['/', ...casos.map((c) => `/casos/${c.slug}`)];
 writeFileSync(

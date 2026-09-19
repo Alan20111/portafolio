@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<title>Caso de estudio · AGLAIA Nail Studio · Alan Méndez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+:root{
+  --canvas:#171721; --card:#1e1e2a; --panel:#272735; --hair:#2e3038; --hair2:#464853;
+  --steel:#777a88; --fog:#9194a1; --mist:#acafb9; --silver:#c7c9d1; --bone:#e2e3e9; --ivory:#ededf3; --white:#ffffff; --inverse:#000000;
+  --cobalt:#5266eb; --cobalt-hover:#6377f0; --copper:#cc9166; --sage:#8fb996; --nav-bg:rgba(23,23,33,.72); --esquema:dark;
+  --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
+  --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --r-card:12px; --r-pill:9999px; --r-sm:4px;
+}
+/* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --canvas:#f5f5f7; --card:#ffffff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
+  --steel:#777a88; --fog:#5e616e; --mist:#474747; --silver:#333336; --bone:#1d1d1f; --ivory:#1d1d1f; --white:#08080a; --inverse:#ffffff;
+  --cobalt:#0071e3; --cobalt-hover:#0077ed; --copper:#a8663a; --sage:#3f7a48; --nav-bg:rgba(245,245,247,.8); --esquema:light;
+}}
+:root[data-theme="light"]{
+  --canvas:#f5f5f7; --card:#ffffff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
+  --steel:#777a88; --fog:#5e616e; --mist:#474747; --silver:#333336; --bone:#1d1d1f; --ivory:#1d1d1f; --white:#08080a; --inverse:#ffffff;
+  --cobalt:#0071e3; --cobalt-hover:#0077ed; --copper:#a8663a; --sage:#3f7a48; --nav-bg:rgba(245,245,247,.8); --esquema:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:var(--esquema)}
+body{transition:background-color .2s,color .2s}
+body{font-family:var(--font-text);font-size:16px;line-height:1.5;background:var(--canvas);color:var(--bone);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2{font-family:var(--font-display);font-weight:400;letter-spacing:.01em;color:var(--white)}
+h3{font-family:var(--font-text);font-weight:500;color:var(--white)}
+::selection{background:var(--cobalt);color:#fff}
+.wrap{width:min(1216px,100% - 48px);margin-inline:auto}
+@media(max-width:480px){.wrap{width:calc(100% - 32px)}}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--copper);text-transform:uppercase}
+
+@page{size:letter;margin:0}
+html{color-scheme:light}
+body{background:#fff;color:#1c1d22;transition:none}
+h1,h2{color:#08080a}
+.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.5in .6in .45in;display:flex;flex-direction:column;gap:.16in;background:#fff}
+.cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid #1c1d22;padding-bottom:14px}
+.cab .k{font-size:9pt;letter-spacing:-.01em;text-transform:uppercase;color:var(--copper);font-weight:600}
+.cab h1{font-size:26pt;letter-spacing:.01em;line-height:1.05;margin-top:6px;font-weight:400}
+.cab .cli{color:#5e616e;font-size:10pt;margin-top:4px}
+.cab .yo{text-align:right;font-size:9pt;color:#5e616e;line-height:1.45}
+.cab .yo b{display:block;color:#08080a;font-size:10.5pt;font-weight:500}
+.estado-pdf{display:inline-block;font-size:8pt;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid;margin-top:8px;background:transparent!important}
+.resumen{font-size:12pt;line-height:1.38;letter-spacing:-.01em;color:#1c1d22;text-wrap:pretty}
+.img-pdf{width:100%;height:1.7in;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #d6d6d6}
+.tres{display:grid;grid-template-columns:1fr;gap:12px}
+.bloque{border-top:1px solid #d6d6d6;padding-top:8px;break-inside:avoid}
+.bloque h2{font-family:var(--font-text);font-size:8.5pt;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:5px;font-weight:600;color:var(--copper)}
+.bloque ul{padding-left:16px;font-size:9.6pt;line-height:1.38;color:#2e3038;display:grid;gap:3px}
+.stack-pdf{display:flex;flex-wrap:wrap;gap:5px}
+.stack-pdf span{font-size:8pt;border:1px solid #c7c9d1;border-radius:9999px;padding:3px 9px;color:#5e616e}
+.pie{margin-top:auto;border-top:1px solid #d6d6d6;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9pt;color:#5e616e}
+.pie .cta{background:var(--cobalt);color:#fff;font-weight:500;padding:8px 16px;border-radius:9999px;font-size:9.5pt;white-space:nowrap}
+.pie a{color:var(--copper)}
+.barra{display:flex;gap:8px;justify-content:center;padding:14px;background:#171721;font-size:14px}
+.barra a,.barra button{border:1px solid #ededf3;color:#ededf3;border-radius:9999px;padding:8px 16px;font-weight:500}
+@media print{.barra{display:none}.hoja{margin:0;min-height:auto;height:11in}}
+@media screen and (max-width:700px){.hoja{width:100%;padding:24px 16px}}
+</style>
+</head>
+<body>
+<main class="hoja">
+  <header class="cab">
+    <div>
+      <div class="k">Caso de estudio · Belleza</div>
+      <h1>AGLAIA Nail Studio</h1>
+      <div class="cli">Estudio de uñas · Celaya, Gto. · Sep 2026</div>
+      <span class="estado-pdf" style="color:#b0703f;border-color:#cc9166">Propuesta + maqueta navegable</span>
+    </div>
+    <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
+  </header>
+  <p class="resumen">Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.</p>
+  <img class="img-pdf" src="../../img/casos/aglaia.jpg" alt="Pantalla de AGLAIA Nail Studio">
+  <div class="tres">
+    <section class="bloque p"><h2>El problema</h2><ul><li>Cada cita eran de 6 a 12 mensajes por Instagram y WhatsApp; quien escribía a las 11 pm o en horario de clases muchas veces ya no volvía.</li><li>Anticipos por comprobante en el chat: revisar la app del banco y citas &quot;apartadas&quot; que nunca pagaron.</li><li>Tarjetas de lealtad de cartón que se pierden y referidas que no se pueden rastrear ni premiar.</li></ul></section>
+    <section class="bloque s"><h2>La solución</h2><ul><li>Sitio público con servicios, precios y diseños; agenda que solo muestra horas realmente libres y anticipo de $100 con Mercado Pago (tarjeta, OXXO, SPEI).</li><li>Confirmación y recordatorio automáticos por correo con folio y QR; si el anticipo no llega en 24 h, el hueco se libera solo.</li><li>Cuenta de clienta con sellos de lealtad, historial, cupones y código de referida.</li><li>Panel por preguntas: Hoy · Dinero · Ventas · Citas · Insumos · Clientas · Reportes. Escanea el QR, suma el sello y cobra en 10 segundos.</li></ul></section>
+    <section class="bloque r"><h2>El resultado</h2><ul><li>Maqueta navegable de sitio y panel, planes comparativos y propuesta de 12 páginas entregados a la clienta.</li><li>Meta: agendar en 2 minutos sin intervención y −4 h de chat a la semana.</li><li>El sistema se paga con +7 citas al mes (ticket promedio $258).</li></ul></section>
+  </div>
+  <div class="stack-pdf"><span>HTML/CSS/JS</span><span>Chart.js</span><span>Mercado Pago</span><span>Cloudflare Pages + D1</span><span>Resend</span></div>
+  <footer class="pie">
+    <span>Demo: <a href="https://aglaianails.pages.dev">aglaianails.pages.dev</a> · Caso completo: <a href="https://portafolio-ten-olive-50.vercel.app/casos/aglaia">portafolio-ten-olive-50.vercel.app/casos/aglaia</a></span>
+    <a class="cta" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20el%20caso%20de%20AGLAIA%20Nail%20Studio%20y%20quiero%20algo%20parecido%20para%20mi%20negocio">Quiero algo así · WhatsApp</a>
+  </footer>
+</main>
+</body>
+</html>

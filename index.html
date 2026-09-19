@@ -19,7 +19,9 @@
 <meta property="og:image" content="https://portafolio-ten-olive-50.vercel.app/img/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#171721">
+<meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,14 +32,26 @@
 <style>
 :root{
   --canvas:#171721; --card:#1e1e2a; --panel:#272735; --hair:#2e3038; --hair2:#464853;
-  --steel:#777a88; --fog:#9194a1; --mist:#acafb9; --silver:#c7c9d1; --bone:#e2e3e9; --ivory:#ededf3; --white:#ffffff;
-  --cobalt:#5266eb; --cobalt-hover:#6377f0; --copper:#cc9166; --sage:#8fb996;
+  --steel:#777a88; --fog:#9194a1; --mist:#acafb9; --silver:#c7c9d1; --bone:#e2e3e9; --ivory:#ededf3; --white:#ffffff; --inverse:#000000;
+  --cobalt:#5266eb; --cobalt-hover:#6377f0; --copper:#cc9166; --sage:#8fb996; --nav-bg:rgba(23,23,33,.72); --esquema:dark;
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
 }
+/* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --canvas:#f5f5f7; --card:#ffffff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
+  --steel:#777a88; --fog:#5e616e; --mist:#474747; --silver:#333336; --bone:#1d1d1f; --ivory:#1d1d1f; --white:#08080a; --inverse:#ffffff;
+  --cobalt:#0071e3; --cobalt-hover:#0077ed; --copper:#a8663a; --sage:#3f7a48; --nav-bg:rgba(245,245,247,.8); --esquema:light;
+}}
+:root[data-theme="light"]{
+  --canvas:#f5f5f7; --card:#ffffff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
+  --steel:#777a88; --fog:#5e616e; --mist:#474747; --silver:#333336; --bone:#1d1d1f; --ivory:#1d1d1f; --white:#08080a; --inverse:#ffffff;
+  --cobalt:#0071e3; --cobalt-hover:#0077ed; --copper:#a8663a; --sage:#3f7a48; --nav-bg:rgba(245,245,247,.8); --esquema:light;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:dark}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:var(--esquema)}
+body{transition:background-color .2s,color .2s}
 body{font-family:var(--font-text);font-size:16px;line-height:1.5;background:var(--canvas);color:var(--bone);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -51,11 +65,19 @@ h3{font-family:var(--font-text);font-weight:500;color:var(--white)}
 .eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--copper);text-transform:uppercase}
 
 /* Nav: transparente sobre el hero, vidrio esmerilado al hacer scroll */
-.nav{position:sticky;top:0;z-index:50;background:rgba(23,23,33,.72);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--hair)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--hair)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
-.brand{font-family:var(--font-display);font-size:22px;letter-spacing:.01em;display:flex;align-items:center;gap:10px;color:var(--white)}
+.brand{font-family:var(--font-display);font-size:22px;letter-spacing:.01em;display:flex;align-items:center;gap:10px;color:var(--white);white-space:nowrap}
+@media(max-width:480px){.brand{font-size:19px;gap:8px}.nav .btn-sm{padding:8px 12px}.nav .btn-sm svg{display:none}}
 .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--copper)}
 .nav ul{display:none;list-style:none;gap:4px;font-size:14px;color:var(--fog)}
+.nav-acc{display:flex;align-items:center;gap:8px}
+.tema{width:38px;height:38px;border-radius:var(--r-pill);border:1px solid var(--hair2);color:var(--ivory);display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
+.tema:hover{background:var(--panel);border-color:var(--steel)}
+.tema svg{width:18px;height:18px}
+.tema .sol{display:none}.tema .luna{display:block}
+:root[data-theme="light"] .tema .sol{display:block}:root[data-theme="light"] .tema .luna{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .tema .sol{display:block}:root:not([data-theme="dark"]) .tema .luna{display:none}}
 .nav ul a{padding:6px 10px;border-radius:var(--r-pill);transition:color .15s}
 .nav ul a:hover{color:var(--white)}
 @media(min-width:820px){.nav ul{display:flex}}
@@ -105,23 +127,29 @@ section{padding:112px 0}
 /* Filtros */
 .filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
 .chip{border:1px solid var(--steel);background:transparent;color:var(--ivory);border-radius:var(--r-pill);padding:8px 14px;font-size:13px;font-weight:500}
-.chip[aria-pressed="true"]{background:var(--white);color:#000;border-color:var(--white)}
+.chip[aria-pressed="true"]{background:var(--white);color:var(--inverse);border-color:var(--white)}
 
 /* Casos */
 .casos{display:grid;gap:16px}
 @media(min-width:820px){.casos{grid-template-columns:repeat(2,1fr)}}
 .caso{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .caso-img,.demo-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--panel);border-bottom:1px solid var(--hair)}
-.caso-body{padding:32px;display:flex;flex-direction:column;gap:18px;flex:1}
+.caso-body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.caso-link{display:block;overflow:hidden}
+.caso-link img{transition:transform .35s ease}
+.caso:hover .caso-link img{transform:scale(1.03)}
+.caso .eyebrow{margin-bottom:8px}
+.caso h3 a:hover{color:var(--copper)}
+.btn-ghost{border-color:var(--hair2);color:var(--mist)}
 .caso.oculto{display:none}
 .caso-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.caso h3{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.15;letter-spacing:.01em}
+.caso h3{font-family:var(--font-display);font-weight:400;font-size:26px;line-height:1.15;letter-spacing:.01em}
 .caso .cli{color:var(--fog);font-size:14px;margin-top:6px}
 .estado{font-size:12px;font-weight:500;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;flex:none;border:1px solid var(--steel);color:var(--mist);background:transparent}
 .e-prod{color:var(--sage);border-color:var(--sage)}
 .e-prop{color:var(--copper);border-color:var(--copper)}
 .e-acad{color:var(--mist);border-color:var(--steel)}
-.caso .resumen{color:var(--bone);font-size:16px}
+.caso .resumen{color:var(--fog);font-size:15px;line-height:1.5}
 .psr{display:grid;gap:12px}
 .psr div{border-top:1px solid var(--hair);padding-top:12px}
 .psr b{display:block;font-size:13px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper);margin-bottom:6px}
@@ -215,7 +243,10 @@ footer a{color:var(--copper)}
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a class="btn btn-wa btn-sm" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20tu%20sitio%20web%20y%20quiero%20agendar%20una%20demo%20para%20mi%20negocio" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="nav"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg> Agendar demo</a>
+    <div class="nav-acc">
+      <button class="tema" type="button" id="tema" aria-label="Cambiar tema claro/oscuro" title="Tema claro / oscuro"><svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+      <a class="btn btn-wa btn-sm" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20tu%20sitio%20web%20y%20quiero%20agendar%20una%20demo%20para%20mi%20negocio" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="nav"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg> Agendar demo</a>
+    </div>
   </div>
 </nav>
 
@@ -224,7 +255,7 @@ footer a{color:var(--copper)}
     <div>
       <span class="kicker">Celaya, Gto. · Remoto en todo México</span>
       <h1>Software a medida y automatización para <em>eliminar cuellos de botella</em> en tu negocio local.</h1>
-      <p class="lead">Tiendas en línea que cobran solas, agendas que confirman citas sin que estés al teléfono y paneles que responden «¿cuánto me quedó?». Lo construyo yo, lo ves funcionando cada semana y el código es tuyo.</p>
+      <p class="lead">Tiendas que cobran solas, agendas que confirman citas por ti y paneles que responden «¿cuánto me quedó?». Lo construyo yo y el código es tuyo.</p>
       <div class="ctas">
         <a class="btn btn-wa" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20tu%20sitio%20web%20y%20quiero%20agendar%20una%20demo%20para%20mi%20negocio" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="hero"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg> Agendar una demo por WhatsApp</a>
         <a class="btn" href="#casos">Ver casos reales</a>
@@ -256,7 +287,7 @@ footer a{color:var(--copper)}
 
 <section id="casos">
   <div class="wrap">
-    <div class="sec-head"><h2>Casos de estudio.</h2><p>Problema, solución y resultado de cada proyecto. Cada uno tiene un PDF de una página que puedes mandar por WhatsApp.</p></div>
+    <div class="sec-head"><h2>Casos de estudio.</h2><p>Negocios reales, problemas reales. Entra a cada uno para ver el antes, el después y la demo.</p></div>
     <div class="filtros" role="group" aria-label="Filtrar casos">
       <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
       <button class="chip" data-f="produccion" aria-pressed="false">En producción</button>
@@ -265,157 +296,115 @@ footer a{color:var(--copper)}
     </div>
     <div class="casos">
 <article class="caso" data-estado="produccion" data-sector="Educación" id="caso-evaluafacil">
-  <img class="caso-img" src="img/casos/evaluafacil.jpg" alt="Pantalla de Evalúa Fácil" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/evaluafacil" data-track="caso_abrir" data-caso="evaluafacil" aria-label="Ver caso Evalúa Fácil">
+    <img class="caso-img" src="img/casos/evaluafacil.jpg" alt="Pantalla de Evalúa Fácil" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>Evalúa Fácil</h3><div class="cli">Docentes de bachillerato (DGETI / SEP) · 2026</div></div>
-    <span class="estado e-prod">En producción · producto propio</span>
-  </div>
-  <p class="resumen">Plataforma web + app Android para llevar calificaciones, asistencia y actas bajo la Nueva Escuela Mexicana, con IA para calificar y planear.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>Los docentes llevaban calificaciones, listas y actas en Excel y cuadernos; el sistema institucional es rígido y no ayuda en el día a día.</p><ul><li>Los docentes llevaban calificaciones, listas y actas en Excel y cuadernos; el sistema institucional es rígido y no ayuda en el día a día.</li><li>Los alumnos de bachillerato muchas veces no tienen correo electrónico, así que las plataformas típicas no les sirven.</li><li>Calificar entregables, redactar planeaciones y armar exámenes consume horas fuera del aula.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Plataforma web (React + Firebase) y app Android con la misma cuenta. Los alumnos entran sin correo: usuario generado, QR o código de 6 caracteres.</p><ul><li>Plataforma web (React + Firebase) y app Android con la misma cuenta. Los alumnos entran sin correo: usuario generado, QR o código de 6 caracteres.</li><li>Alta masiva desde Excel, asistencia desde el celular generada del horario, cuestionarios y exámenes con gráficas por reactivo, banco de reactivos y rúbricas.</li><li>IA con créditos prepagados: califica entregables con rúbrica, genera reactivos, planeaciones didácticas y diagnósticos de grupo.</li><li>Cierre de parcial en una acción (reversible), copia de asignatura para el siguiente ciclo y exportación a Excel y PDF listos para entregar.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>En producción con dominio propio (evaluafacil.mx) y app Android (APK firmado, v1.0.11) con la misma cuenta.</p><ul><li>En producción con dominio propio (evaluafacil.mx) y app Android (APK firmado, v1.0.11) con la misma cuenta.</li><li>Seguridad probada: reglas de Firestore con pruebas automáticas, calificaciones y créditos solo escribibles desde el servidor.</li><li>Cierre de parcial y acta en minutos en lugar de tardes completas.</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-evaluafacil" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>React 19</span><span>Vite</span><span>Tailwind</span><span>Firebase</span><span>Cloud Functions</span><span>Capacitor (Android)</span><span>Vercel</span><span>Claude API</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-Evalúa-Fácil.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-evaluafacil" data-track="caso_demo" data-caso="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    <a class="btn btn-sm" href="https://www.evaluafacil.mx" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Sitio</a>
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Educación</span><h3><a href="casos/evaluafacil" data-track="caso_abrir" data-caso="evaluafacil">Evalúa Fácil</a></h3></div>
+      <span class="estado e-prod">En producción</span>
+    </div>
+    <p class="resumen">Plataforma web + app Android para llevar calificaciones, asistencia y actas bajo la Nueva Escuela Mexicana, con IA para calificar y planear.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/evaluafacil" data-track="caso_abrir" data-caso="evaluafacil">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-Evalúa-Fácil.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article>
 <article class="caso" data-estado="produccion" data-sector="Comercio" id="caso-bazargirl">
-  <img class="caso-img" src="img/casos/bazargirl.jpg" alt="Pantalla de The Bazar Girl" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/bazargirl" data-track="caso_abrir" data-caso="bazargirl" aria-label="Ver caso The Bazar Girl">
+    <img class="caso-img" src="img/casos/bazargirl.jpg" alt="Pantalla de The Bazar Girl" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>The Bazar Girl</h3><div class="cli">Bazar de maquillaje y accesorios (venta por WhatsApp) · Ago – Sep 2026</div></div>
-    <span class="estado e-prod">En producción</span>
-  </div>
-  <p class="resumen">Catálogo web donde las clientas apartan y un panel desde el celular para pedidos, existencias, cierre del día y publicaciones para WhatsApp.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>Todo se vendía en un grupo de WhatsApp: fotos sueltas, apartados en notas y existencias en la cabeza.</p><ul><li>Todo se vendía en un grupo de WhatsApp: fotos sueltas, apartados en notas y existencias en la cabeza.</li><li>Productos &quot;congelados&quot; por clientas que apartaban y no respondían; sin forma de saber cuánto se vendió en el día.</li><li>Publicar el catálogo cada semana era armar imágenes y mensajes a mano.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Catálogo web instalable (PWA) por categorías y tonos; la clienta aparta desde el celular y la dueña confirma por WhatsApp.</p><ul><li>Catálogo web instalable (PWA) por categorías y tonos; la clienta aparta desde el celular y la dueña confirma por WhatsApp.</li><li>Panel con pedidos en cuatro etapas (por confirmar → confirmados → listos → entregados), caducidad automática a las 48 h que regresa el stock, cierre del día y puntos de entrega con horarios.</li><li>Pestaña &quot;Publicar&quot;: arma la imagen y el mensaje listos para el grupo de WhatsApp.</li><li>Base de datos Supabase con seguridad por filas en las 12 tablas: el costo de cada producto nunca sale al público.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>En producción en bazargirl.pages.dev; el panel se usa desde el teléfono como app.</p><ul><li>En producción en bazargirl.pages.dev; el panel se usa desde el teléfono como app.</li><li>Cero apartados eternos: el stock se libera solo si nadie confirma.</li><li>Manual del panel entregado (botón por botón) y seguridad verificada contra el proyecto real el 14-sep-2026.</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-bazargirl" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>React 19</span><span>Vite</span><span>Supabase (Postgres + RLS)</span><span>Leaflet</span><span>PWA</span><span>Cloudflare Pages</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-The-Bazar-Girl.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-bazargirl" data-track="caso_demo" data-caso="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    <a class="btn btn-sm" href="https://bazargirl.pages.dev" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Sitio</a>
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Comercio</span><h3><a href="casos/bazargirl" data-track="caso_abrir" data-caso="bazargirl">The Bazar Girl</a></h3></div>
+      <span class="estado e-prod">En producción</span>
+    </div>
+    <p class="resumen">Catálogo web donde las clientas apartan y un panel desde el celular para pedidos, existencias, cierre del día y publicaciones para WhatsApp.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/bazargirl" data-track="caso_abrir" data-caso="bazargirl">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-The-Bazar-Girl.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article>
 <article class="caso" data-estado="entregado" data-sector="Salud" id="caso-mediconsulta">
-  <img class="caso-img" src="img/casos/mediconsulta.jpg" alt="Pantalla de MediConsulta" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/mediconsulta" data-track="caso_abrir" data-caso="mediconsulta" aria-label="Ver caso MediConsulta">
+    <img class="caso-img" src="img/casos/mediconsulta.jpg" alt="Pantalla de MediConsulta" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>MediConsulta</h3><div class="cli">Consultorio médico privado · Jul – Ago 2026</div></div>
-    <span class="estado e-prod">Entregado · en uso</span>
-  </div>
-  <p class="resumen">Programa de escritorio para Windows: pacientes, consultas, recetas con membrete, agenda y respaldos automáticos. Sin internet, sin mensualidades.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>Más de 1,500 expedientes en un sistema anterior que ya no se podía mantener, con pacientes duplicados y recetas hechas a mano.</p><ul><li>Más de 1,500 expedientes en un sistema anterior que ya no se podía mantener, con pacientes duplicados y recetas hechas a mano.</li><li>El consultorio necesitaba algo que funcionara sin internet, sin depender de un proveedor y sin cuotas mensuales.</li><li>Cambiar de computadora o respaldar la información era un riesgo.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Aplicación de escritorio (C# .NET 8, WPF) en un solo archivo .exe: pacientes, consultas, 10 diseños de receta con membrete y firma, agenda y catálogo de medicamentos.</p><ul><li>Aplicación de escritorio (C# .NET 8, WPF) en un solo archivo .exe: pacientes, consultas, 10 diseños de receta con membrete y firma, agenda y catálogo de medicamentos.</li><li>Toda la información vive en un archivo: cambiar de equipo es copiar y pegar. Respaldos automáticos (últimos 30) sin cerrar el programa.</li><li>Migración del sistema anterior con deduplicación de expedientes y numeración consecutiva conservada.</li><li>Licencia por computadora activable por WhatsApp (código de instalación → código de activación) y portal del proveedor para administrar clientes.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>Entregado y en uso diario en el consultorio con su impresora de recetas.</p><ul><li>Entregado y en uso diario en el consultorio con su impresora de recetas.</li><li>1,041 pruebas automáticas que codifican fallos reales encontrados en operación (expediente repetido, media hoja desperdiciada, etc.).</li><li>Sincronización entre dos computadoras (v1.1) y versión Java en curso para macOS/Linux.</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-mediconsulta" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>C# 12</span><span>.NET 8</span><span>WPF</span><span>SQLite</span><span>QuestPDF</span><span>Material Design</span><span>Java 21 (port)</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-MediConsulta.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="mediconsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-mediconsulta" data-track="caso_demo" data-caso="mediconsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Salud</span><h3><a href="casos/mediconsulta" data-track="caso_abrir" data-caso="mediconsulta">MediConsulta</a></h3></div>
+      <span class="estado e-prod">Entregado</span>
+    </div>
+    <p class="resumen">Programa de escritorio para Windows: pacientes, consultas, recetas con membrete, agenda y respaldos automáticos. Sin internet, sin mensualidades.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/mediconsulta" data-track="caso_abrir" data-caso="mediconsulta">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-MediConsulta.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="mediconsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article>
 <article class="caso" data-estado="propuesta" data-sector="Belleza" id="caso-aglaia">
-  <img class="caso-img" src="img/casos/aglaia.jpg" alt="Pantalla de AGLAIA Nail Studio" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/aglaia" data-track="caso_abrir" data-caso="aglaia" aria-label="Ver caso AGLAIA Nail Studio">
+    <img class="caso-img" src="img/casos/aglaia.jpg" alt="Pantalla de AGLAIA Nail Studio" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>AGLAIA Nail Studio</h3><div class="cli">Estudio de uñas · Celaya, Gto. · Sep 2026</div></div>
-    <span class="estado e-prop">Propuesta + maqueta navegable</span>
-  </div>
-  <p class="resumen">Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>Cada cita eran de 6 a 12 mensajes por Instagram y WhatsApp; quien escribía a las 11 pm o en horario de clases muchas veces ya no volvía.</p><ul><li>Cada cita eran de 6 a 12 mensajes por Instagram y WhatsApp; quien escribía a las 11 pm o en horario de clases muchas veces ya no volvía.</li><li>Anticipos por comprobante en el chat: revisar la app del banco y citas &quot;apartadas&quot; que nunca pagaron.</li><li>Tarjetas de lealtad de cartón que se pierden y referidas que no se pueden rastrear ni premiar.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Sitio público con servicios, precios y diseños; agenda que solo muestra horas realmente libres y anticipo de $100 con Mercado Pago (tarjeta, OXXO, SPEI).</p><ul><li>Sitio público con servicios, precios y diseños; agenda que solo muestra horas realmente libres y anticipo de $100 con Mercado Pago (tarjeta, OXXO, SPEI).</li><li>Confirmación y recordatorio automáticos por correo con folio y QR; si el anticipo no llega en 24 h, el hueco se libera solo.</li><li>Cuenta de clienta con sellos de lealtad, historial, cupones y código de referida.</li><li>Panel por preguntas: Hoy · Dinero · Ventas · Citas · Insumos · Clientas · Reportes. Escanea el QR, suma el sello y cobra en 10 segundos.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>Maqueta navegable de sitio y panel, planes comparativos y propuesta de 12 páginas entregados a la clienta.</p><ul><li>Maqueta navegable de sitio y panel, planes comparativos y propuesta de 12 páginas entregados a la clienta.</li><li>Meta: agendar en 2 minutos sin intervención y −4 h de chat a la semana.</li><li>El sistema se paga con +7 citas al mes (ticket promedio $258).</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-aglaia" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>HTML/CSS/JS</span><span>Chart.js</span><span>Mercado Pago</span><span>Cloudflare Pages + D1</span><span>Resend</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-AGLAIA-Nail-Studio.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-aglaia" data-track="caso_demo" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    <a class="btn btn-sm" href="https://aglaianails.pages.dev" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Sitio</a>
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Belleza</span><h3><a href="casos/aglaia" data-track="caso_abrir" data-caso="aglaia">AGLAIA Nail Studio</a></h3></div>
+      <span class="estado e-prop">Propuesta</span>
+    </div>
+    <p class="resumen">Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/aglaia" data-track="caso_abrir" data-caso="aglaia">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-AGLAIA-Nail-Studio.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article>
 <article class="caso" data-estado="propuesta" data-sector="Comercio" id="caso-rawssport">
-  <img class="caso-img" src="img/casos/rawssport.jpg" alt="Pantalla de Raws Sport" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/rawssport" data-track="caso_abrir" data-caso="rawssport" aria-label="Ver caso Raws Sport">
+    <img class="caso-img" src="img/casos/rawssport.jpg" alt="Pantalla de Raws Sport" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>Raws Sport</h3><div class="cli">Tienda de ropa deportiva y suplementos · Celaya, Gto. · Sep 2026</div></div>
-    <span class="estado e-prop">Propuesta + maqueta navegable</span>
-  </div>
-  <p class="resumen">Tienda en línea con tallas, meses sin intereses, envíos cotizados al momento y panel de ventas, inventario y utilidad real.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>Ventas por Instagram y WhatsApp una conversación a la vez: &quot;¿cuánto es con envío?&quot;, &quot;te mando el comprobante&quot;.</p><ul><li>Ventas por Instagram y WhatsApp una conversación a la vez: &quot;¿cuánto es con envío?&quot;, &quot;te mando el comprobante&quot;.</li><li>Sin tarjeta ni meses sin intereses se pierde al cliente que no tiene el efectivo hoy.</li><li>Inventario, apartados y preventas en notas y capturas; se sabe cuánto se vendió, no cuánto quedó.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Tienda con catálogo por línea (ropa, gorras, proteínas, suplementos), stock real por talla, preventas con descuento automático y rastreo del pedido.</p><ul><li>Tienda con catálogo por línea (ropa, gorras, proteínas, suplementos), stock real por talla, preventas con descuento automático y rastreo del pedido.</li><li>Pago con Mercado Pago (tarjeta, hasta 12 MSI, OXXO, SPEI) o PayPal; envío cotizado por código postal con Estafeta, DHL o FedEx.</li><li>Panel: Hoy, ¿cuánto me quedó? (vendí − mercancía − gastos − comisiones), mi dinero por cuenta, inventario con reorden, clientes VIP y exportación para el contador.</li><li>Modo claro/oscuro automático con la identidad de la marca.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>Maqueta navegable de 19 pantallas (tienda + panel) y propuesta de 13 páginas entregadas.</p><ul><li>Maqueta navegable de 19 pantallas (tienda + panel) y propuesta de 13 páginas entregadas.</li><li>Meta: vender 24/7 y ahorrar ~2 h al día en cotizar, confirmar pagos y avisar envíos.</li><li>Cada venta alimenta inventario y contabilidad: cero doble captura.</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-rawssport" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>HTML/CSS/JS</span><span>Chart.js</span><span>Mercado Pago</span><span>PayPal</span><span>Cloudflare Pages</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-Raws-Sport.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-rawssport" data-track="caso_demo" data-caso="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    <a class="btn btn-sm" href="https://rawssport.pages.dev" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Sitio</a>
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Comercio</span><h3><a href="casos/rawssport" data-track="caso_abrir" data-caso="rawssport">Raws Sport</a></h3></div>
+      <span class="estado e-prop">Propuesta</span>
+    </div>
+    <p class="resumen">Tienda en línea con tallas, meses sin intereses, envíos cotizados al momento y panel de ventas, inventario y utilidad real.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/rawssport" data-track="caso_abrir" data-caso="rawssport">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-Raws-Sport.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article>
 <article class="caso" data-estado="propuesta" data-sector="Alimentos" id="caso-koncafe">
-  <img class="caso-img" src="img/casos/koncafe.jpg" alt="Pantalla de KonCafe" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/koncafe" data-track="caso_abrir" data-caso="koncafe" aria-label="Ver caso KonCafe">
+    <img class="caso-img" src="img/casos/koncafe.jpg" alt="Pantalla de KonCafe" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>KonCafe</h3><div class="cli">Cafetería con app de pedidos y kiosko · Sep 2026</div></div>
-    <span class="estado e-prop">Auditoría entregada + plan por versiones</span>
-  </div>
-  <p class="resumen">Auditoría de seguridad de una app existente hecha por terceros, corrección de lo crítico y plan para evolucionarla por versiones.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>La app de clientes y punto de venta (hecha por otro proveedor) exponía la base de clientes completa a cualquiera en internet.</p><ul><li>La app de clientes y punto de venta (hecha por otro proveedor) exponía la base de clientes completa a cualquiera en internet.</li><li>Cualquiera podía inyectar pedidos sin cuenta y el PIN del personal estaba en claro.</li><li>El dueño no sabía qué tan grave era ni por dónde empezar.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Pentest de caja negra autorizado (13–14 sep 2026): pruebas activas no destructivas sobre Firestore, Auth, Storage, cabeceras y análisis del código publicado.</p><ul><li>Pentest de caja negra autorizado (13–14 sep 2026): pruebas activas no destructivas sobre Firestore, Auth, Storage, cabeceras y análisis del código publicado.</li><li>Informe con severidades y evidencia, runbook de corrección paso a paso y reglas de base de datos listas para desplegar.</li><li>Dashboard con las ventas y clientes reconstruidos desde los datos expuestos, para dimensionar el impacto con sus propios números.</li><li>Plan por versiones: base segura → cobros blindados → app estable → nueva imagen → pedir-y-recoger con pago móvil. Cada versión se entrega funcionando.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>Re-test en vivo: fuga de datos personales cerrada (403), inyección de pedidos cerrada y PIN fuera del cliente.</p><ul><li>Re-test en vivo: fuga de datos personales cerrada (403), inyección de pedidos cerrada y PIN fuera del cliente.</li><li>De 3 hallazgos críticos a 0; quedan medios y bajos con plan de corrección.</li><li>Prototipo navegable de cómo se vería la app bien construida (cliente, kiosko y panel del gerente).</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-koncafe" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>Pentest</span><span>Firebase (Firestore, Auth, App Check)</span><span>React + Vite</span><span>Python</span><span>Prototipo HTML</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-KonCafe.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="koncafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-koncafe" data-track="caso_demo" data-caso="koncafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Alimentos</span><h3><a href="casos/koncafe" data-track="caso_abrir" data-caso="koncafe">KonCafe</a></h3></div>
+      <span class="estado e-prop">Propuesta</span>
+    </div>
+    <p class="resumen">Auditoría de seguridad de una app existente hecha por terceros, corrección de lo crítico y plan para evolucionarla por versiones.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/koncafe" data-track="caso_abrir" data-caso="koncafe">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-KonCafe.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="koncafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article>
 <article class="caso" data-estado="academico" data-sector="Fitness" id="caso-gymmachine">
-  <img class="caso-img" src="img/casos/gymmachine.jpg" alt="Pantalla de GymMachine" loading="lazy" width="1000" height="625">
+  <a class="caso-link" href="casos/gymmachine" data-track="caso_abrir" data-caso="gymmachine" aria-label="Ver caso GymMachine">
+    <img class="caso-img" src="img/casos/gymmachine.jpg" alt="Pantalla de GymMachine" loading="lazy" width="1000" height="625">
+  </a>
   <div class="caso-body">
-  <div class="caso-top">
-    <div><h3>GymMachine</h3><div class="cli">Gimnasios pequeños y medianos · 2025 – 2026</div></div>
-    <span class="estado e-acad">Proyecto académico · código abierto</span>
-  </div>
-  <p class="resumen">Sistema de gestión de gimnasio: panel de escritorio para el dueño y app Android para administrador, entrenador y miembro, sincronizados en tiempo real.</p>
-  <div class="psr">
-    <div class="p"><b>El problema</b><p>Los gimnasios pequeños llevan miembros, pagos y vencimientos en hojas de cálculo o cuadernos.</p><ul><li>Los gimnasios pequeños llevan miembros, pagos y vencimientos en hojas de cálculo o cuadernos.</li><li>Rutinas y dietas se entregan en papel y nadie da seguimiento al progreso.</li><li>La asistencia se controla a ojo.</li></ul></div>
-    <div class="s"><b>La solución</b><p>Aplicación de escritorio (JavaFX) para el dueño: indicadores, reportes, historial de pagos y configuración del negocio.</p><ul><li>Aplicación de escritorio (JavaFX) para el dueño: indicadores, reportes, historial de pagos y configuración del negocio.</li><li>App Android con tres roles: administrador (cobros), entrenador (rutinas y dietas) y miembro (su plan, su progreso).</li><li>Asistencia por NFC desde el teléfono y sincronización en tiempo real con Cloud Firestore, sin servidor propio.</li></ul></div>
-    <div class="r"><b>El resultado</b><p>Dos aplicaciones funcionando sobre la misma base en la nube; cualquier cambio se refleja al instante en los demás dispositivos.</p><ul><li>Dos aplicaciones funcionando sobre la misma base en la nube; cualquier cambio se refleja al instante en los demás dispositivos.</li><li>Documentación completa de base de datos, arquitectura y roles.</li><li>Desarrollado en equipo como proyecto final de Tópicos Avanzados de Programación (TecNM Celaya).</li></ul></div>
-  </div>
-  <button class="link-mas" type="button" data-toggle="caso-gymmachine" aria-expanded="false">Ver caso completo ↓</button>
-  <div class="stack"><span>Java 17</span><span>JavaFX</span><span>Kotlin / Android</span><span>Firebase Firestore</span><span>Firebase Auth</span><span>NFC</span></div>
-  <div class="caso-acc">
-    <a class="btn btn-accent btn-sm" href="casos/pdf/Caso-GymMachine.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
-    <a class="btn btn-sm" href="#demo-gymmachine" data-track="caso_demo" data-caso="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Ver demo</a>
-    <a class="btn btn-sm" href="https://github.com/Alan20111/GymMachine" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Sitio</a>
-  </div>
+    <div class="caso-top">
+      <div><span class="eyebrow">Fitness</span><h3><a href="casos/gymmachine" data-track="caso_abrir" data-caso="gymmachine">GymMachine</a></h3></div>
+      <span class="estado e-acad">Académico</span>
+    </div>
+    <p class="resumen">Sistema de gestión de gimnasio: panel de escritorio para el dueño y app Android para administrador, entrenador y miembro, sincronizados en tiempo real.</p>
+    <div class="caso-acc">
+      <a class="btn btn-sm" href="casos/gymmachine" data-track="caso_abrir" data-caso="gymmachine">Ver el caso →</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-GymMachine.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+    </div>
   </div>
 </article></div>
   </div>
@@ -596,17 +585,20 @@ footer a{color:var(--copper)}
     var p={};['caso','demo','origen'].forEach(function(k){if(el.dataset[k])p[k]=el.dataset[k]});
     track(el.dataset.track,p);
   });
+  // Tema: sigue al sistema; el botón fuerza claro/oscuro y lo recuerda
+  var mq=window.matchMedia('(prefers-color-scheme: light)');
+  function temaActual(){return document.documentElement.dataset.theme||(mq.matches?'light':'dark')}
+  var bt=document.getElementById('tema');
+  if(bt)bt.addEventListener('click',function(){
+    var nuevo=temaActual()==='light'?'dark':'light';
+    document.documentElement.dataset.theme=nuevo;
+    try{localStorage.setItem('tema',nuevo)}catch(e){}
+    track('tema',{tema:nuevo});
+  });
   // Copiar credenciales
   document.addEventListener('click',function(ev){
     var b=ev.target.closest('[data-copy]');if(!b)return;
     navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copiado ✓';setTimeout(function(){b.textContent=t},1500)});
-  });
-  // Expandir caso
-  document.addEventListener('click',function(ev){
-    var b=ev.target.closest('[data-toggle]');if(!b)return;
-    var c=document.getElementById(b.dataset.toggle);var ab=c.classList.toggle('abierto');
-    b.setAttribute('aria-expanded',ab);b.textContent=ab?'Ver menos ↑':'Ver caso completo ↓';
-    if(ab)track('caso_expandir',{caso:b.dataset.toggle.replace('caso-','')});
   });
   // Filtros
   var chips=document.querySelectorAll('.filtros .chip');

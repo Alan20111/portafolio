@@ -2,13 +2,17 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Caso de estudio · AGLAIA Nail Studio · Alan Méndez</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AGLAIA Nail Studio · Caso de estudio · Alan Méndez</title>
 <meta name="description" content="Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.">
 <link rel="canonical" href="https://portafolio-ten-olive-50.vercel.app/casos/aglaia">
-<meta property="og:title" content="Caso de estudio · AGLAIA Nail Studio">
-<meta property="og:description" content="Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.">
-<meta property="og:image" content="https://portafolio-ten-olive-50.vercel.app/img/og.png">
+<meta property="og:type" content="article"><meta property="og:locale" content="es_MX">
+<meta property="og:title" content="AGLAIA Nail Studio · Caso de estudio · Alan Méndez"><meta property="og:description" content="Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.">
+<meta property="og:url" content="https://portafolio-ten-olive-50.vercel.app/casos/aglaia"><meta property="og:image" content="https://portafolio-ten-olive-50.vercel.app/img/casos/aglaia.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,14 +20,26 @@
 <style>
 :root{
   --canvas:#171721; --card:#1e1e2a; --panel:#272735; --hair:#2e3038; --hair2:#464853;
-  --steel:#777a88; --fog:#9194a1; --mist:#acafb9; --silver:#c7c9d1; --bone:#e2e3e9; --ivory:#ededf3; --white:#ffffff;
-  --cobalt:#5266eb; --cobalt-hover:#6377f0; --copper:#cc9166; --sage:#8fb996;
+  --steel:#777a88; --fog:#9194a1; --mist:#acafb9; --silver:#c7c9d1; --bone:#e2e3e9; --ivory:#ededf3; --white:#ffffff; --inverse:#000000;
+  --cobalt:#5266eb; --cobalt-hover:#6377f0; --copper:#cc9166; --sage:#8fb996; --nav-bg:rgba(23,23,33,.72); --esquema:dark;
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
 }
+/* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --canvas:#f5f5f7; --card:#ffffff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
+  --steel:#777a88; --fog:#5e616e; --mist:#474747; --silver:#333336; --bone:#1d1d1f; --ivory:#1d1d1f; --white:#08080a; --inverse:#ffffff;
+  --cobalt:#0071e3; --cobalt-hover:#0077ed; --copper:#a8663a; --sage:#3f7a48; --nav-bg:rgba(245,245,247,.8); --esquema:light;
+}}
+:root[data-theme="light"]{
+  --canvas:#f5f5f7; --card:#ffffff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
+  --steel:#777a88; --fog:#5e616e; --mist:#474747; --silver:#333336; --bone:#1d1d1f; --ivory:#1d1d1f; --white:#08080a; --inverse:#ffffff;
+  --cobalt:#0071e3; --cobalt-hover:#0077ed; --copper:#a8663a; --sage:#3f7a48; --nav-bg:rgba(245,245,247,.8); --esquema:light;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:dark}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:var(--esquema)}
+body{transition:background-color .2s,color .2s}
 body{font-family:var(--font-text);font-size:16px;line-height:1.5;background:var(--canvas);color:var(--bone);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -36,59 +52,306 @@ h3{font-family:var(--font-text);font-weight:500;color:var(--white)}
 @media(max-width:480px){.wrap{width:calc(100% - 32px)}}
 .eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--copper);text-transform:uppercase}
 
-@page{size:letter;margin:0}
-html{color-scheme:light}
-body{background:#fff;color:#1c1d22}
-h1,h2{color:#08080a}
-.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.5in .6in .45in;display:flex;flex-direction:column;gap:.16in;background:#fff}
-.cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid #1c1d22;padding-bottom:14px}
-.cab .k{font-size:9pt;letter-spacing:-.01em;text-transform:uppercase;color:var(--copper);font-weight:600}
-.cab h1{font-size:26pt;letter-spacing:.01em;line-height:1.05;margin-top:6px;font-weight:400}
-.cab .cli{color:#5e616e;font-size:10pt;margin-top:4px}
-.cab .yo{text-align:right;font-size:9pt;color:#5e616e;line-height:1.45}
-.cab .yo b{display:block;color:#08080a;font-size:10.5pt;font-weight:500}
-.estado-pdf{display:inline-block;font-size:8pt;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid;margin-top:8px;background:transparent!important}
-.resumen{font-size:12pt;line-height:1.38;letter-spacing:-.01em;color:#1c1d22;text-wrap:pretty}
-.img-pdf{width:100%;height:1.7in;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #d6d6d6}
-.tres{display:grid;grid-template-columns:1fr;gap:12px}
-.bloque{border-top:1px solid #d6d6d6;padding-top:8px;break-inside:avoid}
-.bloque h2{font-family:var(--font-text);font-size:8.5pt;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:5px;font-weight:600;color:var(--copper)}
-.bloque ul{padding-left:16px;font-size:9.6pt;line-height:1.38;color:#2e3038;display:grid;gap:3px}
-.stack-pdf{display:flex;flex-wrap:wrap;gap:5px}
-.stack-pdf span{font-size:8pt;border:1px solid #c7c9d1;border-radius:9999px;padding:3px 9px;color:#5e616e}
-.pie{margin-top:auto;border-top:1px solid #d6d6d6;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9pt;color:#5e616e}
-.pie .cta{background:var(--cobalt);color:#fff;font-weight:500;padding:8px 16px;border-radius:9999px;font-size:9.5pt;white-space:nowrap}
-.pie a{color:var(--copper)}
-.barra{display:flex;gap:8px;justify-content:center;padding:14px;background:var(--canvas);font-size:14px}
-.barra a,.barra button{border:1px solid var(--ivory);color:var(--ivory);border-radius:9999px;padding:8px 16px;font-weight:500}
-@media print{.barra{display:none}.hoja{margin:0;min-height:auto;height:11in}}
-@media screen and (max-width:700px){.hoja{width:100%;padding:24px 16px}}
+/* Nav: transparente sobre el hero, vidrio esmerilado al hacer scroll */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--hair)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.brand{font-family:var(--font-display);font-size:22px;letter-spacing:.01em;display:flex;align-items:center;gap:10px;color:var(--white);white-space:nowrap}
+@media(max-width:480px){.brand{font-size:19px;gap:8px}.nav .btn-sm{padding:8px 12px}.nav .btn-sm svg{display:none}}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--copper)}
+.nav ul{display:none;list-style:none;gap:4px;font-size:14px;color:var(--fog)}
+.nav-acc{display:flex;align-items:center;gap:8px}
+.tema{width:38px;height:38px;border-radius:var(--r-pill);border:1px solid var(--hair2);color:var(--ivory);display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
+.tema:hover{background:var(--panel);border-color:var(--steel)}
+.tema svg{width:18px;height:18px}
+.tema .sol{display:none}.tema .luna{display:block}
+:root[data-theme="light"] .tema .sol{display:block}:root[data-theme="light"] .tema .luna{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .tema .sol{display:block}:root:not([data-theme="dark"]) .tema .luna{display:none}}
+.nav ul a{padding:6px 10px;border-radius:var(--r-pill);transition:color .15s}
+.nav ul a:hover{color:var(--white)}
+@media(min-width:820px){.nav ul{display:flex}}
+
+/* Botones: dos arquetipos */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-pill);padding:10px 20px;font-size:14px;font-weight:500;line-height:1.4;background:transparent;color:var(--ivory);border:1px solid var(--ivory);white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.btn:hover{background:var(--panel)}
+.btn-wa{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
+.btn-wa:hover{background:var(--cobalt-hover);border-color:var(--cobalt-hover)}
+.btn-accent{border-color:var(--steel);color:var(--ivory)}
+.btn-sm{padding:8px 16px;font-size:13px}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* Hero */
+.hero{padding:88px 0 96px;border-bottom:1px solid var(--hair)}
+.hero .wrap{display:grid;gap:48px;align-items:center}
+@media(min-width:820px){.hero{padding:128px 0 144px}.hero .wrap{grid-template-columns:1fr 260px;gap:72px}}
+.kicker{display:inline-block;font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--copper);text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:.01em;text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--copper)}
+.hero .lead{margin-top:28px;font-size:20px;line-height:1.38;letter-spacing:-.04em;font-weight:300;color:var(--mist);max-width:36ch;text-wrap:pretty}
+@media(max-width:480px){.hero .lead{font-size:18px;letter-spacing:-.02em}}
+.hero .ctas{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:36px}
+.hero .proof{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:48px;font-size:14px;color:var(--fog)}
+.hero .proof b{font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1;color:var(--white);margin-right:6px;vertical-align:-3px}
+.foto{position:relative;justify-self:center;width:220px;background:var(--card);border-radius:var(--r-card);padding:10px}
+.foto img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:8px;background:var(--panel);filter:saturate(.85)}
+.foto .tag{padding:16px 8px 6px;font-size:14px;color:var(--fog)}
+.foto .tag b{display:block;font-family:var(--font-display);font-weight:400;font-size:21px;color:var(--white);letter-spacing:.01em;margin-bottom:2px}
+
+/* Bandas: un solo canvas continuo, ritmo por aire y hairlines */
+section{padding:112px 0}
+@media(min-width:820px){section{padding:160px 0}}
+.alt{border-block:1px solid var(--hair)}
+.sec-head{margin-bottom:48px;max-width:720px}
+.sec-head h2{font-size:clamp(32px,5vw,52px);line-height:1.13;letter-spacing:.01em}
+.sec-head p{margin-top:16px;color:var(--fog);font-size:18px;line-height:1.38;letter-spacing:-.02em}
+
+/* Cómo trabajo */
+.pasos{display:grid;gap:16px}
+@media(min-width:720px){.pasos{grid-template-columns:repeat(3,1fr)}}
+.paso{background:var(--card);border-radius:var(--r-card);padding:32px}
+.paso .n{font-family:var(--font-display);font-size:44px;line-height:1;color:var(--copper);margin-bottom:20px}
+.paso h3{font-size:18px;margin-bottom:8px}
+.paso p{color:var(--fog);font-size:16px}
+
+/* Filtros */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.chip{border:1px solid var(--steel);background:transparent;color:var(--ivory);border-radius:var(--r-pill);padding:8px 14px;font-size:13px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--white);color:var(--inverse);border-color:var(--white)}
+
+/* Casos */
+.casos{display:grid;gap:16px}
+@media(min-width:820px){.casos{grid-template-columns:repeat(2,1fr)}}
+.caso{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.caso-img,.demo-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--panel);border-bottom:1px solid var(--hair)}
+.caso-body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.caso-link{display:block;overflow:hidden}
+.caso-link img{transition:transform .35s ease}
+.caso:hover .caso-link img{transform:scale(1.03)}
+.caso .eyebrow{margin-bottom:8px}
+.caso h3 a:hover{color:var(--copper)}
+.btn-ghost{border-color:var(--hair2);color:var(--mist)}
+.caso.oculto{display:none}
+.caso-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.caso h3{font-family:var(--font-display);font-weight:400;font-size:26px;line-height:1.15;letter-spacing:.01em}
+.caso .cli{color:var(--fog);font-size:14px;margin-top:6px}
+.estado{font-size:12px;font-weight:500;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;flex:none;border:1px solid var(--steel);color:var(--mist);background:transparent}
+.e-prod{color:var(--sage);border-color:var(--sage)}
+.e-prop{color:var(--copper);border-color:var(--copper)}
+.e-acad{color:var(--mist);border-color:var(--steel)}
+.caso .resumen{color:var(--fog);font-size:15px;line-height:1.5}
+.psr{display:grid;gap:12px}
+.psr div{border-top:1px solid var(--hair);padding-top:12px}
+.psr b{display:block;font-size:13px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper);margin-bottom:6px}
+.psr p{font-size:15px;line-height:1.5;color:var(--silver)}
+.psr ul{display:none;padding-left:18px;font-size:15px;line-height:1.5;color:var(--silver)}
+.psr li+li{margin-top:4px}
+.caso.abierto .psr ul{display:block}
+.caso.abierto .psr p{display:none}
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack span{font-size:12px;border:1px solid var(--hair2);color:var(--mist);border-radius:var(--r-pill);padding:4px 10px}
+.caso-acc{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
+.caso-acc .btn,.demo-acc .btn{flex:1 1 auto;min-width:0}
+.link-mas{font-size:14px;font-weight:500;color:var(--copper);align-self:flex-start;border-bottom:1px solid transparent}
+.link-mas:hover{border-bottom-color:var(--copper)}
+
+/* Demos */
+.demos{display:grid;gap:16px}
+@media(min-width:720px){.demos{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.demos{grid-template-columns:repeat(3,1fr)}}
+.demo{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.demo-body{padding:28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.demo .tipo{font-size:13px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper)}
+.demo h3{font-size:20px;line-height:1.3;letter-spacing:-.02em}
+.demo p{color:var(--fog);font-size:15px;flex:1}
+.cred{border:1px solid var(--hair2);border-radius:var(--r-card);padding:12px 14px;font-size:14px;display:grid;gap:6px;background:var(--canvas)}
+.cred .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cred code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--panel);color:var(--ivory);padding:2px 8px;border-radius:var(--r-sm)}
+.cred button,.cred a{font-size:13px;font-weight:600;color:var(--copper);padding:2px 0}
+.cred small{color:var(--fog);font-size:12px}
+.demo-acc{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Sobre mí */
+.sobre{display:grid;gap:48px;align-items:start}
+@media(min-width:820px){.sobre{grid-template-columns:220px 1fr;gap:72px}}
+.sobre img{width:220px;height:auto;aspect-ratio:1;object-fit:cover;border-radius:var(--r-card);background:var(--card);filter:saturate(.85)}
+.sobre p{color:var(--bone);margin-bottom:16px;font-size:16px}
+.ventajas{display:grid;gap:12px;margin:28px 0;list-style:none}
+.ventajas li{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--bone)}
+.ventajas b{color:var(--white);font-weight:500}
+.ventajas svg{width:18px;height:18px;flex:none;color:var(--copper);margin-top:4px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill-row span{font-size:12px;border:1px solid var(--hair2);border-radius:var(--r-pill);padding:5px 12px;color:var(--mist)}
+
+/* FAQ: filas con hairline, sin tarjetas */
+.faq{max-width:800px;border-top:1px solid var(--hair)}
+details{border-bottom:1px solid var(--hair)}
+summary{cursor:pointer;list-style:none;padding:22px 0;font-family:var(--font-display);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:.01em;color:var(--white);display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--font-text);font-weight:300;font-size:28px;color:var(--steel);flex:none;line-height:1}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 24px;color:var(--silver);max-width:64ch}
+
+/* Contacto */
+.contacto{display:grid;gap:48px}
+@media(min-width:820px){.contacto{grid-template-columns:1fr 1fr;gap:72px}}
+form{display:grid;gap:14px;background:var(--card);border-radius:var(--r-card);padding:32px}
+label{font-size:13px;font-weight:500;color:var(--mist);display:grid;gap:8px}
+input,textarea,select{font:inherit;font-size:16px;color:var(--ivory);background:transparent;border:1px solid var(--steel);border-radius:var(--r-pill);padding:12px 20px;width:100%}
+input::placeholder,textarea::placeholder{color:var(--steel)}
+textarea{border-radius:16px;min-height:120px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ivory)}
+.form-note{font-size:12px;color:var(--fog)}
+.dato{display:flex;gap:14px;align-items:flex-start;margin-bottom:24px}
+.dato svg{width:20px;height:20px;color:var(--steel);flex:none;margin-top:2px}
+.dato b{display:block;color:var(--white);font-weight:500}
+.dato span{color:var(--fog);font-size:15px}
+.dato a{color:var(--copper)}
+
+footer{border-top:1px solid var(--hair);padding:32px 0 108px;color:var(--fog);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+footer a{color:var(--copper)}
+
+/* WhatsApp flotante: misma acción primaria, mismo pill cobalto */
+.wa-float{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--cobalt);color:#fff;border-radius:var(--r-pill);padding:12px 20px 12px 14px;font-size:14px;font-weight:500}
+.wa-float:hover{background:var(--cobalt-hover)}
+.wa-float svg{width:22px;height:22px}
+@media(max-width:600px){.caso-body,.demo-body,.paso,form{padding:24px}.caso h3{font-size:24px}.caso-acc .btn,.demo-acc .btn{white-space:normal;text-align:center}}
+@media(max-width:480px){.wa-float span{display:none}.wa-float{padding:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+.detalle{padding-bottom:64px}
+.det-head{padding:64px 0 40px;max-width:820px}
+@media(min-width:820px){.det-head{padding:96px 0 48px}}
+.volver{display:inline-block;font-size:14px;color:var(--fog);margin-bottom:28px}
+.volver:hover{color:var(--copper)}
+.det-head .eyebrow{display:block;margin-bottom:16px}
+.det-head h1{font-size:clamp(40px,6vw,72px);line-height:1.04}
+.det-cli{margin-top:16px;color:var(--fog);font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.det-lead{margin-top:20px;font-size:20px;line-height:1.38;letter-spacing:-.02em;font-weight:300;color:var(--silver);max-width:60ch}
+.det-acc{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.det-img{width:min(1216px,100% - 48px);margin:24px auto 0}
+.det-img img{width:100%;height:auto;border-radius:var(--r-card);background:var(--card)}
+.det-psr{display:grid;gap:16px;margin-top:48px}
+@media(min-width:820px){.det-psr{grid-template-columns:repeat(3,1fr);margin-top:64px}}
+.det-bloque{background:var(--card);border-radius:var(--r-card);padding:28px}
+.det-bloque .eyebrow{display:block;margin-bottom:14px}
+.det-bloque ul{padding-left:18px;color:var(--silver);font-size:15px;line-height:1.55;display:grid;gap:8px}
+.det-extra{display:grid;gap:32px;margin-top:48px;border-top:1px solid var(--hair);padding-top:40px}
+@media(min-width:820px){.det-extra{grid-template-columns:1fr 1fr;gap:72px}}
+.det-extra .eyebrow{display:block;margin-bottom:14px}
+.det-demo{color:var(--fog);font-size:15px;margin-bottom:12px}
+.det-cta{margin-top:96px;background:var(--card);border-radius:var(--r-card);padding:48px 32px;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.det-cta h2{font-size:clamp(28px,4vw,40px);line-height:1.13}
+.det-cta p{color:var(--fog);max-width:52ch}
+.siguiente{margin-top:12px;font-size:14px;color:var(--copper)}
 </style>
 </head>
 <body>
-<div class="barra"><a href="../#casos">← Volver</a><a href="pdf/Caso-AGLAIA-Nail-Studio.pdf" target="_blank" rel="noopener">Descargar PDF</a><button type="button" onclick="print()">Imprimir</button></div>
-<main class="hoja">
-  <header class="cab">
-    <div>
-      <div class="k">Caso de estudio · Belleza</div>
-      <h1>AGLAIA Nail Studio</h1>
-      <div class="cli">Estudio de uñas · Celaya, Gto. · Sep 2026</div>
-      <span class="estado-pdf" style="color:#b0703f;border-color:#cc9166">Propuesta + maqueta navegable</span>
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="dot"></span>Alan Méndez</a>
+    <ul><li><a href="../#casos">Casos</a></li><li><a href="../#demos">Demos</a></li><li><a href="../#sobre-mi">Sobre mí</a></li><li><a href="../#contacto">Contacto</a></li></ul>
+    <div class="nav-acc">
+      <button class="tema" type="button" id="tema" aria-label="Cambiar tema claro/oscuro" title="Tema claro / oscuro"><svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+      <a class="btn btn-wa btn-sm" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20el%20caso%20de%20AGLAIA%20Nail%20Studio%20y%20quiero%20algo%20parecido%20para%20mi%20negocio" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="caso-aglaia"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg> Quiero algo así</a>
     </div>
-    <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
-  </header>
-  <p class="resumen">Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.</p>
-  <img class="img-pdf" src="../img/casos/aglaia.jpg" alt="Pantalla de AGLAIA Nail Studio">
-  <div class="tres">
-    <section class="bloque p"><h2>El problema</h2><ul><li>Cada cita eran de 6 a 12 mensajes por Instagram y WhatsApp; quien escribía a las 11 pm o en horario de clases muchas veces ya no volvía.</li><li>Anticipos por comprobante en el chat: revisar la app del banco y citas &quot;apartadas&quot; que nunca pagaron.</li><li>Tarjetas de lealtad de cartón que se pierden y referidas que no se pueden rastrear ni premiar.</li></ul></section>
-    <section class="bloque s"><h2>La solución</h2><ul><li>Sitio público con servicios, precios y diseños; agenda que solo muestra horas realmente libres y anticipo de $100 con Mercado Pago (tarjeta, OXXO, SPEI).</li><li>Confirmación y recordatorio automáticos por correo con folio y QR; si el anticipo no llega en 24 h, el hueco se libera solo.</li><li>Cuenta de clienta con sellos de lealtad, historial, cupones y código de referida.</li><li>Panel por preguntas: Hoy · Dinero · Ventas · Citas · Insumos · Clientas · Reportes. Escanea el QR, suma el sello y cobra en 10 segundos.</li></ul></section>
-    <section class="bloque r"><h2>El resultado</h2><ul><li>Maqueta navegable de sitio y panel, planes comparativos y propuesta de 12 páginas entregados a la clienta.</li><li>Meta: agendar en 2 minutos sin intervención y −4 h de chat a la semana.</li><li>El sistema se paga con +7 citas al mes (ticket promedio $258).</li></ul></section>
   </div>
-  <div class="stack-pdf"><span>HTML/CSS/JS</span><span>Chart.js</span><span>Mercado Pago</span><span>Cloudflare Pages + D1</span><span>Resend</span></div>
-  <footer class="pie">
-    <span>Demo: <a href="https://aglaianails.pages.dev">aglaianails.pages.dev</a> · Más casos: <a href="https://portafolio-ten-olive-50.vercel.app">portafolio-ten-olive-50.vercel.app</a></span>
-    <a class="cta" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20el%20caso%20de%20AGLAIA%20Nail%20Studio%20y%20quiero%20algo%20parecido%20para%20mi%20negocio">Quiero algo así · WhatsApp</a>
-  </footer>
+</nav>
+
+<main class="detalle">
+  <header class="wrap det-head">
+    <a class="volver" href="../#casos">← Todos los casos</a>
+    <span class="eyebrow">Belleza · Sep 2026</span>
+    <h1>AGLAIA Nail Studio</h1>
+    <p class="det-cli">Estudio de uñas · Celaya, Gto. <span class="estado e-prop">Propuesta + maqueta navegable</span></p>
+    <p class="det-lead">Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.</p>
+    <div class="det-acc">
+      <a class="btn btn-wa" href="https://aglaianails.pages.dev" target="_blank" rel="noopener" data-track="demo_click" data-demo="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
+      <a class="btn" href="https://aglaianails.pages.dev/admin" target="_blank" rel="noopener" data-track="demo_click" data-demo="aglaia-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir panel</a>
+      <a class="btn" href="https://aglaianails.pages.dev" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Sitio</a>
+      <a class="btn" href="pdf/Caso-AGLAIA-Nail-Studio.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF de 1 página</a>
+    </div>
+  </header>
+
+  <figure class="wrap det-img"><img src="../img/casos/aglaia.jpg" alt="Pantalla de AGLAIA Nail Studio" width="1000" height="625"></figure>
+
+  <section class="wrap det-psr">
+    <div class="det-bloque"><span class="eyebrow">El problema</span><ul><li>Cada cita eran de 6 a 12 mensajes por Instagram y WhatsApp; quien escribía a las 11 pm o en horario de clases muchas veces ya no volvía.</li><li>Anticipos por comprobante en el chat: revisar la app del banco y citas &quot;apartadas&quot; que nunca pagaron.</li><li>Tarjetas de lealtad de cartón que se pierden y referidas que no se pueden rastrear ni premiar.</li></ul></div>
+    <div class="det-bloque"><span class="eyebrow">La solución</span><ul><li>Sitio público con servicios, precios y diseños; agenda que solo muestra horas realmente libres y anticipo de $100 con Mercado Pago (tarjeta, OXXO, SPEI).</li><li>Confirmación y recordatorio automáticos por correo con folio y QR; si el anticipo no llega en 24 h, el hueco se libera solo.</li><li>Cuenta de clienta con sellos de lealtad, historial, cupones y código de referida.</li><li>Panel por preguntas: Hoy · Dinero · Ventas · Citas · Insumos · Clientas · Reportes. Escanea el QR, suma el sello y cobra en 10 segundos.</li></ul></div>
+    <div class="det-bloque"><span class="eyebrow">El resultado</span><ul><li>Maqueta navegable de sitio y panel, planes comparativos y propuesta de 12 páginas entregados a la clienta.</li><li>Meta: agendar en 2 minutos sin intervención y −4 h de chat a la semana.</li><li>El sistema se paga con +7 citas al mes (ticket promedio $258).</li></ul></div>
+  </section>
+
+  <section class="wrap det-extra">
+    <div>
+      <span class="eyebrow">Tecnología</span>
+      <div class="stack"><span>HTML/CSS/JS</span><span>Chart.js</span><span>Mercado Pago</span><span>Cloudflare Pages + D1</span><span>Resend</span></div>
+    </div>
+    <div>
+      <span class="eyebrow">Demo</span>
+      <p class="det-demo">Agenda una cita de prueba, paga el anticipo simulado y luego entra al panel de la dueña.</p>
+      <div class="cred"><div class="row"><span>PIN del panel</span><span><code>1234</code> <button type="button" data-copy="1234">Copiar</button></span></div><small>Es vista previa: cualquier PIN entra.</small></div>
+    </div>
+  </section>
+
+  <section class="wrap det-cta">
+    <h2>¿Tu negocio tiene un cuello de botella parecido?</h2>
+    <p>Cuéntamelo por WhatsApp y te propongo cómo resolverlo. Sin compromiso.</p>
+    <a class="btn btn-wa" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20el%20caso%20de%20AGLAIA%20Nail%20Studio%20y%20quiero%20algo%20parecido%20para%20mi%20negocio" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="caso-cta-aglaia"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg> Agendar una demo</a>
+    <a class="siguiente" href="rawssport">Siguiente caso: Raws Sport →</a>
+  </section>
 </main>
+
+<footer><div class="wrap"><span>© 2026 Alan Daniel Méndez Jiménez · Celaya, Guanajuato</span><span><a href="../">Inicio</a> · <a href="https://github.com/Alan20111" target="_blank" rel="noopener">GitHub</a></span></div></footer>
+<a class="wa-float" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20tu%20sitio%20web%20y%20quiero%20agendar%20una%20demo%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-track="whatsapp_click" data-origen="flotante"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg><span>Agendar demo</span></a>
+<script>
+(function(){
+  var GA='';
+  // Analítica: Vercel Web Analytics (si está activado en el proyecto) + GA4 opcional.
+  window.va=window.va||function(){(window.vaq=window.vaq||[]).push([].slice.call(arguments))};
+  if(GA){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',GA);}
+  function track(nombre,props){try{window.va('event',{name:nombre,data:props||{}});if(window.gtag)gtag('event',nombre,props||{});}catch(e){}}
+  window.track=track;
+  document.addEventListener('click',function(ev){
+    var el=ev.target.closest('[data-track]');if(!el)return;
+    var p={};['caso','demo','origen'].forEach(function(k){if(el.dataset[k])p[k]=el.dataset[k]});
+    track(el.dataset.track,p);
+  });
+  // Tema: sigue al sistema; el botón fuerza claro/oscuro y lo recuerda
+  var mq=window.matchMedia('(prefers-color-scheme: light)');
+  function temaActual(){return document.documentElement.dataset.theme||(mq.matches?'light':'dark')}
+  var bt=document.getElementById('tema');
+  if(bt)bt.addEventListener('click',function(){
+    var nuevo=temaActual()==='light'?'dark':'light';
+    document.documentElement.dataset.theme=nuevo;
+    try{localStorage.setItem('tema',nuevo)}catch(e){}
+    track('tema',{tema:nuevo});
+  });
+  // Copiar credenciales
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('[data-copy]');if(!b)return;
+    navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy).then(function(){var t=b.textContent;b.textContent='Copiado ✓';setTimeout(function(){b.textContent=t},1500)});
+  });
+  // Filtros
+  var chips=document.querySelectorAll('.filtros .chip');
+  chips.forEach(function(ch){ch.addEventListener('click',function(){
+    chips.forEach(function(x){x.setAttribute('aria-pressed','false')});ch.setAttribute('aria-pressed','true');
+    var f=ch.dataset.f;document.querySelectorAll('.caso').forEach(function(c){
+      var ok=f==='todos'||c.dataset.estado===f||(f==='produccion'&&c.dataset.estado==='entregado');
+      c.classList.toggle('oculto',!ok);
+    });track('filtro_casos',{filtro:f});
+  })});
+  // Formulario → WhatsApp (sin backend, sin fricción)
+  var form=document.getElementById('form-contacto');
+  if(form)form.addEventListener('submit',function(ev){
+    ev.preventDefault();var d=new FormData(form);
+    var msg='Hola Alan, soy '+d.get('nombre')+' de '+(d.get('negocio')||'mi negocio')+'.\n'+
+      'Necesito: '+d.get('mensaje')+'\n'+(d.get('tel')?'Mi teléfono: '+d.get('tel'):'');
+    track('form_submit',{origen:'contacto'});
+    window.open('https://wa.me/524661603682?text='+encodeURIComponent(msg),'_blank','noopener');
+    var alt=document.getElementById('form-alt');if(alt){alt.href='mailto:alannicanor62@gmail.com?subject='+encodeURIComponent('Demo para '+(d.get('negocio')||'mi negocio'))+'&body='+encodeURIComponent(msg);alt.hidden=false;}
+  });
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
