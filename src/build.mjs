@@ -185,18 +185,17 @@ ${fuentesHead}
 <header class="hero">
   <div class="wrap">
     <div>
-      <span class="kicker">Celaya, Gto. · Remoto en todo México</span>
-      <h1>Software a medida y automatización para <em>eliminar cuellos de botella</em> en tu negocio local.</h1>
-      <p class="lead">Tiendas que cobran solas, agendas que confirman citas por ti y paneles que responden «¿cuánto me quedó?». Lo construyo yo y el código es tuyo.</p>
+      <span class="kicker">Software a medida · Celaya, Gto.</span>
+      <h1>Tu negocio, <em>sin cuellos de botella</em>.</h1>
+      <p class="lead">Tiendas en línea, agendas de citas y paneles de ventas hechos para ti.</p>
       <div class="ctas">
-        <a class="btn btn-wa" href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="hero">${ico.wa} Agendar una demo por WhatsApp</a>
-        <a class="btn" href="#casos">Ver casos reales</a>
+        <a class="btn btn-wa" href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="hero">${ico.wa} Agendar demo</a>
+        <a class="btn" href="#casos">Ver casos</a>
       </div>
       <div class="proof">
         <span><b>${casos.filter((c) => c.estado === 'produccion' || c.estado === 'entregado').length}</b> sistemas en producción</span>
         <span><b>${casos.filter((c) => c.demo).length}</b> demos que puedes probar</span>
-        <span><b>MVP</b> en 2 semanas</span>
-        <span><b>0</b> agencias de por medio</span>
+        <span><b>2</b> semanas al primer entregable</span>
       </div>
     </div>
     <div class="foto">
