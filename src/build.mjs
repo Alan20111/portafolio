@@ -4,6 +4,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sitio, casos, faq } from './datos.mjs';
+import { cssIndex, cssCaso } from './estilos.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -17,183 +18,6 @@ const ESTADOS = {
   academico: { txt: 'Académico', cls: 'e-acad' },
 };
 const nombrePdf = (c) => `Caso-${c.nombre.replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '')}.pdf`;
-
-/* ---------- CSS compartido (tokens) ---------- */
-const tokens = `
-:root{
-  --bg:#f7f8fa; --bg2:#ffffff; --ink:#0f172a; --ink2:#334155; --muted:#64748b; --line:#e2e8f0;
-  --accent:#0e7490; --accent-ink:#ffffff; --accent-soft:#e0f2fe;
-  --wa:#16a34a; --wa-ink:#ffffff;
-  --ok:#15803d; --ok-soft:#dcfce7; --warn:#b45309; --warn-soft:#fef3c7; --info:#4338ca; --info-soft:#e0e7ff;
-  --radius:16px; --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px -12px rgba(15,23,42,.18);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0b1220; --bg2:#111a2b; --ink:#e5edf7; --ink2:#c2cfe0; --muted:#8b9bb4; --line:#243147;
-    --accent:#22b8cf; --accent-ink:#04121a; --accent-soft:#0f2a3a;
-    --ok:#4ade80; --ok-soft:#0f2e1c; --warn:#fbbf24; --warn-soft:#3a2a08; --info:#a5b4fc; --info-soft:#1e1b4b;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0b1220; --bg2:#111a2b; --ink:#e5edf7; --ink2:#c2cfe0; --muted:#8b9bb4; --line:#243147;
-  --accent:#22b8cf; --accent-ink:#04121a; --accent-soft:#0f2a3a;
-  --ok:#4ade80; --ok-soft:#0f2e1c; --warn:#fbbf24; --warn-soft:#3a2a08; --info:#a5b4fc; --info-soft:#1e1b4b;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-[hidden]{display:none!important}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
-`;
-
-const cssIndex = tokens + `
-/* Nav */
-.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
-.brand{font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
-.nav ul{display:none;list-style:none;gap:22px;font-size:.93rem;color:var(--ink2)}
-.nav ul a:hover{color:var(--accent)}
-@media(min-width:820px){.nav ul{display:flex}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 18px;font-weight:600;font-size:.95rem;border:1px solid var(--line);background:var(--bg2);color:var(--ink);transition:transform .15s,box-shadow .15s,background .15s;white-space:nowrap}
-.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
-.btn:active{transform:translateY(0)}
-.btn-wa{background:var(--wa);color:var(--wa-ink);border-color:var(--wa)}
-.btn-accent{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn-sm{padding:8px 14px;font-size:.88rem}
-.btn svg{width:18px;height:18px;flex:none}
-
-/* Hero */
-.hero{padding:56px 0 40px}
-.hero .wrap{display:grid;gap:28px;align-items:center}
-@media(min-width:820px){.hero{padding:88px 0 64px}.hero .wrap{grid-template-columns:1.25fr .75fr;gap:48px}}
-.kicker{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 12px;border-radius:999px;margin-bottom:18px}
-.hero h1{font-size:clamp(2rem,5.2vw,3.4rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero .lead{margin-top:18px;font-size:1.1rem;color:var(--ink2);max-width:58ch;text-wrap:pretty}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-.hero .proof{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:26px;font-size:.88rem;color:var(--muted)}
-.hero .proof b{color:var(--ink);font-weight:700}
-.foto{position:relative;justify-self:center;width:min(300px,70vw)}
-.foto img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:28px;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--bg2)}
-.foto .tag{position:absolute;left:14px;bottom:14px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:.82rem;box-shadow:var(--shadow)}
-.foto .tag b{display:block;font-size:.92rem}
-
-/* Secciones */
-section{padding:56px 0}
-@media(min-width:820px){section{padding:80px 0}}
-.sec-head{max-width:64ch;margin-bottom:28px}
-.sec-head h2{font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:-.025em;line-height:1.15;font-weight:800}
-.sec-head p{margin-top:10px;color:var(--ink2);font-size:1.02rem}
-.alt{background:var(--bg2);border-block:1px solid var(--line)}
-
-/* Cómo trabajo */
-.pasos{display:grid;gap:14px}
-@media(min-width:720px){.pasos{grid-template-columns:repeat(3,1fr)}}
-.paso{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
-.paso .n{width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-weight:800;display:grid;place-items:center;margin-bottom:12px}
-.paso h3{font-size:1.05rem;margin-bottom:6px}
-.paso p{color:var(--ink2);font-size:.95rem}
-
-/* Filtros */
-.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{border:1px solid var(--line);background:var(--bg2);color:var(--ink2);border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:600}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-
-/* Casos */
-.casos{display:grid;gap:18px}
-@media(min-width:820px){.casos{grid-template-columns:repeat(2,1fr)}}
-.caso{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
-.caso.oculto{display:none}
-.caso-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.caso h3{font-size:1.25rem;letter-spacing:-.015em;line-height:1.2}
-.caso .cli{color:var(--muted);font-size:.9rem;margin-top:3px}
-.estado{font-size:.74rem;font-weight:700;padding:5px 10px;border-radius:999px;white-space:nowrap;flex:none}
-.e-prod{background:var(--ok-soft);color:var(--ok)}
-.e-prop{background:var(--warn-soft);color:var(--warn)}
-.e-acad{background:var(--info-soft);color:var(--info)}
-.caso .resumen{color:var(--ink2);font-size:.97rem}
-.psr{display:grid;gap:10px}
-.psr div{border-left:3px solid var(--line);padding:2px 0 2px 12px}
-.psr b{display:block;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.psr .p{border-color:#ef4444}.psr .s{border-color:var(--accent)}.psr .r{border-color:var(--ok)}
-.psr p{font-size:.93rem;color:var(--ink2)}
-.psr ul{display:none;padding-left:18px;font-size:.93rem;color:var(--ink2)}
-.caso.abierto .psr ul{display:block}
-.caso.abierto .psr p{display:none}
-.stack{display:flex;flex-wrap:wrap;gap:6px}
-.stack span{font-size:.76rem;background:var(--bg);border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:3px 8px}
-.caso-acc{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
-.caso-acc .btn{flex:1 1 auto}
-.link-mas{font-size:.88rem;color:var(--accent);font-weight:600;align-self:flex-start}
-
-/* Demos */
-.demos{display:grid;gap:16px}
-@media(min-width:720px){.demos{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.demos{grid-template-columns:repeat(3,1fr)}}
-.demo{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px}
-.demo .tipo{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.demo h3{font-size:1.08rem}
-.demo p{color:var(--ink2);font-size:.92rem;flex:1}
-.cred{background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:.86rem;display:grid;gap:6px}
-.cred .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.cred code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--bg2);border:1px solid var(--line);padding:2px 8px;border-radius:6px}
-.cred button{font-size:.8rem;font-weight:700;color:var(--accent);padding:4px 8px;border-radius:6px}
-.cred button:hover{background:var(--accent-soft)}
-.cred small{color:var(--muted)}
-.demo-acc{display:flex;flex-wrap:wrap;gap:8px}
-.demo-acc .btn{flex:1 1 auto}
-
-/* Sobre mí */
-.sobre{display:grid;gap:28px;align-items:start}
-@media(min-width:820px){.sobre{grid-template-columns:.8fr 1.2fr;gap:48px}}
-.sobre img{width:min(320px,100%);aspect-ratio:4/5;object-fit:cover;border-radius:24px;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--bg2)}
-.sobre p{color:var(--ink2);margin-bottom:12px;font-size:1.02rem}
-.ventajas{display:grid;gap:10px;margin:18px 0;list-style:none}
-.ventajas li{display:flex;gap:10px;align-items:flex-start;font-size:.97rem}
-.ventajas svg{width:20px;height:20px;flex:none;color:var(--ok);margin-top:2px}
-.pill-row{display:flex;flex-wrap:wrap;gap:6px}
-.pill-row span{font-size:.8rem;border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:4px 10px;color:var(--ink2)}
-
-/* FAQ */
-.faq{display:grid;gap:10px;max-width:800px}
-details{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:0 18px}
-summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:12px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-size:1.4rem;color:var(--accent);flex:none;line-height:1}
-details[open] summary::after{content:"–"}
-details p{padding:0 0 16px;color:var(--ink2)}
-
-/* Contacto */
-.contacto{display:grid;gap:28px}
-@media(min-width:820px){.contacto{grid-template-columns:1fr 1fr;gap:48px}}
-form{display:grid;gap:12px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-label{font-size:.88rem;font-weight:600;display:grid;gap:6px}
-input,textarea,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;width:100%}
-input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
-textarea{min-height:110px;resize:vertical}
-.form-note{font-size:.82rem;color:var(--muted)}
-.dato{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
-.dato svg{width:22px;height:22px;color:var(--accent);flex:none;margin-top:2px}
-.dato b{display:block}
-.dato span{color:var(--ink2);font-size:.95rem}
-
-footer{border-top:1px solid var(--line);padding:28px 0 96px;color:var(--muted);font-size:.88rem}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
-footer a{color:var(--accent)}
-
-/* WhatsApp flotante */
-.wa-float{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:10px;background:var(--wa);color:#fff;border-radius:999px;padding:14px 18px 14px 14px;font-weight:700;box-shadow:0 10px 30px -8px rgba(22,163,74,.6);transition:transform .15s}
-.wa-float:hover{transform:translateY(-2px)}
-.wa-float svg{width:26px;height:26px}
-@media(max-width:480px){.wa-float span{display:none}.wa-float{padding:14px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-`;
 
 /* ---------- Iconos ---------- */
 const ico = {
@@ -354,7 +178,7 @@ const index = `<!DOCTYPE html>
 <meta property="og:image" content="${sitio.dominio}/img/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0e7490">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/icon-180.png">
 <link rel="preload" as="image" href="img/alan.jpg" fetchpriority="high">
@@ -403,7 +227,7 @@ const index = `<!DOCTYPE html>
 
 <section class="alt" id="como">
   <div class="wrap">
-    <div class="sec-head"><h2>Así trabajo</h2><p>Primero lo que hace dinero, luego lo que ahorra tiempo, al final lo que da información.</p></div>
+    <div class="sec-head"><h2>Así trabajo.</h2><p>Primero lo que hace dinero, luego lo que ahorra tiempo, al final lo que da información.</p></div>
     <div class="pasos">
       <div class="paso"><div class="n">1</div><h3>Diagnóstico por WhatsApp</h3><p>Me cuentas cómo vendes hoy. En una llamada de 20 minutos identificamos el cuello de botella y qué lo resuelve.</p></div>
       <div class="paso"><div class="n">2</div><h3>Maqueta navegable</h3><p>Antes de cobrar un peso ves una maqueta con tu logo y tus productos: sabes exactamente qué vas a recibir.</p></div>
@@ -414,7 +238,7 @@ const index = `<!DOCTYPE html>
 
 <section id="casos">
   <div class="wrap">
-    <div class="sec-head"><h2>Casos de estudio</h2><p>Problema, solución y resultado de cada proyecto. Cada uno tiene un PDF de una página que puedes mandar por WhatsApp.</p></div>
+    <div class="sec-head"><h2>Casos de estudio.</h2><p>Problema, solución y resultado de cada proyecto. Cada uno tiene un PDF de una página que puedes mandar por WhatsApp.</p></div>
     <div class="filtros" role="group" aria-label="Filtrar casos">
       <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
       <button class="chip" data-f="produccion" aria-pressed="false">En producción</button>
@@ -427,7 +251,7 @@ const index = `<!DOCTYPE html>
 
 <section class="alt" id="demos">
   <div class="wrap">
-    <div class="sec-head"><h2>Showroom de demos</h2><p>Juega con la interfaz en vivo desde tu celular. Donde hace falta contraseña, la tienes aquí lista para copiar.</p></div>
+    <div class="sec-head"><h2>Showroom de demos.</h2><p>Juega con la interfaz en vivo desde tu celular. Donde hace falta contraseña, la tienes aquí lista para copiar.</p></div>
     <div class="demos">${casos.map(tarjetaDemo).join('')}</div>
   </div>
 </section>
@@ -436,7 +260,7 @@ const index = `<!DOCTYPE html>
   <div class="wrap sobre">
     <img src="img/alan.jpg" width="640" height="800" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
     <div>
-      <div class="sec-head"><h2>Hola, soy Alan Méndez</h2></div>
+      <div class="sec-head"><h2>Hola, soy Alan Méndez.</h2></div>
       <p>Desarrollo software para negocios de Celaya y la región desde 2024. Estudio Ingeniería en Sistemas Computacionales en el TecNM Celaya y he entregado sistemas que hoy usan un consultorio médico, un bazar, y cientos de docentes.</p>
       <p>No soy una agencia: hablas conmigo, quien diseña, programa y da soporte. Sin intermediarios que encarecen y sin burocracia para cambiar un botón.</p>
       <ul class="ventajas">
@@ -454,7 +278,7 @@ const index = `<!DOCTYPE html>
 
 <section class="alt" id="faq">
   <div class="wrap">
-    <div class="sec-head"><h2>Preguntas frecuentes</h2></div>
+    <div class="sec-head"><h2>Preguntas frecuentes.</h2></div>
     <div class="faq">
       ${faq.map((f) => `<details><summary>${esc(f.p)}</summary><p>${esc(f.r)}</p></details>`).join('')}
     </div>
@@ -464,7 +288,7 @@ const index = `<!DOCTYPE html>
 <section id="contacto">
   <div class="wrap contacto">
     <div>
-      <div class="sec-head"><h2>Hablemos de tu negocio</h2><p>Cuéntame qué te quita tiempo y te propongo cómo resolverlo. Sin compromiso.</p></div>
+      <div class="sec-head"><h2>Hablemos de tu negocio.</h2><p>Cuéntame qué te quita tiempo y te propongo cómo resolverlo. Sin compromiso.</p></div>
       <div class="dato">${ico.wa}<div><b>WhatsApp</b><span><a href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="contacto">${esc(sitio.telefonoBonito)}</a></span></div></div>
       <div class="dato">${ico.mail}<div><b>Correo</b><span><a href="mailto:${sitio.email}">${sitio.email}</a></span></div></div>
       <div class="dato">${ico.pin}<div><b>Ubicación</b><span>Celaya y Tarimoro, Guanajuato · trabajo remoto en todo México</span></div></div>
@@ -497,37 +321,9 @@ const index = `<!DOCTYPE html>
 </html>`;
 
 /* ---------- Caso de estudio (1 página, imprimible) ---------- */
-const cssCaso = tokens + `
-@page{size:letter;margin:0}
-body{background:#fff;color:#0f172a}
-.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.55in .6in .5in;display:flex;flex-direction:column;gap:.18in;background:#fff}
-.cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:2px solid #0e7490;padding-bottom:10px}
-.cab .k{font-size:9.5pt;letter-spacing:.1em;text-transform:uppercase;color:#0e7490;font-weight:700}
-.cab h1{font-size:22pt;letter-spacing:-.02em;line-height:1.1;margin-top:2px}
-.cab .cli{color:#475569;font-size:10.5pt;margin-top:3px}
-.cab .yo{text-align:right;font-size:9.5pt;color:#475569;line-height:1.4}
-.cab .yo b{display:block;color:#0f172a;font-size:11pt}
-.estado-pdf{display:inline-block;font-size:8.5pt;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:6px}
-.resumen{font-size:11.5pt;color:#334155;text-wrap:pretty}
-.tres{display:grid;grid-template-columns:1fr;gap:10px}
-.bloque{border-left:4px solid #cbd5e1;padding:2px 0 2px 12px;break-inside:avoid}
-.bloque.p{border-color:#ef4444}.bloque.s{border-color:#0e7490}.bloque.r{border-color:#15803d}
-.bloque h2{font-size:9.5pt;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:4px}
-.bloque ul{padding-left:16px;font-size:10.3pt;color:#1e293b;display:grid;gap:3px}
-.stack-pdf{display:flex;flex-wrap:wrap;gap:5px}
-.stack-pdf span{font-size:8.5pt;border:1px solid #e2e8f0;border-radius:5px;padding:2px 7px;color:#475569}
-.pie{margin-top:auto;border-top:1px solid #e2e8f0;padding-top:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9.5pt;color:#475569}
-.pie .cta{background:#16a34a;color:#fff;font-weight:700;padding:7px 12px;border-radius:999px;font-size:9.5pt;white-space:nowrap}
-.pie a{color:#0e7490}
-.barra{display:flex;gap:8px;justify-content:center;padding:14px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;font-size:.9rem}
-.barra a,.barra button{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:7px 14px;font-weight:600;color:#0f172a}
-@media print{.barra{display:none}.hoja{margin:0;min-height:auto;height:11in}}
-@media screen and (max-width:700px){.hoja{width:100%;padding:24px 16px}}
-`;
-
 const paginaCaso = (c) => {
   const e = ESTADOS[c.estado];
-  const colores = { 'e-prod': 'background:#dcfce7;color:#15803d', 'e-prop': 'background:#fef3c7;color:#b45309', 'e-acad': 'background:#e0e7ff;color:#4338ca' };
+  const colores = { 'e-prod': 'color:#03873a;border-color:#03aa49', 'e-prop': 'color:#ed6300;border-color:#ed6300', 'e-acad': 'color:#8668ff;border-color:#8668ff' };
   const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
   return `<!DOCTYPE html>
 <html lang="es-MX">
