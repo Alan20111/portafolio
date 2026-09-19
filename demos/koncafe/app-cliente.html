@@ -1,0 +1,254 @@
+<!doctype html><html lang=es><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KonCafe — App del Cliente</title>
+<link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel=stylesheet>
+<style>
+:root{
+ --bg:#f6f1ea;--card:#fff;--ink:#241c15;--mut:#8b7d6d;--soft:#b8a58f;
+ --acc:#b5651d;--acc2:#8f4e14;--gold:#caa14a;--cream:#f3e7d4;--line:#ece2d4;--dark:#1d1712;
+ --ok:#2f9e63;--warn:#c9803a;
+ --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,-apple-system,sans-serif;--tabh:70px}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+img{max-width:100%}
+/* radios de navegacion (CSS puro, sin JS) */
+.nav{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
+.app{max-width:520px;margin:0 auto;min-height:100%;background:var(--bg);position:relative;padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom))}
+.screen{display:none;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+#n-inicio:checked~.app #s-inicio,
+#n-menu:checked~.app #s-menu,
+#n-recompensas:checked~.app #s-recompensas,
+#n-pedidos:checked~.app #s-pedidos,
+#n-perfil:checked~.app #s-perfil{display:block}
+/* topbar */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:16px 18px 10px;display:flex;align-items:center;justify-content:space-between}
+.top .brand{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.top .brand .bean{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a2a1c,#1d130b);display:inline-block;position:relative}
+.top .brand .bean:after{content:"";position:absolute;inset:6px 12px;border-left:1.5px solid #caa14a;transform:rotate(20deg)}
+.ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.iconbtn{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.wrap{padding:4px 18px 24px}
+h2.title{font-family:var(--serif);font-weight:600;font-size:26px;margin:6px 0 2px}
+.mut{color:var(--mut)}.sm{font-size:13px}.xs{font-size:11.5px}
+.acc{color:var(--acc)}
+/* loyalty card */
+.loyal{background:linear-gradient(135deg,#2a1d12,#4a3320 60%,#6b4a2a);color:#f3e7d4;border-radius:20px;padding:20px;position:relative;overflow:hidden;box-shadow:0 14px 34px rgba(60,40,20,.28)}
+.loyal:before{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(202,161,74,.35),transparent 70%)}
+.loyal .tier{display:inline-flex;align-items:center;gap:7px;background:rgba(202,161,74,.22);border:1px solid rgba(202,161,74,.5);color:#e8cf94;border-radius:20px;padding:4px 11px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.loyal .stars{font-family:var(--serif);font-size:42px;font-weight:700;line-height:1;margin:14px 0 2px}
+.loyal .stars small{font-size:15px;color:#d8c3a0;font-family:var(--sans);font-weight:500}
+.bar{height:8px;border-radius:6px;background:rgba(255,255,255,.16);overflow:hidden;margin:12px 0 6px}
+.bar>i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#e8cf94,#caa14a)}
+.qr{position:absolute;right:18px;bottom:18px;width:58px;height:58px;border-radius:12px;background:#f3e7d4;padding:6px}
+.qr svg{width:100%;height:100%}
+.section{margin-top:24px}
+.section h3{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);margin:0 0 12px;font-weight:700}
+.section h3 a{float:right;color:var(--acc);text-transform:none;letter-spacing:0;font-size:12px;text-decoration:none}
+/* promo */
+.promo{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.promo::-webkit-scrollbar{display:none}
+.pcard{flex:0 0 76%;border-radius:16px;padding:18px;color:#fff;position:relative;overflow:hidden;min-height:118px;display:flex;flex-direction:column;justify-content:flex-end}
+.pcard.a{background:linear-gradient(120deg,#b5651d,#e0994b)}
+.pcard.b{background:linear-gradient(120deg,#3f6f4e,#6fa77e)}
+.pcard .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.85;font-weight:700}
+.pcard .h{font-family:var(--serif);font-size:20px;font-weight:600;margin-top:3px}
+.pcard .emj{position:absolute;right:14px;top:10px;font-size:40px;opacity:.9}
+/* chips */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:8px 15px;font-size:13px;font-weight:600;color:var(--mut);white-space:nowrap}
+.chip.on{background:var(--dark);color:#f3e7d4;border-color:var(--dark)}
+/* product list */
+.prod{display:flex;gap:13px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:11px}
+.thumb{width:64px;height:64px;border-radius:12px;flex:0 0 64px;display:flex;align-items:center;justify-content:center;font-size:30px;background:var(--cream)}
+.prod .info{flex:1;min-width:0}
+.prod .n{font-weight:600;font-size:15px}
+.prod .d{color:var(--mut);font-size:12px;margin-top:2px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod .row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.price{font-weight:700;font-size:15px}
+.add{width:34px;height:34px;border-radius:11px;background:var(--acc);color:#fff;border:0;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(181,101,29,.32)}
+.badge-star{display:inline-flex;align-items:center;gap:4px;background:var(--cream);color:var(--acc2);border-radius:8px;padding:2px 7px;font-size:11px;font-weight:700}
+/* order tracker */
+.track{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px}
+.track .status{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.track .status .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(47,158,99,.15)}
+.steps{display:flex;justify-content:space-between;position:relative}
+.steps:before{content:"";position:absolute;left:16px;right:16px;top:15px;height:2px;background:var(--line)}
+.steps>div{position:relative;z-index:1;text-align:center;flex:1}
+.steps .c{width:32px;height:32px;border-radius:50%;background:var(--card);border:2px solid var(--line);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;color:var(--mut)}
+.steps .c.done{background:var(--acc);border-color:var(--acc);color:#fff}
+.steps .c.now{border-color:var(--acc);color:var(--acc)}
+.steps span{font-size:10.5px;color:var(--mut)}
+.steps .now~*{}
+.ohist{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}
+.tag{font-size:11px;font-weight:700;border-radius:8px;padding:3px 9px}
+.tag.done{background:#e7f4ec;color:#2f7d52}
+/* rewards */
+.reward{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:center}
+.reward .emj{font-size:34px;width:56px;height:56px;background:var(--cream);border-radius:14px;display:flex;align-items:center;justify-content:center}
+.reward .cost{margin-left:auto;text-align:right}
+.reward .cost b{color:var(--acc);font-size:15px}
+.pillbtn{background:var(--dark);color:#f3e7d4;border:0;border-radius:20px;padding:8px 15px;font-weight:600;font-size:12px}
+.pillbtn.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+/* profile */
+.pf-head{display:flex;align-items:center;gap:14px;margin:10px 0 20px}
+.pf-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#b5651d,#caa14a);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:26px;font-weight:700}
+.rowitem{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:10px}
+.rowitem .ic{color:var(--acc)}
+.rowitem .lbl{flex:1;font-weight:500}
+.toggle{width:42px;height:25px;border-radius:20px;background:var(--acc);position:relative}
+.toggle:after{content:"";position:absolute;width:19px;height:19px;border-radius:50%;background:#fff;top:3px;right:3px}
+.toggle.off{background:var(--line)}.toggle.off:after{right:auto;left:3px}
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.kbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kbox .n{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--acc)}
+.kbox .t{font-size:11.5px;color:var(--mut);margin-top:3px}
+/* bottom tabbar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;height:calc(var(--tabh) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+ background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;z-index:20;max-width:520px;margin:0 auto}
+.tabbar label{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mut);font-size:10.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tabbar label .ic{width:23px;height:23px}
+#n-inicio:checked~.app~.tabbar label[for=n-inicio],
+#n-menu:checked~.app~.tabbar label[for=n-menu],
+#n-recompensas:checked~.app~.tabbar label[for=n-recompensas],
+#n-pedidos:checked~.app~.tabbar label[for=n-pedidos],
+#n-perfil:checked~.app~.tabbar label[for=n-perfil]{color:var(--acc)}
+.fab{position:fixed;right:calc(50% - 260px + 18px);bottom:calc(var(--tabh) + 16px + env(safe-area-inset-bottom));z-index:19}
+@media(max-width:540px){.fab{right:18px}}
+.demoflag{text-align:center;font-size:11px;color:var(--mut);padding:10px}
+.eicon{display:inline-block}
+</style></head><body>
+<!-- navegacion CSS -->
+<input class=nav type=radio name=nav id=n-inicio checked>
+<input class=nav type=radio name=nav id=n-menu>
+<input class=nav type=radio name=nav id=n-recompensas>
+<input class=nav type=radio name=nav id=n-pedidos>
+<input class=nav type=radio name=nav id=n-perfil>
+
+<div class=app>
+  <div class=top>
+    <div class=brand><span class=bean></span> KonCafe</div>
+    <div class=iconbtn><svg class=ic viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+  </div>
+
+  <!-- INICIO -->
+  <section class=screen id=s-inicio>
+    <div class=wrap>
+      <div class=mut style="font-size:14px">Buenos días,</div>
+      <h2 class=title style="margin-top:0">Edgar <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></h2>
+      <div class="loyal section" style="margin-top:14px">
+        <span class=tier><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg> Nivel Oro</span>
+        <div class=stars>184 <small>estrellas</small></div>
+        <div class=xs style="color:#d8c3a0">16 estrellas para tu próxima recompensa</div>
+        <div class=bar><i style="width:78%"></i></div>
+        <div class=xs style="color:#d8c3a0">Ganas 1 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg> por cada $10 · 3% de descuento por ser Oro</div>
+        <div class=qr><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><rect width="29" height="29" fill="#f3e7d4"/><path fill="#1d130b" d="M1 1h7v7h-7z M3 3h3v3h-3z M21 1h7v7h-7z M23 3h3v3h-3z M1 21h7v7h-7z M3 23h3v3h-3z M10 1h2v2h-2z M14 1h1v1h-1z M17 2h1v1h-1z M10 4h1v1h-1z M13 5h2v2h-2z M11 8h1v1h-1z M16 8h1v1h-1z M1 10h1v1h-1z M4 10h2v2h-2z M8 10h1v1h-1z M11 11h2v2h-2z M15 10h1v1h-1z M18 11h1v1h-1z M21 10h1v1h-1z M24 11h2v2h-2z M27 10h1v1h-1z M2 13h1v1h-1z M6 14h1v1h-1z M9 13h2v2h-2z M14 14h1v1h-1z M17 13h2v2h-2z M22 14h1v1h-1z M26 14h1v1h-1z M10 17h1v1h-1z M13 18h2v2h-2z M17 17h1v1h-1z M20 18h1v1h-1z M24 17h2v2h-2z M10 22h2v2h-2z M14 21h1v1h-1z M17 22h2v2h-2z M22 21h2v2h-2z M26 22h1v1h-1z M11 25h1v1h-1z M15 26h1v1h-1z M19 25h2v2h-2z M24 26h1v1h-1z M27 25h1v1h-1z"/></svg></div>
+      </div>
+
+      <div class=section>
+        <h3>Promociones</h3>
+        <div class=promo>
+          <div class="pcard a"><span class=emj><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 15c1-6 6-10 12-9-1 2-2 4-1 6 2 1 4 1 6 0-3 5-11 7-17 3z"/></svg></span><div class=k>2×1 · hasta el viernes</div><div class=h>Croissant + Latte</div></div>
+          <div class="pcard b"><span class=emj><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></span><div class=k>Doble estrellas</div><div class=h>Martes de recompensas</div></div>
+        </div>
+      </div>
+
+      <div class=section>
+        <h3>Sugeridos para ti <a href="#n-menu" onclick="document.getElementById('n-menu').checked=true">Ver menú</a></h3>
+        <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 3v2M10 3v2M13 3v2"/></svg></div><div class=info><div class=n>Latte de la casa</div><div class=d>Espresso doble con leche vaporizada y arte latte.</div><div class=row><span class=price>$58</span><button class=add>+</button></div></div></div>
+        <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 15c1-6 6-10 12-9-1 2-2 4-1 6 2 1 4 1 6 0-3 5-11 7-17 3z"/></svg></div><div class=info><div class=n>Croissant de jamón</div><div class=d>Versión salada. Horneado del día.</div><div class=row><span class=price>$85</span><button class=add>+</button></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class=screen id=s-menu>
+    <div class=wrap>
+      <h2 class=title>Menú</h2>
+      <div class=chips>
+        <div class="chip on"><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 3v2M10 3v2M13 3v2"/></svg> Bebidas</div><div class=chip><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 15c1-6 6-10 12-9-1 2-2 4-1 6 2 1 4 1 6 0-3 5-11 7-17 3z"/></svg> Alimentos</div><div class=chip><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 20v-7l8-6 8 6v7z"/><path d="M4 15l8 4 8-4"/><path d="M12 7V4"/></svg> Postres</div><div class=chip><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M6 12h12M12 6v12"/></svg> Frappés</div>
+      </div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 3v2M10 3v2M13 3v2"/></svg></div><div class=info><div class=n>Espresso</div><div class=d>Shot doble de nuestra casa tostadora.</div><div class=row><span class=price>$42</span><button class=add>+</button></div></div></div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 3v2M10 3v2M13 3v2"/></svg></div><div class=info><div class=n>Latte de la casa</div><div class=d>Espresso con leche vaporizada. Elige tu leche.</div><div class=row><span class=price>$58</span><button class=add>+</button></div></div></div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 3v2M10 3v2M13 3v2"/></svg></div><div class=info><div class=n>Cappuccino</div><div class=d>Espresso, leche y espuma aterciopelada.</div><div class=row><span class=price>$56</span><button class=add>+</button></div></div></div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M4 12h16M12 5v14M8 5v3M16 5v3M8 16v3M16 16v3"/></svg></div><div class=info><div class=n>Mocha</div><div class=d>Espresso con chocolate belga y leche.</div><div class=row><span class=price>$62</span><button class=add>+</button></div></div></div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 15c1-6 6-10 12-9-1 2-2 4-1 6 2 1 4 1 6 0-3 5-11 7-17 3z"/></svg></div><div class=info><div class=n>Croissant de jamón</div><div class=d>Versión salada. Contiene gluten y lácteos.</div><div class=row><span class=price>$85</span><button class=add>+</button></div></div></div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M3 10l9-6 9 6"/><path d="M3 10v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"/><path d="M3 10l9 3 9-3"/></svg></div><div class=info><div class=n>Sandwich BBQ</div><div class=d>Servir caliente. Pan artesanal.</div><div class=row><span class=price>$129</span><button class=add>+</button></div></div></div>
+      <div class=prod><div class=thumb><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 20v-7l8-6 8 6v7z"/><path d="M4 15l8 4 8-4"/><path d="M12 7V4"/></svg></div><div class=info><div class=n>Afogatto de vainilla</div><div class=d>Helado de vainilla ahogado en espresso.</div><div class=row><span class=price>$65</span><button class=add>+</button></div></div></div>
+    </div>
+  </section>
+
+  <!-- RECOMPENSAS -->
+  <section class=screen id=s-recompensas>
+    <div class=wrap>
+      <h2 class=title>Recompensas</h2>
+      <div class=sm mut style="margin-bottom:16px">Tienes <b class=acc>184 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></b> · canjéalas por lo que más te gusta.</div>
+      <div class=reward><div class=emj><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 3v2M10 3v2M13 3v2"/></svg></div><div><div style="font-weight:600">Café gratis</div><div class="xs mut">Cualquier bebida caliente</div></div><div class=cost><b>120 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></b><br><button class=pillbtn>Canjear</button></div></div>
+      <div class=reward><div class=emj><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 15c1-6 6-10 12-9-1 2-2 4-1 6 2 1 4 1 6 0-3 5-11 7-17 3z"/></svg></div><div><div style="font-weight:600">Pan del día</div><div class="xs mut">Croissant u oreja</div></div><div class=cost><b>90 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></b><br><button class=pillbtn>Canjear</button></div></div>
+      <div class=reward><div class=emj><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 20v-7l8-6 8 6v7z"/><path d="M4 15l8 4 8-4"/><path d="M12 7V4"/></svg></div><div><div style="font-weight:600">Postre a elegir</div><div class="xs mut">De la vitrina</div></div><div class=cost><b>200 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></b><br><button class="pillbtn ghost">Faltan 16 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></button></div></div>
+      <div class=reward><div class=emj><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M4 10h16v3H4z"/><path d="M12 10v10"/><path d="M9 10c-2 0-3.5-1.2-3.5-2.8S7 4.5 9 5c1.5.4 2.6 2.3 3 5"/><path d="M15 10c2 0 3.5-1.2 3.5-2.8S16 4.5 14 5c-1.5.4-2.6 2.3-3 5"/></svg></div><div><div style="font-weight:600">Combo desayuno</div><div class="xs mut">Bebida + alimento</div></div><div class=cost><b>320 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></b><br><button class="pillbtn ghost">Faltan 136 <svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></button></div></div>
+    </div>
+  </section>
+
+  <!-- PEDIDOS -->
+  <section class=screen id=s-pedidos>
+    <div class=wrap>
+      <h2 class=title>Tus pedidos</h2>
+      <div class=track>
+        <div class=status><span class=dot></span><b>Pedido #1043 · en preparación</b></div>
+        <div class=steps>
+          <div><div class="c done">✓</div><span>Recibido</span></div>
+          <div><div class="c now">•</div><span>Preparando</span></div>
+          <div><div class=c>3</div><span>Listo</span></div>
+          <div><div class=c>4</div><span>Entregado</span></div>
+        </div>
+        <div class="sm mut" style="margin-top:14px;text-align:center">Pasa por él en <b class=acc>~6 min</b> · Sucursal Centro</div>
+      </div>
+      <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut)">Historial</h3>
+      <div class=ohist><div><div style="font-weight:600">Latte + Croissant</div><div class="xs mut">12 sep · #1021</div></div><div style="text-align:right"><div class=price>$143</div><span class="tag done">Entregado</span></div></div>
+      <div class=ohist><div><div style="font-weight:600">Cappuccino</div><div class="xs mut">9 sep · #0998</div></div><div style="text-align:right"><div class=price>$56</div><span class="tag done">Entregado</span></div></div>
+      <div class=ohist><div><div style="font-weight:600">Mocha + Enchiladas</div><div class="xs mut">6 sep · #0975</div></div><div style="text-align:right"><div class=price>$182</div><span class="tag done">Entregado</span></div></div>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section class=screen id=s-perfil>
+    <div class=wrap>
+      <div class=pf-head>
+        <div class=pf-av>E</div>
+        <div><div style="font-family:var(--serif);font-size:22px;font-weight:600">Edgar Ramírez</div><div class="sm mut">Miembro Oro · desde 2026</div></div>
+      </div>
+      <div class=kgrid style="margin-bottom:18px">
+        <div class=kbox><div class=n>184<svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 3l2.5 5.5 6 .8-4.4 4.1 1.1 6-5.2-2.9-5.2 2.9 1.1-6-4.4-4.1 6-.8z"/></svg></div><div class=t>Estrellas</div></div>
+        <div class=kbox><div class=n>$3,240</div><div class=t>Gastado este año</div></div>
+        <div class=kbox><div class=n>47</div><div class=t>Pedidos</div></div>
+        <div class=kbox><div class=n>3%</div><div class=t>Descuento Oro</div></div>
+      </div>
+      <div class=rowitem><svg class=ic viewBox="0 0 24 24"><rect x=3 y=5 width=18 height=14 rx=2/><path d="M3 7l9 6 9-6"/></svg><span class=lbl>Notificaciones</span><span class=toggle></span></div>
+      <div class=rowitem><svg class=ic viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx=12 cy=9 r=2.5/></svg><span class=lbl>Sucursal favorita · Centro</span><svg class=ic viewBox="0 0 24 24" style="stroke:var(--mut)"><path d="M9 6l6 6-6 6"/></svg></div>
+      <div class=rowitem><svg class=ic viewBox="0 0 24 24"><rect x=3 y=5 width=18 height=14 rx=2/><path d="M3 10h18"/></svg><span class=lbl>Métodos de pago</span><svg class=ic viewBox="0 0 24 24" style="stroke:var(--mut)"><path d="M9 6l6 6-6 6"/></svg></div>
+      <div class=rowitem><svg class=ic viewBox="0 0 24 24"><circle cx=12 cy=12 r=9/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span class=lbl>Ayuda y soporte</span><svg class=ic viewBox="0 0 24 24" style="stroke:var(--mut)"><path d="M9 6l6 6-6 6"/></svg></div>
+      <div class=demoflag>Demo de referencia · KonCafe bien construido</div>
+    </div>
+  </section>
+</div>
+
+<!-- FAB carrito -->
+<a class="fab" href="#n-menu" onclick="document.getElementById('n-menu').checked=true">
+  <span style="display:flex;align-items:center;gap:8px;background:var(--acc);color:#fff;border-radius:30px;padding:13px 20px;font-weight:700;box-shadow:0 10px 26px rgba(181,101,29,.4)">
+    <svg class=ic viewBox="0 0 24 24" style="width:20px;height:20px;stroke:#fff"><circle cx=9 cy=20 r=1.6/><circle cx=18 cy=20 r=1.6/><path d="M2 3h3l2.5 12.5A2 2 0 0 0 9.5 17h8a2 2 0 0 0 2-1.6L21 8H6"/></svg>
+    2 · $143
+  </span>
+</a>
+
+<nav class=tabbar>
+  <label for=n-inicio><svg class=ic viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Inicio</label>
+  <label for=n-menu><svg class=ic viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Menú</label>
+  <label for=n-recompensas><svg class=ic viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>Premios</label>
+  <label for=n-pedidos><svg class=ic viewBox="0 0 24 24"><rect x=6 y=3 width=12 height=18 rx=2/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Pedidos</label>
+  <label for=n-perfil><svg class=ic viewBox="0 0 24 24"><circle cx=12 cy=8 r=4/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</label>
+</nav>
+</body></html>

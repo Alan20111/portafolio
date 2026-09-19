@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /demos/
+Sitemap: https://portafolio-ten-olive-50.vercel.app/sitemap.xml

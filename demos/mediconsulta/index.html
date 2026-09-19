@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediConsulta — maqueta de revisión</title>
+<style>
+:root{
+  --azul:#1565C0; --azul-osc:#0D47A1; --verde:#2E7D32; --rojo:#C62828; --ambar:#F57F17;
+  --papel:#fff; --fondo:#FAFAFA; --borde:#E0E0E0; --texto:#212121; --tenue:#616161;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#eceff1;color:var(--texto);
+     font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.aviso{background:#37474F;color:#fff;padding:10px 20px;font-size:13px}
+.aviso b{font-weight:600}
+nav{background:#fff;border-bottom:1px solid var(--borde);padding:10px 20px;
+    display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+nav button{padding:8px 14px;border:1px solid var(--borde);background:#fff;border-radius:18px;
+           font:inherit;font-size:13px;cursor:pointer;color:var(--tenue)}
+nav button:hover{border-color:var(--azul);color:var(--azul)}
+nav button.on{background:var(--azul);border-color:var(--azul);color:#fff;font-weight:500}
+main{padding:24px 20px 60px;max-width:1280px;margin:0 auto}
+.pantalla{display:none}
+.pantalla.on{display:block}
+.rotulo{color:var(--tenue);font-size:13px;margin:0 0 12px}
+.marco{background:var(--fondo);border:1px solid #cfd8dc;border-radius:10px;overflow:hidden;
+       box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.barra{background:var(--azul);color:#fff;padding:8px 14px;font-size:12.5px;
+       display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.5)}
+.cuerpo{display:flex;min-height:520px}
+.lateral{width:210px;background:#fff;border-right:1px solid var(--borde);padding:14px 10px;flex-shrink:0}
+.marca{display:flex;align-items:center;gap:10px;padding:6px;margin-bottom:14px}
+.logo{width:30px;height:30px;border-radius:7px;background:var(--azul);color:#fff;
+      display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:300}
+.nav-i{padding:11px 12px;border-radius:8px;color:var(--tenue);margin-bottom:2px;cursor:default}
+.nav-i.on{background:var(--azul);color:#fff;font-weight:500}
+.pie-lat{border-top:1px solid var(--borde);margin-top:18px;padding-top:12px;font-size:12.5px;color:var(--tenue)}
+.chip-v{display:inline-block;background:var(--verde);color:#fff;border-radius:12px;
+        padding:3px 10px;font-size:12px;font-weight:600;margin-top:8px}
+.contenido{flex:1;background:var(--fondo);display:flex;flex-direction:column}
+.top{background:#fff;border-bottom:1px solid var(--borde);padding:14px 20px;
+     display:flex;align-items:center;gap:16px}
+.top h2{margin:0;font-size:20px;font-weight:600}
+.top .sub{color:var(--tenue);font-size:13px}
+.crece{flex:1}
+.zona{padding:20px;flex:1}
+.tarjeta{background:#fff;border-radius:8px;padding:18px;margin-bottom:14px;
+         box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.tarjeta h3{margin:0 0 4px;font-size:15px;font-weight:600}
+.tarjeta .desc{color:var(--tenue);font-size:13px;margin:0 0 14px}
+label{display:block;font-size:12.5px;font-weight:500;color:var(--tenue);margin:0 0 5px}
+.campo{margin-bottom:14px}
+.entrada{border:1px solid #bdbdbd;border-radius:5px;padding:11px 12px;background:#fff;
+         color:#9e9e9e;min-height:42px}
+.entrada.lleno{color:var(--texto)}
+.fila{display:flex;gap:14px;flex-wrap:wrap}
+.fila>*{flex:1;min-width:150px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 18px;border-radius:6px;
+     background:var(--azul);color:#fff;font-weight:500;font-size:13.5px;min-height:44px}
+.btn.sec{background:#fff;color:var(--azul);border:1px solid var(--azul)}
+.btn.txt{background:transparent;color:var(--tenue)}
+.btn.rojo{background:var(--rojo)}
+.acciones{background:#fff;border-top:1px solid var(--borde);padding:14px 20px;
+          display:flex;gap:10px;justify-content:flex-end}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden}
+th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--tenue);
+   padding:10px 12px;border-bottom:2px solid var(--borde)}
+td{padding:13px 12px;border-bottom:1px solid #eee}
+.op{display:inline-flex;align-items:center;gap:7px;margin-right:18px;font-size:13.5px}
+.radio{width:17px;height:17px;border:2px solid #9e9e9e;border-radius:50%;flex-shrink:0}
+.radio.on{border-color:var(--azul);box-shadow:inset 0 0 0 3.5px var(--azul)}
+.nota{border-radius:6px;padding:12px 14px;font-size:13px;border-bottom:3px solid}
+.nota.amb{background:#FFF8E1;border-color:var(--ambar);color:#5D4037}
+.nota.ver{background:#E8F5E9;border-color:var(--verde);color:#1B5E20}
+.nota.roj{background:#FFEBEE;border-color:var(--rojo);color:#7A1B1B}
+.pastilla{display:inline-block;padding:3px 10px;border-radius:11px;font-size:12px;font-weight:600;
+          background:#eceff1;color:var(--texto)}
+.pastilla.rojo{background:var(--rojo);color:#fff}
+.swatch{width:38px;height:38px;border-radius:6px;border:1px solid rgba(0,0,0,.3);display:inline-block;margin:0 7px 7px 0}
+.swatch.sel{outline:3px solid var(--azul);outline-offset:2px}
+.hoja{background:#fff;width:300px;min-height:440px;margin:0 auto;box-shadow:0 3px 14px rgba(0,0,0,.25);padding:0}
+.mem{padding:14px;border-bottom:1.5px solid #212121;text-align:center}
+.mem .n{font-weight:700;font-size:14px}
+.mem .e{font-size:11px;color:#424242}
+.mem .c{font-size:9.5px;color:#616161;margin-top:3px}
+.rx{padding:14px;font-size:11.5px;line-height:1.7}
+.tb{background:#ECEFF1;border-bottom:1px solid var(--borde);padding:8px 12px;
+    display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.tbi{width:32px;height:32px;border-radius:5px;background:#fff;border:1px solid var(--borde);
+     display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--tenue)}
+.sep{width:1px;height:24px;background:#cfd8dc;margin:0 4px}
+.mini{background:#fff;border:1px solid var(--borde);border-radius:5px;padding:5px;width:74px;text-align:center;
+      font-size:10.5px;color:var(--tenue);margin-bottom:7px;cursor:default}
+.mini.sel{border-color:var(--azul);border-width:2px}
+.mini .prev{height:48px;background:#fafafa;border:1px solid #eee;margin-bottom:4px;position:relative}
+.mini .prev i{position:absolute;top:0;left:0;right:0;height:12px;display:block}
+.modal{background:#fff;border-radius:10px;max-width:600px;margin:0 auto;overflow:hidden;
+       box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.modal .cab{padding:16px 22px;border-bottom:1px solid var(--borde);font-weight:600;font-size:16px}
+.centro{background:#546E7A;padding:36px 20px}
+.codigo{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:26px;font-weight:700;
+        color:var(--azul);letter-spacing:1px;text-align:center;background:#ECEFF1;
+        border-radius:8px;padding:16px}
+.paso{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.num{width:26px;height:26px;border-radius:50%;background:var(--azul);color:#fff;
+     display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.prog{display:flex;gap:8px;margin-top:18px}
+.prog i{height:6px;border-radius:3px;background:#fff;flex:1;display:block}
+.prog i.off{opacity:.35}
+h4.sec{margin:22px 0 10px;font-size:14px;color:var(--tenue);text-transform:uppercase;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<div class="aviso">
+  <b>Maqueta de revisión, no es la aplicación.</b>
+  Reproduce la distribución, los textos y el flujo reales de MediConsulta para revisarlos sin Windows.
+  Los colores y proporciones son aproximados; nada aquí es funcional.
+</div>
+
+<nav id="nav"></nav>
+
+<main>
+
+<!-- ============ ACTIVACIÓN ============ -->
+<section class="pantalla" id="p-activacion">
+  <p class="rotulo">Lo primero que ve al abrir el .exe. Sin código válido, no pasa de aquí.</p>
+  <div class="marco">
+    <div class="barra"><span class="dot"></span> Activar MediConsulta</div>
+    <div style="background:var(--azul);color:#fff;padding:24px 28px;display:flex;gap:16px;align-items:center">
+      <div class="logo" style="background:#fff;color:var(--azul);width:44px;height:44px;font-size:28px">+</div>
+      <div><div style="font-size:22px;font-weight:600">Activa MediConsulta</div>
+           <div style="opacity:.9;font-size:13px">Solo se hace una vez en esta computadora.</div></div>
+    </div>
+    <div class="zona">
+      <div class="tarjeta">
+        <div class="paso"><span class="num">1</span><h3 style="margin:0">Envía este código a tu proveedor</h3></div>
+        <p class="desc">Es el código de instalación de esta computadora. Mándalo por WhatsApp, por correo o díctalo por teléfono.</p>
+        <div class="codigo">K7X2-9QMB-4PTR</div>
+        <div style="margin-top:14px"><span class="btn">Enviar por WhatsApp</span> <span class="btn sec">Copiar mensaje</span></div>
+        <div style="margin-top:16px;color:var(--tenue);font-size:13px">
+          Alan Daniel Méndez Jiménez &nbsp;·&nbsp; +52 466 160 36 82 &nbsp;·&nbsp; alannicanor62@gmail.com</div>
+      </div>
+      <div class="tarjeta">
+        <div class="paso"><span class="num">2</span><h3 style="margin:0">Escribe el código que te devuelvan</h3></div>
+        <div class="campo"><label>Código de activación</label>
+          <div class="fila"><div class="entrada" style="font-family:monospace;font-size:19px">XXXX-XXXX-XXXX-XXXX</div>
+          <div style="flex:0 0 110px"><span class="btn sec" style="width:100%;justify-content:center">Pegar</span></div></div></div>
+        <p class="desc" style="margin:0">Este código solo funciona en esta computadora, y no caduca: si algún día reinstalas MediConsulta, escribe el mismo.</p>
+      </div>
+    </div>
+    <div class="acciones"><span class="btn txt">Salir</span><span class="btn">Activar</span></div>
+  </div>
+</section>
+
+<!-- ============ ACCESO ============ -->
+<section class="pantalla" id="p-acceso">
+  <p class="rotulo">Cada vez que abre el programa, ya activado.</p>
+  <div class="marco" style="max-width:520px;margin:0 auto">
+    <div class="barra"><span class="dot"></span> MediConsulta</div>
+    <div style="background:var(--azul);color:#fff;padding:24px 28px;display:flex;gap:16px;align-items:center">
+      <div class="logo" style="background:#fff;color:var(--azul);width:44px;height:44px;font-size:28px">+</div>
+      <div><div style="font-size:19px;font-weight:600">Dr. Juan Pérez Martínez</div>
+           <div style="opacity:.9;font-size:13px">Escribe tu contraseña para entrar</div></div>
+    </div>
+    <div class="zona">
+      <div class="campo"><label>Contraseña</label><div class="entrada">••••••••</div></div>
+      <span class="btn txt" style="padding-left:0">Olvidé mi contraseña</span>
+    </div>
+    <div class="acciones"><span class="btn txt">Salir</span><span class="btn">Entrar</span></div>
+  </div>
+</section>
+
+<!-- ============ ASISTENTE ============ -->
+<section class="pantalla" id="p-asistente">
+  <p class="rotulo">Solo la primera vez. Dos pasos: quién es y cómo trabaja.</p>
+  <div class="marco" style="max-width:700px;margin:0 auto">
+    <div class="barra"><span class="dot"></span> Bienvenido a MediConsulta</div>
+    <div style="background:var(--azul);color:#fff;padding:24px 28px">
+      <div style="display:flex;gap:16px;align-items:center">
+        <div class="logo" style="background:#fff;color:var(--azul);width:44px;height:44px;font-size:28px">+</div>
+        <div><div style="font-size:22px;font-weight:600">Bienvenido a MediConsulta</div>
+             <div style="opacity:.9;font-size:13px">Dos pasos rápidos y tu consultorio queda listo.</div></div>
+      </div>
+      <div class="prog"><i></i><i class="off"></i></div>
+    </div>
+    <div class="zona">
+      <h2 style="margin:0 0 4px;font-size:21px">Tus datos de acceso</h2>
+      <p class="desc">Tu nombre aparecerá en todas tus recetas. La contraseña te la pediremos cada vez que abras MediConsulta.</p>
+
+      <div class="campo"><label>¿Cómo te presentas?</label>
+        <div style="padding-top:6px">
+          <span class="op"><i class="radio on"></i>Dr.</span><span class="op"><i class="radio"></i>Dra.</span>
+          <span class="op"><i class="radio"></i>Lic.</span><span class="op"><i class="radio"></i>Mtro.</span>
+          <span class="op"><i class="radio"></i>Mtra.</span>
+        </div></div>
+
+      <div class="campo"><label>Tu nombre completo *</label><div class="entrada">Ej: Juan Pérez Martínez</div></div>
+      <div class="fila">
+        <div class="campo"><label>Contraseña *</label><div class="entrada">Al menos 4 caracteres</div></div>
+        <div class="campo"><label>Repite la contraseña *</label><div class="entrada">••••••••</div></div>
+      </div>
+      <div class="nota amb">Si algún día olvidas tu contraseña, podrás recuperarla con tu código de activación. No la pierdas de vista.</div>
+
+      <h4 class="sec">Paso 2 — Cómo trabajas</h4>
+      <div class="campo"><label>Tamaño de tus recetas</label>
+        <div style="padding-top:6px">
+          <div class="op"><i class="radio on"></i>Media carta — 14 × 21.6 cm</div><br>
+          <div class="op"><i class="radio"></i>Carta completa — 21.6 × 27.9 cm</div>
+        </div></div>
+      <div class="campo"><label>Apariencia</label>
+        <div style="padding-top:6px">☀ Claro &nbsp;&nbsp;( ●—— )&nbsp;&nbsp; Oscuro ☾</div></div>
+      <div class="nota ver">Listo. Tu especialidad, cédula, logo y firma los puedes agregar cuando quieras desde Configuración, y aparecerán en la receta.</div>
+    </div>
+    <div class="acciones"><span class="btn sec">Anterior</span><span class="btn">¡Empezar a usar MediConsulta!</span></div>
+  </div>
+</section>
+
+<!-- ============ PACIENTES ============ -->
+<section class="pantalla" id="p-pacientes">
+  <p class="rotulo">Pantalla de inicio. Búsqueda sin acentos, filtro y paginación de 20.</p>
+  <div class="marco"><div class="barra"><span class="dot"></span> MediConsulta</div>
+  <div class="cuerpo">
+    <div class="lateral">
+      <div class="marca"><div class="logo">+</div><b>MediConsulta</b></div>
+      <div class="nav-i on">Pacientes</div><div class="nav-i">Consultas</div>
+      <div class="nav-i">Recetas</div><div class="nav-i">Agenda</div><div class="nav-i">Configuración</div>
+      <div class="pie-lat">Dr. Juan Pérez Martínez<br><span class="chip-v">Licencia activa</span></div>
+    </div>
+    <div class="contenido">
+      <div class="top"><div><h2>Pacientes</h2></div><div class="crece"></div>
+        <div class="entrada" style="width:250px;min-height:38px;padding:8px 12px">Buscar paciente…</div>
+        <span class="btn">Nueva consulta</span><span class="btn sec">Nueva cita</span></div>
+      <div class="zona">
+        <div class="fila" style="align-items:flex-end;margin-bottom:16px">
+          <div class="campo" style="flex:2;margin:0"><label>Buscar paciente</label>
+            <div class="entrada">Ej: Hernández, EXP-2026-0001, 5512345678</div></div>
+          <div class="campo" style="flex:0 0 180px;margin:0"><label>Mostrar</label><div class="entrada lleno">Activos</div></div>
+          <div style="flex:0 0 auto"><span class="btn">Nuevo paciente</span></div>
+        </div>
+        <table>
+          <tr><th>Expediente</th><th>Nombre completo</th><th>Edad</th><th>Teléfono</th>
+              <th>Última consulta</th><th>Diagnóstico reciente</th><th></th></tr>
+          <tr><td>EXP-2026-0001</td><td><b>María Guadalupe Pérez Ramírez</b> <span class="pastilla" style="background:#FFF8E1;color:#8D6E00">⚠ alergias</span></td>
+              <td>41 años</td><td>55 1234 5678</td><td>02/08/2026</td><td>Faringitis aguda</td>
+              <td><span style="color:var(--azul);font-size:13px">Ver expediente</span></td></tr>
+          <tr><td>EXP-2026-0002</td><td><b>José Antonio Muñoz Íñiguez</b></td><td>58 años</td>
+              <td>33 8765 4321</td><td>28/07/2026</td><td>Hipertensión esencial</td>
+              <td><span style="color:var(--azul);font-size:13px">Ver expediente</span></td></tr>
+          <tr><td>EXP-2026-0003</td><td><b>Ana Hernández López</b></td><td>34 años</td>
+              <td>—</td><td>Sin consultas</td><td>—</td>
+              <td><span style="color:var(--azul);font-size:13px">Ver expediente</span></td></tr>
+        </table>
+        <div style="display:flex;justify-content:space-between;margin-top:14px;color:var(--tenue);font-size:13px">
+          <span>Mostrando 1–3 de 3</span>
+          <span><span class="btn sec">Anterior</span> <span class="btn sec">Siguiente</span></span></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============ EXPEDIENTE ============ -->
+<section class="pantalla" id="p-expediente">
+  <p class="rotulo">30 % identidad y acciones, 70 % pestañas. Las alergias siempre visibles.</p>
+  <div class="marco"><div class="barra"><span class="dot"></span> MediConsulta</div>
+  <div class="cuerpo">
+    <div class="lateral">
+      <div class="marca"><div class="logo">+</div><b>MediConsulta</b></div>
+      <div class="nav-i on">Pacientes</div><div class="nav-i">Consultas</div>
+      <div class="nav-i">Recetas</div><div class="nav-i">Agenda</div><div class="nav-i">Configuración</div>
+    </div>
+    <div class="contenido">
+      <div class="top"><span style="color:var(--tenue)">←</span>
+        <div><h2>María Guadalupe Pérez Ramírez</h2><div class="sub">EXP-2026-0001</div></div></div>
+      <div class="zona" style="display:flex;gap:18px">
+        <div style="flex:0 0 290px">
+          <div class="tarjeta" style="text-align:center">
+            <div style="width:100px;height:100px;border-radius:50%;background:var(--azul);color:#fff;
+                        font-size:38px;font-weight:600;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">MP</div>
+            <div style="font-size:19px;font-weight:600">María Guadalupe Pérez Ramírez</div>
+            <div style="color:var(--tenue);font-size:13px;margin-bottom:12px">EXP-2026-0001</div>
+            <span class="pastilla">41 años</span> <span class="pastilla rojo">O+</span> <span class="pastilla">Femenino</span>
+            <div class="nota amb" style="text-align:left;margin-top:16px">
+              <b>⚠ ALERGIAS</b><br>Penicilina, mariscos</div>
+            <div style="color:var(--tenue);font-size:12.5px;margin-top:14px">2 consultas · 1 receta</div>
+          </div>
+          <div class="tarjeta">
+            <div class="btn" style="width:100%;margin-bottom:9px">Nueva consulta</div>
+            <div class="btn sec" style="width:100%;margin-bottom:9px">Nueva receta</div>
+            <div class="btn sec" style="width:100%;margin-bottom:9px">Agendar cita</div>
+            <div class="btn txt" style="width:100%">Editar datos</div>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div class="tarjeta" style="padding:0">
+            <div style="display:flex;border-bottom:1px solid var(--borde);padding:0 8px">
+              <div style="padding:14px 18px;border-bottom:2px solid var(--azul);color:var(--azul);font-weight:500">Datos personales</div>
+              <div style="padding:14px 18px;color:var(--tenue)">Consultas</div>
+              <div style="padding:14px 18px;color:var(--tenue)">Recetas</div>
+              <div style="padding:14px 18px;color:var(--tenue)">Citas</div>
+            </div>
+            <div style="padding:20px">
+              <h3 style="margin:0 0 12px;font-size:15px">Identificación</h3>
+              <div class="fila">
+                <div><label>Nombre completo</label><div style="font-weight:600">María Guadalupe Pérez Ramírez</div>
+                     <label style="margin-top:12px">Fecha de nacimiento</label><div>12 de marzo de 1985</div>
+                     <label style="margin-top:12px">Sexo</label><div>Femenino</div></div>
+                <div><label>Expediente</label><div>EXP-2026-0001</div>
+                     <label style="margin-top:12px">Edad</label><div>41 años</div>
+                     <label style="margin-top:12px">CURP</label><div>PERM850312MDFRRR01</div></div>
+              </div>
+              <h3 style="margin:22px 0 12px;font-size:15px">Contacto</h3>
+              <div class="fila">
+                <div><label>Celular</label><div>55 1234 5678</div></div>
+                <div><label>Domicilio</label><div>Av. Juárez 145, Centro, Guadalajara, Jalisco</div></div>
+              </div>
+              <h3 style="margin:22px 0 12px;font-size:15px">Antecedentes y datos médicos</h3>
+              <label>Alergias</label><div>Penicilina, mariscos</div>
+              <label style="margin-top:12px">Padecimientos crónicos</label><div>Hipotiroidismo desde 2019</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============ CONSULTA ============ -->
+<section class="pantalla" id="p-consulta">
+  <p class="rotulo">Sigue el orden real de la consulta. El IMC se calcula al salir del campo.</p>
+  <div class="marco"><div class="barra"><span class="dot"></span> MediConsulta — Nueva consulta</div>
+  <div class="zona" style="background:var(--fondo)">
+    <div class="tarjeta">
+      <div style="display:flex;gap:20px;align-items:flex-end;margin-bottom:14px">
+        <div style="flex:1"><label>Paciente</label>
+          <div style="font-size:20px;font-weight:600">María Guadalupe Pérez Ramírez</div>
+          <div style="color:var(--tenue);font-size:13px">EXP-2026-0001 · 41 años</div></div>
+        <div style="flex:0 0 170px"><label>Fecha</label><div class="entrada lleno">02/08/2026</div></div>
+        <div style="flex:0 0 110px"><label>Hora</label><div class="entrada lleno">09:30</div></div>
+      </div>
+      <div class="nota amb" style="margin-bottom:14px"><b>ALERGIAS:</b> Penicilina, mariscos</div>
+      <div class="campo" style="margin:0"><label>Motivo de consulta</label>
+        <div class="entrada" style="font-size:15px">Ej: Dolor de garganta y fiebre desde hace 3 días</div></div>
+    </div>
+
+    <div class="tarjeta">
+      <h3>♥ Signos vitales <span style="font-weight:400;color:var(--tenue);font-size:13px">Deja en blanco lo que no midas</span></h3>
+      <div class="fila">
+        <div class="campo"><label>Temperatura (°C)</label><div class="entrada">Ej: 37.5</div></div>
+        <div class="campo" style="flex:2"><label>Presión arterial (mmHg)</label>
+          <div style="display:flex;gap:8px;align-items:center">
+            <div class="entrada" style="width:80px">120</div><b>/</b><div class="entrada" style="width:80px">80</div></div></div>
+        <div class="campo"><label>Frecuencia cardiaca (lpm)</label><div class="entrada">Ej: 72</div></div>
+      </div>
+      <div class="fila">
+        <div class="campo"><label>Frecuencia respiratoria (rpm)</label><div class="entrada">Ej: 18</div></div>
+        <div class="campo"><label>Saturación de O₂ (%)</label><div class="entrada">Ej: 96</div></div>
+        <div class="campo"><label>Peso (kg)</label><div class="entrada lleno">78.5</div></div>
+      </div>
+      <div class="fila">
+        <div class="campo"><label>Talla (cm)</label><div class="entrada lleno">172</div></div>
+        <div class="campo" style="flex:2">
+          <div style="background:#eceff1;border-radius:8px;padding:12px 16px;display:flex;gap:14px;align-items:center">
+            <div style="font-size:26px;color:var(--ambar)">⚖</div>
+            <div><label style="margin:0">Índice de masa corporal</label>
+              <div><b style="font-size:20px;color:var(--ambar)">26.5</b> &nbsp;Sobrepeso</div></div></div></div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h3>Evaluación clínica</h3>
+      <div class="campo"><label>Exploración física</label>
+        <div class="entrada" style="min-height:80px">Ej: Faringe hiperémica, amígdalas con exudado…</div></div>
+      <div class="fila">
+        <div class="campo" style="flex:2"><label>Diagnóstico</label>
+          <div class="entrada" style="min-height:60px">Ej: Amigdalitis aguda bacteriana</div></div>
+        <div class="campo"><label>Código CIE-10 (opcional)</label><div class="entrada">Ej: J03.9</div>
+          <div style="font-size:12px;color:var(--tenue);margin-top:4px">Puedes escribir cualquier código; la lista solo es una ayuda.</div></div>
+      </div>
+      <div class="campo"><label>Tratamiento indicado</label><div class="entrada" style="min-height:70px">Ej: Amoxicilina 500 mg cada 8 h por 7 días…</div></div>
+      <div class="campo"><label>Indicaciones al paciente</label><div class="entrada" style="min-height:60px">Ej: Reposo, líquidos abundantes…</div></div>
+      <div class="fila">
+        <div class="campo" style="flex:2"><label>Notas adicionales</label><div class="entrada" style="min-height:50px"></div></div>
+        <div class="campo"><label>Próxima cita sugerida</label><div class="entrada">dd/mm/aaaa</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="acciones"><span class="btn txt">Cancelar</span><span class="btn sec">Guardar y agendar cita</span>
+    <span class="btn sec">Guardar y abrir recetario</span><span class="btn">Guardar consulta</span></div>
+  </div>
+</section>
+
+<!-- ============ RECETA ============ -->
+<section class="pantalla" id="p-receta">
+  <p class="rotulo">El módulo central: el catálogo completo a la izquierda, la hoja tal como se va a imprimir en medio. Los medicamentos se arrastran a la receta.</p>
+  <div class="marco"><div class="barra"><span class="dot"></span> MediConsulta — Receta</div>
+    <div class="tb">
+      <div class="entrada" style="width:150px;min-height:32px;padding:6px 10px;font-size:12px">Segoe UI</div>
+      <div class="entrada" style="width:60px;min-height:32px;padding:6px 10px;font-size:12px">11</div>
+      <span class="sep"></span>
+      <div class="tbi"><b>B</b></div><div class="tbi"><i>I</i></div><div class="tbi"><u>U</u></div><div class="tbi"><s>S</s></div>
+      <span class="sep"></span><div class="tbi">A</div><div class="tbi">▧</div>
+      <span class="sep"></span><div class="tbi">≡</div><div class="tbi">≡</div><div class="tbi">≡</div><div class="tbi">≡</div>
+      <span class="sep"></span><div class="tbi">•</div><div class="tbi">1.</div><div class="tbi">→</div><div class="tbi">←</div>
+      <span class="sep"></span>
+      <div class="entrada" style="width:190px;min-height:32px;padding:6px 10px;font-size:12px">Catálogo de medicamentos</div>
+      <div class="entrada" style="width:180px;min-height:32px;padding:6px 10px;font-size:12px">Insertar indicación</div>
+    </div>
+    <div style="display:flex;min-height:480px">
+      <div style="flex:0 0 268px;background:#fff;border-right:1px solid var(--borde)">
+        <div style="display:flex;border-bottom:1px solid var(--borde)">
+          <div style="flex:1;padding:11px 8px;text-align:center;font-size:13px;font-weight:600;
+                      color:var(--azul);border-bottom:2px solid var(--azul)">MEDICAMENTOS</div>
+          <div style="flex:1;padding:11px 8px;text-align:center;font-size:13px;color:var(--tenue)">DISEÑO</div>
+        </div>
+        <div style="padding:12px 12px 6px">
+          <div class="campo"><label>Buscar medicamento</label>
+            <div class="entrada lleno" style="min-height:34px;padding:7px 10px;font-size:13px">amoxi</div></div>
+          <div class="campo"><label>Sección (letra inicial)</label>
+            <div class="entrada" style="min-height:34px;padding:7px 10px;font-size:13px">Todas ▾</div></div>
+          <div style="color:var(--tenue);font-size:12px;margin:2px 0 8px;display:flex;justify-content:space-between">
+            <span>12 medicamentos</span><span style="color:var(--azul)">Ver todos</span></div>
+          <div class="nota" style="background:#E3F2FD;border-color:#1565C0;font-size:12px;margin-bottom:10px">
+            ✥ Arrastra el medicamento a la receta, o da doble clic.
+            Te preguntaré cuánto y cada cuánto.</div>
+        </div>
+
+        <div style="padding:0 10px 12px;max-height:300px;overflow:auto">
+          <div style="background:#ECEFF1;border-radius:4px;padding:6px 9px;font-weight:600;font-size:13px;margin:0 0 4px">AMOXICILINA</div>
+          <div style="display:flex;align-items:center;padding:5px 8px;border-radius:4px;background:#E8F0FE">
+            <div style="flex:1"><div style="font-weight:600;font-size:13px">AMOXIL</div>
+              <div style="font-size:13px">Cápsula 500 mg</div>
+              <div style="font-size:12px;color:var(--tenue)">1 Envase x 12</div></div>
+            <div style="color:var(--azul);font-size:22px;line-height:1">⊕</div></div>
+          <div style="display:flex;align-items:center;padding:5px 8px;border-radius:4px">
+            <div style="flex:1"><div style="font-weight:600;font-size:13px">AMOXIL</div>
+              <div style="font-size:13px">Suspensión 250 mg/5 ml</div>
+              <div style="font-size:12px;color:var(--tenue)">Frasco 60 ml</div></div>
+            <div style="color:var(--azul);font-size:22px;line-height:1">⊕</div></div>
+
+          <div style="background:#ECEFF1;border-radius:4px;padding:6px 9px;font-weight:600;font-size:13px;margin:10px 0 4px">AMOXICILINA + CLAVULÁNICO</div>
+          <div style="display:flex;align-items:center;padding:5px 8px;border-radius:4px">
+            <div style="flex:1"><div style="font-weight:600;font-size:13px">AUGMENTIN</div>
+              <div style="font-size:13px">Comprimido 875/125 mg</div>
+              <div style="font-size:12px;color:var(--tenue)">1 Envase x 14</div></div>
+            <div style="color:var(--azul);font-size:22px;line-height:1">⊕</div></div>
+        </div>
+      </div>
+      <div style="flex:1;background:#E8E8E8;padding:22px;overflow:auto">
+        <div class="hoja">
+          <div class="mem"><div class="n">Dr. Juan Pérez Martínez</div>
+            <div class="e">Medicina Interna</div>
+            <div class="c">Céd. Prof. 1234567 · Céd. Esp. 7654321</div></div>
+          <div class="rx">
+            <b>Nombre:</b> María Guadalupe Pérez Ramírez<br>
+            <b>Fecha:</b> 02/08/2026<br><b>Edad:</b> 41 años<br><br>
+            <b style="color:var(--azul);font-size:14px">Rx:</b><br><br>
+            <div style="padding-left:20px">
+              <div style="display:flex;gap:8px;margin-bottom:9px">
+                <span>1.</span><span><b>AMOXICILINA (AMOXIL) Cápsula 500 mg</b><br>
+                Tomar 1 cápsula cada 8 horas por 7 días, vía oral.</span></div>
+              <div style="display:flex;gap:8px;margin-bottom:9px">
+                <span>2.</span><span><b>PARACETAMOL (TEMPRA) Tabletas 500 mg</b><br>
+                Tomar 1 tableta cada 8 horas por 3 días, vía oral. Solo si hay fiebre.</span></div>
+            </div><br>
+            <b style="color:#0D47A1;text-decoration:underline">Indicaciones</b><br>
+            &nbsp;• Reposo relativo por 3 días.<br>&nbsp;• Tomar 2 litros de agua al día.
+          </div>
+        </div>
+      </div>
+      <div style="flex:0 0 250px;background:#fff;border-left:1px solid var(--borde);padding:16px">
+        <h3 style="margin:0 0 12px;font-size:15px">Datos de la receta</h3>
+        <div class="nota amb" style="margin-bottom:14px;font-size:12px">
+          ⚠ Falta tu cédula profesional. Captúrala en Configuración y saldrá en todas tus recetas.</div>
+        <div class="campo"><label>Fecha de la receta</label><div class="entrada lleno">02/08/2026</div></div>
+        <div class="campo"><label>Diagnóstico</label><div class="entrada" style="min-height:50px">Para localizar la receta después</div></div>
+        <div class="campo"><label>Notas internas</label><div class="entrada" style="min-height:50px">No se imprimen</div></div>
+        <label>Tamaño de la hoja</label><div style="font-weight:600">140 × 216 mm</div>
+        <label style="margin-top:14px">Acercamiento</label><div style="color:var(--tenue)">——●——</div>
+      </div>
+    </div>
+    <div class="acciones"><span class="btn txt">Cerrar</span><span class="btn sec">Guardar PDF</span>
+      <span class="btn sec">Guardar</span><span class="btn">Imprimir</span></div>
+  </div>
+</section>
+
+<!-- ============ IMPRESIÓN ============ -->
+<section class="pantalla" id="p-impresion">
+  <p class="rotulo">Al dar Imprimir. Lo que elija queda guardado para la próxima.</p>
+  <div class="centro">
+    <div class="modal">
+      <div class="cab">🖨 Imprimir receta
+        <div style="font-weight:400;font-size:13px;color:var(--tenue)">Lo que elijas se guarda para la próxima vez.</div></div>
+      <div style="padding:20px 24px">
+        <h3 style="margin:0 0 12px;font-size:15px">¿En qué papel vas a imprimir?</h3>
+        <div style="display:flex;gap:10px;margin-bottom:12px">
+          <i class="radio on" style="margin-top:3px"></i>
+          <div><b>Papel en blanco</b><div style="color:var(--tenue);font-size:13px">
+            MediConsulta imprime todo: tus datos, la receta y la firma. Usa una hoja normal.</div></div></div>
+        <div style="display:flex;gap:10px">
+          <i class="radio" style="margin-top:3px"></i>
+          <div><b>Papel con tu membrete ya impreso</b><div style="color:var(--tenue);font-size:13px">
+            Solo se imprime lo que escribiste, en el mismo lugar de siempre, sin encimarse con tu recetario.</div></div></div>
+        <hr style="border:0;border-top:1px solid var(--borde);margin:20px 0">
+        <h3 style="margin:0 0 10px;font-size:15px">Tamaño de la hoja</h3>
+        <span class="op"><i class="radio on"></i>Media carta</span>
+        <span class="op"><i class="radio"></i>Carta completa</span>
+        <span class="op"><i class="radio"></i>Personalizado</span>
+        <div style="color:var(--tenue);font-size:13px;margin-top:10px">Se imprimirá en <b>140 × 216 mm</b></div>
+      </div>
+      <div class="acciones"><span class="btn txt">Cancelar</span><span class="btn">Continuar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONFIGURACIÓN ============ -->
+<section class="pantalla" id="p-config">
+  <p class="rotulo">Cinco pestañas. Apariencia se aplica y guarda al instante.</p>
+  <div class="marco"><div class="barra"><span class="dot"></span> MediConsulta — Configuración</div>
+    <div style="display:flex;border-bottom:1px solid var(--borde);background:#fff;padding:0 16px">
+      <div style="padding:14px 18px;color:var(--tenue)">Mi perfil médico</div>
+      <div style="padding:14px 18px;border-bottom:2px solid var(--azul);color:var(--azul);font-weight:500">Apariencia</div>
+      <div style="padding:14px 18px;color:var(--tenue)">Recetas</div>
+      <div style="padding:14px 18px;color:var(--tenue)">Respaldos</div>
+      <div style="padding:14px 18px;color:var(--tenue)">Licencia</div>
+    </div>
+    <div class="zona">
+      <div class="tarjeta" style="max-width:780px">
+        <h3>Apariencia de la aplicación</h3><p class="desc">Los cambios se ven y se guardan al instante.</p>
+        <div class="campo"><label>Tema</label>
+          <div style="padding-top:6px">☀ Claro &nbsp;&nbsp;( ●—— )&nbsp;&nbsp; Oscuro ☾</div></div>
+        <div class="campo"><label>Color principal</label>
+          <div style="padding-top:4px">
+            <span class="swatch sel" style="background:#1565C0"></span><span class="swatch" style="background:#0D47A1"></span>
+            <span class="swatch" style="background:#0288D1"></span><span class="swatch" style="background:#00838F"></span>
+            <span class="swatch" style="background:#2E7D32"></span><span class="swatch" style="background:#1B5E20"></span>
+            <span class="swatch" style="background:#37474F"></span><span class="swatch" style="background:#283593"></span>
+            <span class="swatch" style="background:#4527A0"></span><span class="swatch" style="background:#880E4F"></span>
+            <span class="swatch" style="background:#BF360C"></span><span class="swatch" style="background:#EF6C00"></span>
+          </div>
+          <div style="margin-top:6px;color:var(--tenue);font-size:13px">Color elegido:
+            <span class="swatch" style="background:#1565C0;width:34px;height:34px;vertical-align:middle;margin-left:8px"></span></div>
+        </div>
+        <div class="campo"><label>Tamaño de letra</label>
+          <div style="padding-top:6px">——●——&nbsp;&nbsp;<b>14</b> px</div>
+          <div style="background:#eceff1;border-radius:8px;padding:12px 16px;margin-top:12px;max-width:480px">
+            <label style="margin:0">Vista previa</label>
+            <div style="font-weight:600;font-size:16px">Paciente: María Guadalupe Hernández Ramírez</div>
+            <div>Diagnóstico: Faringitis aguda. Tratamiento por 7 días.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INDICACIONES DEL MEDICAMENTO ============ -->
+<section class="pantalla" id="p-indicacion">
+  <p class="rotulo">Lo que se pregunta ANTES de que el medicamento entre a la receta. Sale al soltarlo sobre la hoja, al darle doble clic, o con el botón «+».</p>
+  <div class="marco" style="max-width:660px">
+    <div class="barra"><span class="dot"></span> Indicaciones del medicamento</div>
+    <div style="padding:16px 24px;border-bottom:1px solid var(--borde);display:flex;gap:14px;align-items:center">
+      <div style="font-size:28px;color:var(--azul)">℞</div>
+      <div><div style="font-size:17px;font-weight:600">AMOXICILINA</div>
+           <div style="color:var(--tenue);font-size:13px">AMOXIL · Cápsula 500 mg · 1 Envase x 12</div></div>
+    </div>
+    <div style="padding:20px 24px 12px">
+      <div style="margin-bottom:14px">¿Cómo debe tomarlo el paciente?</div>
+      <div style="display:flex;gap:16px">
+        <div class="campo" style="flex:1"><label>¿Cuánto? (dosis)</label>
+          <div class="entrada lleno">1 cápsula ▾</div></div>
+        <div class="campo" style="flex:1"><label>¿Cada cuánto?</label>
+          <div class="entrada lleno">cada 8 horas ▾</div></div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div class="campo" style="flex:1"><label>¿Por cuánto tiempo?</label>
+          <div class="entrada lleno">por 7 días ▾</div></div>
+        <div class="campo" style="flex:1"><label>Vía de administración</label>
+          <div class="entrada lleno">vía oral ▾</div></div>
+      </div>
+      <div class="campo"><label>Nota adicional (opcional)</label>
+        <div class="entrada">Ej: Con alimentos. No suspender antes de tiempo.</div></div>
+
+      <label>Así va a quedar en la receta</label>
+      <div class="nota ok" style="line-height:1.7">
+        <b>AMOXICILINA (AMOXIL) Cápsula 500 mg</b><br>
+        Tomar 1 cápsula cada 8 horas por 7 días, vía oral.</div>
+      <p style="color:var(--tenue);font-size:13px;margin:14px 0 0">
+        Las listas ya vienen llenas con lo más común, pero se puede escribir cualquier otra cosa en las cuatro.</p>
+    </div>
+    <div class="acciones"><span class="btn txt">Cancelar</span><span class="btn">Agregar a la receta</span></div>
+  </div>
+</section>
+
+<!-- ============ ESTUDIOS ============ -->
+<section class="pantalla" id="p-estudios">
+  <p class="rotulo">Pestaña del expediente. Aquí se guardan radiografías, laboratorios y fotos dentro del expediente, no como archivos sueltos.</p>
+  <div class="marco">
+    <div class="barra"><span class="dot"></span> MediConsulta — Expediente</div>
+    <div style="display:flex;border-bottom:1px solid var(--borde);padding:0 20px">
+      <div style="padding:12px 16px;font-size:13px;color:var(--tenue)">DATOS PERSONALES</div>
+      <div style="padding:12px 16px;font-size:13px;color:var(--tenue)">CONSULTAS</div>
+      <div style="padding:12px 16px;font-size:13px;color:var(--tenue)">RECETAS</div>
+      <div style="padding:12px 16px;font-size:13px;font-weight:600;color:var(--azul);border-bottom:2px solid var(--azul)">ESTUDIOS</div>
+      <div style="padding:12px 16px;font-size:13px;color:var(--tenue)">CITAS</div>
+    </div>
+    <div style="padding:20px 24px">
+      <span class="btn" style="margin-bottom:16px">+ Agregar estudio</span>
+      <div class="fila" style="display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--borde);border-radius:8px;margin-bottom:10px">
+        <div style="font-size:26px;color:var(--azul)">▣</div>
+        <div style="flex:1"><div style="font-weight:600">Ultrasonido pélvico y abdominal</div>
+          <div style="color:var(--tenue);font-size:13px">14/03/2021 · Ultrasonido</div>
+          <div style="color:var(--tenue);font-size:13px">Sin datos de litiasis. Vesícula de paredes finas.</div></div>
+        <span class="btn sec">Ver</span><span class="btn txt" style="color:#C62828">Eliminar</span>
+      </div>
+      <div class="fila" style="display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--borde);border-radius:8px">
+        <div style="font-size:26px;color:var(--azul)">▣</div>
+        <div style="flex:1"><div style="font-weight:600">Biometría hemática</div>
+          <div style="color:var(--tenue);font-size:13px">02/02/2021 · Laboratorio</div></div>
+        <span class="btn sec">Ver</span><span class="btn txt" style="color:#C62828">Eliminar</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AYUDA ============ -->
+<section class="pantalla" id="p-ayuda">
+  <p class="rotulo">Entrada propia en el menú. Antes el teléfono de soporte solo estaba dentro de la pantalla de Licencia.</p>
+  <div class="marco">
+    <div class="barra"><span class="dot"></span> MediConsulta — Ayuda y soporte</div>
+    <div style="display:flex;gap:20px;padding:20px 24px">
+      <div style="flex:1.5">
+        <h3 style="margin:0 0 4px;font-size:16px">Preguntas frecuentes</h3>
+        <p style="color:var(--tenue);font-size:13px;margin:0 0 12px">Toca una pregunta para ver la respuesta.</p>
+        <div style="border:1px solid var(--borde);border-radius:8px;padding:12px 14px;margin-bottom:9px;font-weight:600">
+          ▸ ¿Cómo hago una receta?</div>
+        <div style="border:1px solid var(--azul);border-radius:8px;padding:12px 14px;margin-bottom:9px">
+          <div style="font-weight:600;margin-bottom:6px">▾ ¿Cómo agrego un medicamento con su gramaje?</div>
+          <div style="font-size:14px;line-height:1.7;color:#37474F">
+            En el editor de recetas, a la izquierda, pestaña «Medicamentos». Ahí está su catálogo completo.
+            Búsquelo escribiendo parte del nombre, o recórralo por letra inicial. Para ponerlo en la receta
+            puede arrastrarlo hasta la hoja, darle doble clic, o usar el botón «+».</div></div>
+        <div style="border:1px solid var(--borde);border-radius:8px;padding:12px 14px;margin-bottom:9px;font-weight:600">
+          ▸ Uso recetario con membrete impreso. ¿Cómo lo configuro?</div>
+        <div style="border:1px solid var(--borde);border-radius:8px;padding:12px 14px;margin-bottom:9px;font-weight:600">
+          ▸ ¿Dónde está guardada mi información? ¿Cómo la respaldo?</div>
+        <div style="border:1px solid var(--borde);border-radius:8px;padding:12px 14px;margin-bottom:9px;font-weight:600">
+          ▸ Voy a cambiar de computadora. ¿Cómo me llevo todo?</div>
+        <div style="border:1px solid var(--borde);border-radius:8px;padding:12px 14px;font-weight:600">
+          ▸ Olvidé mi contraseña.</div>
+      </div>
+      <div style="flex:1">
+        <div style="border:1px solid var(--borde);border-radius:10px;padding:18px;margin-bottom:14px">
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">◎ ¿Necesita ayuda?</div>
+          <p style="color:var(--tenue);font-size:13px;margin:0 0 14px">Márqueme con confianza. No intente
+            reinstalar ni borrar archivos: su información está en un solo archivo y no quiero que se pierda.</p>
+          <div class="campo"><label>Su proveedor</label><div style="font-weight:600">Alan Daniel Méndez Jiménez</div></div>
+          <div class="campo"><label>Teléfono / WhatsApp</label><div style="font-weight:600">+52 466 160 36 82</div></div>
+          <div class="campo"><label>Correo</label><div style="font-weight:600">alannicanor62@gmail.com</div></div>
+          <span class="btn" style="width:100%;text-align:center;box-sizing:border-box">Escribirme por WhatsApp</span>
+        </div>
+        <div style="border:1px solid var(--borde);border-radius:10px;padding:18px">
+          <div style="font-size:16px;font-weight:600;margin-bottom:6px">Su información</div>
+          <p style="color:var(--tenue);font-size:13px;margin:0 0 10px">Todo lo que captura vive en un solo
+            archivo, mediconsulta.db. Cópielo a una USB y tiene su respaldo completo.</p>
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--tenue);margin-bottom:10px">
+            C:\Users\Consultorio\AppData\Roaming\MediConsulta</div>
+          <span class="btn sec">Abrir la carpeta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const pantallas = [
+  ["p-activacion","1 · Activación"], ["p-acceso","2 · Acceso"], ["p-asistente","3 · Asistente"],
+  ["p-pacientes","4 · Pacientes"], ["p-expediente","5 · Expediente"], ["p-consulta","6 · Consulta"],
+  ["p-receta","7 · Editor de recetas"], ["p-indicacion","8 · Indicaciones"],
+  ["p-impresion","9 · Imprimir"], ["p-estudios","10 · Estudios"],
+  ["p-config","11 · Configuración"], ["p-ayuda","12 · Ayuda"]
+];
+
+const nav = document.getElementById("nav");
+pantallas.forEach(([id, etiqueta], i) => {
+  const b = document.createElement("button");
+  b.textContent = etiqueta;
+  b.onclick = () => mostrar(id, b);
+  if (i === 0) b.className = "on";
+  nav.appendChild(b);
+});
+
+function mostrar(id, boton) {
+  document.querySelectorAll(".pantalla").forEach(s => s.classList.toggle("on", s.id === id));
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b === boton));
+  window.scrollTo(0, 0);
+}
+
+document.getElementById("p-activacion").classList.add("on");
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html><html lang=es><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KonCafe — Proyecto bien construido</title>
+<link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel=stylesheet>
+<style>
+:root{--bg:#1d1712;--card:#26201a;--ink:#f3e7d4;--mut:#a9987f;--acc:#caa14a;--acc2:#b5651d;--line:#3a3228;
+ --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background:
+ radial-gradient(900px 500px at 80% -10%,rgba(202,161,74,.14),transparent 60%),var(--bg);-webkit-text-size-adjust:100%}
+.wrap{max-width:940px;margin:0 auto;padding:34px 20px 60px}
+.brand{font-family:var(--serif);font-weight:700;font-size:22px;display:flex;align-items:center;gap:10px}
+.bean{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#5a4326,#241a10);position:relative}
+.bean:after{content:"";position:absolute;inset:7px 13px;border-left:1.5px solid var(--acc);transform:rotate(20deg)}
+.kick{color:var(--acc);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:36px 0 10px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,7vw,50px);line-height:1.05;margin:0 0 14px}
+h1 .acc{color:var(--acc)}
+.lead{color:var(--mut);font-size:17px;max-width:38em;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;transition:.2s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--acc);transform:translateY(-3px)}
+.card .em{font-size:34px;margin-bottom:14px}
+.card h3{font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 6px}
+.card p{color:var(--mut);font-size:14px;line-height:1.5;margin:0 0 16px;flex:1}
+.card .go{color:var(--acc);font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.tag{background:rgba(202,161,74,.14);color:var(--acc);border:1px solid rgba(202,161,74,.3);border-radius:20px;padding:4px 11px;font-size:11.5px;font-weight:600}
+.pillrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:9px 15px;font-size:13px;color:var(--mut);display:flex;align-items:center;gap:8px}
+.pill b{color:var(--ink)}
+.foot{margin-top:44px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+.eicon{display:inline-block}
+</style></head><body>
+<div class=wrap>
+  <div class=brand><span class=bean></span> KonCafe</div>
+  <div class=kick>Prototipo · cómo se vería bien construido</div>
+  <h1>Tu app, <span class=acc>bien hecha</span><br>y hecha para el teléfono</h1>
+  <p class=lead>Este es un prototipo navegable de KonCafe construido con <b style="color:var(--ink)">buenas prácticas</b>: adaptable a cualquier pantalla, rápido, seguro por diseño y con tu propia identidad. Toca cada pieza para verla funcionar.</p>
+
+  <div class=cards>
+    <a class=card href="app-cliente.html">
+      <div class=em><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div>
+      <h3>App del cliente</h3>
+      <p>Menú, recompensas, pedir-y-recoger y seguimiento del pedido en vivo. Pestañas reales que funcionan en el teléfono.</p>
+      <div class=go>Abrir demo →</div>
+      <div class=tags><span class=tag>Adaptable</span><span class=tag>Lealtad</span><span class=tag>Pago móvil</span></div>
+    </a>
+    <a class=card href="kiosko.html">
+      <div class=em><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
+      <h3>Kiosko de autoservicio</h3>
+      <p>Pantalla táctil para ordenar en tienda: categorías, carrito, para-recoger o en-mesa, y cobro.</p>
+      <div class=go>Abrir demo →</div>
+      <div class=tags><span class=tag>Táctil</span><span class=tag>POS</span><span class=tag>En tienda</span></div>
+    </a>
+    <a class=card href="dashboard.html">
+      <div class=em><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M4 20V11"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></div>
+      <h3>Panel del manager</h3>
+      <p>Ventas por hora, más vendidos, inventario con alertas y corte de caja que cuadra. Todo en tiempo real.</p>
+      <div class=go>Abrir demo →</div>
+      <div class=tags><span class=tag>Métricas</span><span class=tag>Inventario</span><span class=tag>Caja</span></div>
+    </a>
+  </div>
+
+  <div class=pillrow>
+    <div class=pill><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> <b>Seguro por diseño</b> · datos privados</div>
+    <div class=pill><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><rect x="3" y="4" width="13" height="10" rx="1.3"/><rect x="13" y="10" width="8" height="11" rx="1.3"/></svg> <b>100% adaptable</b> · móvil, tablet, kiosko</div>
+    <div class=pill><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg> <b>Rápido</b> · carga instantánea</div>
+    <div class=pill><svg class=eicon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="9" r="1"/><circle cx="15" cy="8" r="1"/><circle cx="16" cy="13" r="1"/><path d="M12 21a3 3 0 0 1 0-6 2 2 0 0 0 0-4"/></svg> <b>Tu marca</b> · identidad propia</div>
+  </div>
+
+  <div class=foot>Prototipo de referencia · Proyecto KonCafe · Alan Daniel Méndez Jiménez · 466 160 3682</div>
+</div>
+</body></html>
