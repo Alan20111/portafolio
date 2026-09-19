@@ -40,7 +40,7 @@ h3{font-family:var(--font-text);font-weight:500;color:var(--white)}
 html{color-scheme:light}
 body{background:#fff;color:#1c1d22}
 h1,h2{color:#08080a}
-.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.6in .65in .5in;display:flex;flex-direction:column;gap:.2in;background:#fff}
+.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.5in .6in .45in;display:flex;flex-direction:column;gap:.16in;background:#fff}
 .cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid #1c1d22;padding-bottom:14px}
 .cab .k{font-size:9pt;letter-spacing:-.01em;text-transform:uppercase;color:var(--copper);font-weight:600}
 .cab h1{font-size:26pt;letter-spacing:.01em;line-height:1.05;margin-top:6px;font-weight:400}
@@ -49,10 +49,11 @@ h1,h2{color:#08080a}
 .cab .yo b{display:block;color:#08080a;font-size:10.5pt;font-weight:500}
 .estado-pdf{display:inline-block;font-size:8pt;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid;margin-top:8px;background:transparent!important}
 .resumen{font-size:12pt;line-height:1.38;letter-spacing:-.01em;color:#1c1d22;text-wrap:pretty}
+.img-pdf{width:100%;height:1.7in;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #d6d6d6}
 .tres{display:grid;grid-template-columns:1fr;gap:12px}
 .bloque{border-top:1px solid #d6d6d6;padding-top:8px;break-inside:avoid}
 .bloque h2{font-family:var(--font-text);font-size:8.5pt;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:5px;font-weight:600;color:var(--copper)}
-.bloque ul{padding-left:16px;font-size:10pt;line-height:1.42;color:#2e3038;display:grid;gap:3px}
+.bloque ul{padding-left:16px;font-size:9.6pt;line-height:1.38;color:#2e3038;display:grid;gap:3px}
 .stack-pdf{display:flex;flex-wrap:wrap;gap:5px}
 .stack-pdf span{font-size:8pt;border:1px solid #c7c9d1;border-radius:9999px;padding:3px 9px;color:#5e616e}
 .pie{margin-top:auto;border-top:1px solid #d6d6d6;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9pt;color:#5e616e}
@@ -77,6 +78,7 @@ h1,h2{color:#08080a}
     <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
   </header>
   <p class="resumen">Plataforma web + app Android para llevar calificaciones, asistencia y actas bajo la Nueva Escuela Mexicana, con IA para calificar y planear.</p>
+  <img class="img-pdf" src="../img/casos/evaluafacil.jpg" alt="Pantalla de Evalúa Fácil">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul><li>Los docentes llevaban calificaciones, listas y actas en Excel y cuadernos; el sistema institucional es rígido y no ayuda en el día a día.</li><li>Los alumnos de bachillerato muchas veces no tienen correo electrónico, así que las plataformas típicas no les sirven.</li><li>Calificar entregables, redactar planeaciones y armar exámenes consume horas fuera del aula.</li></ul></section>
     <section class="bloque s"><h2>La solución</h2><ul><li>Plataforma web (React + Firebase) y app Android con la misma cuenta. Los alumnos entran sin correo: usuario generado, QR o código de 6 caracteres.</li><li>Alta masiva desde Excel, asistencia desde el celular generada del horario, cuestionarios y exámenes con gráficas por reactivo, banco de reactivos y rúbricas.</li><li>IA con créditos prepagados: califica entregables con rúbrica, genera reactivos, planeaciones didácticas y diagnósticos de grupo.</li><li>Cierre de parcial en una acción (reversible), copia de asignatura para el siguiente ciclo y exportación a Excel y PDF listos para entregar.</li></ul></section>

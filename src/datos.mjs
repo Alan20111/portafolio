@@ -262,10 +262,10 @@ export const casos = [
     stack: ['Java 17', 'JavaFX', 'Kotlin / Android', 'Firebase Firestore', 'Firebase Auth', 'NFC'],
     url: 'https://github.com/Alan20111/GymMachine',
     demo: {
-      titulo: 'GymMachine · app del miembro',
-      descripcion: 'Wireframe interactivo de las vistas de la app (JavaFX/FXML) para recorrer el flujo del miembro.',
+      titulo: 'GymMachine · handoff técnico',
+      descripcion: 'Especificación navegable de las 9 vistas de la app del miembro: tokens de diseño, layout y código FXML de cada pantalla.',
       url: 'demos/gymmachine/',
-      tipo: 'Wireframe interactivo',
+      tipo: 'Documentación navegable',
       credenciales: null,
     },
   },

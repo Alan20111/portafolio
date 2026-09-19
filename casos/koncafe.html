@@ -40,7 +40,7 @@ h3{font-family:var(--font-text);font-weight:500;color:var(--white)}
 html{color-scheme:light}
 body{background:#fff;color:#1c1d22}
 h1,h2{color:#08080a}
-.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.6in .65in .5in;display:flex;flex-direction:column;gap:.2in;background:#fff}
+.hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.5in .6in .45in;display:flex;flex-direction:column;gap:.16in;background:#fff}
 .cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid #1c1d22;padding-bottom:14px}
 .cab .k{font-size:9pt;letter-spacing:-.01em;text-transform:uppercase;color:var(--copper);font-weight:600}
 .cab h1{font-size:26pt;letter-spacing:.01em;line-height:1.05;margin-top:6px;font-weight:400}
@@ -49,10 +49,11 @@ h1,h2{color:#08080a}
 .cab .yo b{display:block;color:#08080a;font-size:10.5pt;font-weight:500}
 .estado-pdf{display:inline-block;font-size:8pt;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid;margin-top:8px;background:transparent!important}
 .resumen{font-size:12pt;line-height:1.38;letter-spacing:-.01em;color:#1c1d22;text-wrap:pretty}
+.img-pdf{width:100%;height:1.7in;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #d6d6d6}
 .tres{display:grid;grid-template-columns:1fr;gap:12px}
 .bloque{border-top:1px solid #d6d6d6;padding-top:8px;break-inside:avoid}
 .bloque h2{font-family:var(--font-text);font-size:8.5pt;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:5px;font-weight:600;color:var(--copper)}
-.bloque ul{padding-left:16px;font-size:10pt;line-height:1.42;color:#2e3038;display:grid;gap:3px}
+.bloque ul{padding-left:16px;font-size:9.6pt;line-height:1.38;color:#2e3038;display:grid;gap:3px}
 .stack-pdf{display:flex;flex-wrap:wrap;gap:5px}
 .stack-pdf span{font-size:8pt;border:1px solid #c7c9d1;border-radius:9999px;padding:3px 9px;color:#5e616e}
 .pie{margin-top:auto;border-top:1px solid #d6d6d6;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9pt;color:#5e616e}
@@ -77,6 +78,7 @@ h1,h2{color:#08080a}
     <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
   </header>
   <p class="resumen">Auditoría de seguridad de una app existente hecha por terceros, corrección de lo crítico y plan para evolucionarla por versiones.</p>
+  <img class="img-pdf" src="../img/casos/koncafe.jpg" alt="Pantalla de KonCafe">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul><li>La app de clientes y punto de venta (hecha por otro proveedor) exponía la base de clientes completa a cualquiera en internet.</li><li>Cualquiera podía inyectar pedidos sin cuenta y el PIN del personal estaba en claro.</li><li>El dueño no sabía qué tan grave era ni por dónde empezar.</li></ul></section>
     <section class="bloque s"><h2>La solución</h2><ul><li>Pentest de caja negra autorizado (13–14 sep 2026): pruebas activas no destructivas sobre Firestore, Auth, Storage, cabeceras y análisis del código publicado.</li><li>Informe con severidades y evidencia, runbook de corrección paso a paso y reglas de base de datos listas para desplegar.</li><li>Dashboard con las ventas y clientes reconstruidos desde los datos expuestos, para dimensionar el impacto con sus propios números.</li><li>Plan por versiones: base segura → cobros blindados → app estable → nueva imagen → pedir-y-recoger con pago móvil. Cada versión se entrega funcionando.</li></ul></section>

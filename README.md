@@ -26,7 +26,8 @@ index.html            página principal (generada)
 casos/<slug>.html     caso de estudio imprimible (generado)
 casos/pdf/*.pdf       PDF de 1 página por caso (generado)
 demos/                prototipos autocontenidos hospedados aquí (KonCafe, MediConsulta, GymMachine)
-img/alan.jpg          ← PON AQUÍ tu foto (cuadrada, ≥600 px). Mientras no exista, usa el avatar de GitHub.
+img/alan.jpg          tu foto (hoy es el avatar de GitHub, 460 px; se muestra a 220 px). Sustitúyela por una de ≥600 px cuadrada cuando quieras.
+img/casos/<slug>.jpg  imagen representativa de cada caso (./src/capturar.sh las regenera desde las demos)
 img/og.png            imagen para WhatsApp/redes (1200×630)
 src/datos.mjs         ← contenido
 src/build.mjs         generador

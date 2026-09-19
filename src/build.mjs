@@ -36,6 +36,8 @@ const tarjetaCaso = (c) => {
   const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
   return `
 <article class="caso" data-estado="${c.estado}" data-sector="${esc(c.sector)}" id="caso-${c.slug}">
+  <img class="caso-img" src="img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}" loading="lazy" width="1000" height="625">
+  <div class="caso-body">
   <div class="caso-top">
     <div><h3>${esc(c.nombre)}</h3><div class="cli">${esc(c.cliente)} · ${esc(c.fecha)}</div></div>
     <span class="estado ${e.cls}">${esc(c.estadoTexto)}</span>
@@ -52,6 +54,7 @@ const tarjetaCaso = (c) => {
     <a class="btn btn-accent btn-sm" href="casos/pdf/${nombrePdf(c)}" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="${c.slug}">${ico.pdf} PDF de 1 página</a>
     ${c.demo ? `<a class="btn btn-sm" href="#demo-${c.slug}" data-track="caso_demo" data-caso="${c.slug}">${ico.ext} Ver demo</a>` : ''}
     ${c.url ? `<a class="btn btn-sm" href="${esc(c.url)}" target="_blank" rel="noopener" data-track="caso_sitio" data-caso="${c.slug}">${ico.ext} Sitio</a>` : ''}
+  </div>
   </div>
 </article>`;
 };
@@ -71,6 +74,8 @@ const tarjetaDemo = (c) => {
       : `<div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>`;
   return `
 <article class="demo" id="demo-${c.slug}">
+  <img class="demo-img" src="img/casos/${c.slug}.jpg" alt="" loading="lazy" width="1000" height="625">
+  <div class="demo-body">
   <span class="tipo">${esc(d.tipo)}</span>
   <h3>${esc(d.titulo)}</h3>
   <p>${esc(d.descripcion)}</p>
@@ -78,6 +83,7 @@ const tarjetaDemo = (c) => {
   <div class="demo-acc">
     <a class="btn btn-accent btn-sm" href="${esc(d.url)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}">${ico.ext} Abrir demo</a>
     ${d.urlPanel ? `<a class="btn btn-sm" href="${esc(d.urlPanel)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}-panel">${ico.ext} Abrir panel</a>` : ''}
+  </div>
   </div>
 </article>`;
 };
@@ -220,7 +226,7 @@ ${fuentesHead}
       </div>
     </div>
     <div class="foto">
-      <img src="img/alan.jpg" width="600" height="600" alt="Alan Méndez, desarrollador de software" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
+      <img src="img/alan.jpg" width="460" height="460" alt="Alan Méndez, desarrollador de software" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
       <div class="tag"><b>${esc(sitio.nombreCompleto)}</b>Desarrollador full-stack</div>
     </div>
   </div>
@@ -259,7 +265,7 @@ ${fuentesHead}
 
 <section id="sobre-mi">
   <div class="wrap sobre">
-    <img src="img/alan.jpg" width="640" height="800" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
+    <img src="img/alan.jpg" width="460" height="460" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
     <div>
       <div class="sec-head"><h2>Hola, soy Alan Méndez.</h2></div>
       <p>Desarrollo software para negocios de Celaya y la región desde 2024. Estudio Ingeniería en Sistemas Computacionales en el TecNM Celaya y he entregado sistemas que hoy usan un consultorio médico, un bazar, y cientos de docentes.</p>
@@ -354,6 +360,7 @@ ${fuentesHead}
     <div class="yo"><b>${esc(sitio.nombreCompleto)}</b>Software a medida · Celaya, Gto.<br>${esc(sitio.telefonoBonito)}<br>${sitio.email}</div>
   </header>
   <p class="resumen">${esc(c.resumen)}</p>
+  <img class="img-pdf" src="../img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul>${li(c.problema)}</ul></section>
     <section class="bloque s"><h2>La solución</h2><ul>${li(c.solucion)}</ul></section>
