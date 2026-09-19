@@ -114,7 +114,7 @@ section{padding:112px 0}
 .casos{display:grid;gap:16px}
 @media(min-width:820px){.casos{grid-template-columns:repeat(2,1fr)}}
 .caso{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.caso-img,.demo-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--panel);border-bottom:1px solid var(--hair)}
+.caso-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--panel);border-bottom:1px solid var(--hair)}
 .caso-body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
 .caso-link{display:block;overflow:hidden}
 .caso-link img{transition:transform .35s ease}
@@ -142,19 +142,12 @@ section{padding:112px 0}
 .stack{display:flex;flex-wrap:wrap;gap:6px}
 .stack span{font-size:12px;border:1px solid var(--hair2);color:var(--mist);border-radius:var(--r-pill);padding:4px 10px}
 .caso-acc{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
-.caso-acc .btn,.demo-acc .btn{flex:1 1 auto;min-width:0}
+.caso-acc .btn{flex:1 1 auto;min-width:0}
+.caso-acc .btn-ghost{flex:0 0 auto;padding-inline:12px}
 .link-mas{font-size:14px;font-weight:500;color:var(--copper);align-self:flex-start;border-bottom:1px solid transparent}
 .link-mas:hover{border-bottom-color:var(--copper)}
 
-/* Demos */
-.demos{display:grid;gap:16px}
-@media(min-width:720px){.demos{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.demos{grid-template-columns:repeat(3,1fr)}}
-.demo{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.demo-body{padding:28px;display:flex;flex-direction:column;gap:14px;flex:1}
-.demo .tipo{font-size:13px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper)}
-.demo h3{font-size:20px;line-height:1.3;letter-spacing:-.02em}
-.demo p{color:var(--fog);font-size:15px;flex:1}
+/* Credenciales (página de caso) */
 .cred{border:1px solid var(--hair2);border-radius:var(--r-card);padding:12px 14px;font-size:14px;display:grid;gap:6px;background:var(--canvas)}
 .cred .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .cred code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--panel);color:var(--ivory);padding:2px 8px;border-radius:var(--r-sm)}
@@ -207,7 +200,7 @@ footer a{color:var(--copper)}
 .wa-float{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--cobalt);color:#fff;border-radius:var(--r-pill);padding:12px 20px 12px 14px;font-size:14px;font-weight:500}
 .wa-float:hover{background:var(--cobalt-hover)}
 .wa-float svg{width:22px;height:22px}
-@media(max-width:600px){.caso-body,.demo-body,.paso,form{padding:24px}.caso h3{font-size:24px}.caso-acc .btn,.demo-acc .btn{white-space:normal;text-align:center}}
+@media(max-width:600px){.caso-body,.paso,form{padding:24px}.caso h3{font-size:24px}.caso-acc .btn{white-space:normal;text-align:center}}
 @media(max-width:480px){.wa-float span{display:none}.wa-float{padding:14px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 `;

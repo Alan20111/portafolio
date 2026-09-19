@@ -133,7 +133,7 @@ section{padding:112px 0}
 .casos{display:grid;gap:16px}
 @media(min-width:820px){.casos{grid-template-columns:repeat(2,1fr)}}
 .caso{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.caso-img,.demo-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--panel);border-bottom:1px solid var(--hair)}
+.caso-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--panel);border-bottom:1px solid var(--hair)}
 .caso-body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
 .caso-link{display:block;overflow:hidden}
 .caso-link img{transition:transform .35s ease}
@@ -161,19 +161,12 @@ section{padding:112px 0}
 .stack{display:flex;flex-wrap:wrap;gap:6px}
 .stack span{font-size:12px;border:1px solid var(--hair2);color:var(--mist);border-radius:var(--r-pill);padding:4px 10px}
 .caso-acc{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
-.caso-acc .btn,.demo-acc .btn{flex:1 1 auto;min-width:0}
+.caso-acc .btn{flex:1 1 auto;min-width:0}
+.caso-acc .btn-ghost{flex:0 0 auto;padding-inline:12px}
 .link-mas{font-size:14px;font-weight:500;color:var(--copper);align-self:flex-start;border-bottom:1px solid transparent}
 .link-mas:hover{border-bottom-color:var(--copper)}
 
-/* Demos */
-.demos{display:grid;gap:16px}
-@media(min-width:720px){.demos{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.demos{grid-template-columns:repeat(3,1fr)}}
-.demo{background:var(--card);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.demo-body{padding:28px;display:flex;flex-direction:column;gap:14px;flex:1}
-.demo .tipo{font-size:13px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper)}
-.demo h3{font-size:20px;line-height:1.3;letter-spacing:-.02em}
-.demo p{color:var(--fog);font-size:15px;flex:1}
+/* Credenciales (página de caso) */
 .cred{border:1px solid var(--hair2);border-radius:var(--r-card);padding:12px 14px;font-size:14px;display:grid;gap:6px;background:var(--canvas)}
 .cred .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .cred code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--panel);color:var(--ivory);padding:2px 8px;border-radius:var(--r-sm)}
@@ -226,7 +219,7 @@ footer a{color:var(--copper)}
 .wa-float{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--cobalt);color:#fff;border-radius:var(--r-pill);padding:12px 20px 12px 14px;font-size:14px;font-weight:500}
 .wa-float:hover{background:var(--cobalt-hover)}
 .wa-float svg{width:22px;height:22px}
-@media(max-width:600px){.caso-body,.demo-body,.paso,form{padding:24px}.caso h3{font-size:24px}.caso-acc .btn,.demo-acc .btn{white-space:normal;text-align:center}}
+@media(max-width:600px){.caso-body,.paso,form{padding:24px}.caso h3{font-size:24px}.caso-acc .btn{white-space:normal;text-align:center}}
 @media(max-width:480px){.wa-float span{display:none}.wa-float{padding:14px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -238,7 +231,6 @@ footer a{color:var(--copper)}
     <a class="brand" href="#"><span class="dot"></span>Alan Méndez</a>
     <ul>
       <li><a href="#casos">Casos</a></li>
-      <li><a href="#demos">Demos</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -262,7 +254,7 @@ footer a{color:var(--copper)}
       </div>
       <div class="proof">
         <span><b>3</b> sistemas en producción</span>
-        <span><b>7</b> casos documentados</span>
+        <span><b>7</b> demos que puedes probar</span>
         <span><b>MVP</b> en 2 semanas</span>
         <span><b>0</b> agencias de por medio</span>
       </div>
@@ -285,9 +277,10 @@ footer a{color:var(--copper)}
   </div>
 </section>
 
+<span id="demos"></span>
 <section id="casos">
   <div class="wrap">
-    <div class="sec-head"><h2>Casos de estudio.</h2><p>Negocios reales, problemas reales. Entra a cada uno para ver el antes, el después y la demo.</p></div>
+    <div class="sec-head"><h2>Casos de estudio.</h2><p>Negocios reales, problemas reales. Lee el caso o entra directo a la demo y juega con ella desde tu celular.</p></div>
     <div class="filtros" role="group" aria-label="Filtrar casos">
       <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
       <button class="chip" data-f="produccion" aria-pressed="false">En producción</button>
@@ -307,7 +300,8 @@ footer a{color:var(--copper)}
     <p class="resumen">Plataforma web + app Android para llevar calificaciones, asistencia y actas bajo la Nueva Escuela Mexicana, con IA para calificar y planear.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/evaluafacil" data-track="caso_abrir" data-caso="evaluafacil">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-Evalúa-Fácil.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="https://www.evaluafacil.mx" target="_blank" rel="noopener" data-track="demo_click" data-demo="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-Evalúa-Fácil.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="evaluafacil" aria-label="PDF de 1 página de Evalúa Fácil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article>
@@ -323,7 +317,8 @@ footer a{color:var(--copper)}
     <p class="resumen">Catálogo web donde las clientas apartan y un panel desde el celular para pedidos, existencias, cierre del día y publicaciones para WhatsApp.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/bazargirl" data-track="caso_abrir" data-caso="bazargirl">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-The-Bazar-Girl.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="https://bazargirl.pages.dev/demo/" target="_blank" rel="noopener" data-track="demo_click" data-demo="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-The-Bazar-Girl.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="bazargirl" aria-label="PDF de 1 página de The Bazar Girl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article>
@@ -339,7 +334,8 @@ footer a{color:var(--copper)}
     <p class="resumen">Programa de escritorio para Windows: pacientes, consultas, recetas con membrete, agenda y respaldos automáticos. Sin internet, sin mensualidades.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/mediconsulta" data-track="caso_abrir" data-caso="mediconsulta">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-MediConsulta.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="mediconsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="demos/mediconsulta/" target="_blank" rel="noopener" data-track="demo_click" data-demo="mediconsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-MediConsulta.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="mediconsulta" aria-label="PDF de 1 página de MediConsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article>
@@ -355,7 +351,8 @@ footer a{color:var(--copper)}
     <p class="resumen">Sitio con agenda 24/7, anticipo en línea, cuenta de clienta con lealtad y referidas, y panel que responde &quot;¿cuánto me quedó?&quot;.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/aglaia" data-track="caso_abrir" data-caso="aglaia">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-AGLAIA-Nail-Studio.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="https://aglaianails.pages.dev" target="_blank" rel="noopener" data-track="demo_click" data-demo="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-AGLAIA-Nail-Studio.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="aglaia" aria-label="PDF de 1 página de AGLAIA Nail Studio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article>
@@ -371,7 +368,8 @@ footer a{color:var(--copper)}
     <p class="resumen">Tienda en línea con tallas, meses sin intereses, envíos cotizados al momento y panel de ventas, inventario y utilidad real.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/rawssport" data-track="caso_abrir" data-caso="rawssport">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-Raws-Sport.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="https://rawssport.pages.dev" target="_blank" rel="noopener" data-track="demo_click" data-demo="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-Raws-Sport.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="rawssport" aria-label="PDF de 1 página de Raws Sport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article>
@@ -387,7 +385,8 @@ footer a{color:var(--copper)}
     <p class="resumen">Auditoría de seguridad de una app existente hecha por terceros, corrección de lo crítico y plan para evolucionarla por versiones.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/koncafe" data-track="caso_abrir" data-caso="koncafe">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-KonCafe.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="koncafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="demos/koncafe/" target="_blank" rel="noopener" data-track="demo_click" data-demo="koncafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-KonCafe.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="koncafe" aria-label="PDF de 1 página de KonCafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article>
@@ -403,114 +402,15 @@ footer a{color:var(--copper)}
     <p class="resumen">Sistema de gestión de gimnasio: panel de escritorio para el dueño y app Android para administrador, entrenador y miembro, sincronizados en tiempo real.</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/gymmachine" data-track="caso_abrir" data-caso="gymmachine">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-GymMachine.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> PDF</a>
+      <a class="btn btn-sm" href="demos/gymmachine/" target="_blank" rel="noopener" data-track="demo_click" data-demo="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Probar demo</a>
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/Caso-GymMachine.pdf" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="gymmachine" aria-label="PDF de 1 página de GymMachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg></a>
     </div>
   </div>
 </article></div>
   </div>
 </section>
 
-<section class="alt" id="demos">
-  <div class="wrap">
-    <div class="sec-head"><h2>Showroom de demos.</h2><p>Juega con la interfaz en vivo desde tu celular. Donde hace falta contraseña, la tienes aquí lista para copiar.</p></div>
-    <div class="demos">
-<article class="demo" id="demo-evaluafacil">
-  <img class="demo-img" src="img/casos/evaluafacil.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Producto en producción</span>
-  <h3>Evalúa Fácil</h3>
-  <p>Plataforma completa (docente y alumno). Requiere cuenta: pídeme una cuenta de prueba por WhatsApp y te la activo al momento.</p>
-  <div class="cred"><div class="row"><span>Cuenta de prueba</span><a href="https://wa.me/524661603682?text=Hola%20Alan%2C%20quiero%20una%20cuenta%20de%20prueba%20de%20Eval%C3%BAa%20F%C3%A1cil" target="_blank" rel="noopener" data-track="demo_solicitar" data-demo="evaluafacil" style="color:var(--accent);font-weight:700">Pedir por WhatsApp →</a></div></div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="https://www.evaluafacil.mx" target="_blank" rel="noopener" data-track="demo_click" data-demo="evaluafacil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    
-  </div>
-  </div>
-</article>
-<article class="demo" id="demo-bazargirl">
-  <img class="demo-img" src="img/casos/bazargirl.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Catálogo demo</span>
-  <h3>Bazar Girl · catálogo</h3>
-  <p>Catálogo de muestra con fotos y tonos reales. El panel de la dueña es privado; te lo muestro en llamada.</p>
-  <div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="https://bazargirl.pages.dev/demo/" target="_blank" rel="noopener" data-track="demo_click" data-demo="bazargirl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    
-  </div>
-  </div>
-</article>
-<article class="demo" id="demo-mediconsulta">
-  <img class="demo-img" src="img/casos/mediconsulta.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Recorrido interactivo</span>
-  <h3>MediConsulta · recorrido de pantallas</h3>
-  <p>Maqueta de revisión con las pantallas reales del programa (activación, pacientes, consulta, receta). Datos de ejemplo.</p>
-  <div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="demos/mediconsulta/" target="_blank" rel="noopener" data-track="demo_click" data-demo="mediconsulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    
-  </div>
-  </div>
-</article>
-<article class="demo" id="demo-aglaia">
-  <img class="demo-img" src="img/casos/aglaia.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Maqueta navegable</span>
-  <h3>AGLAIA · sitio + panel</h3>
-  <p>Agenda una cita de prueba, paga el anticipo simulado y luego entra al panel de la dueña.</p>
-  <div class="cred" aria-label="Credenciales de prueba">
-        
-        <div class="row"><span>PIN del panel</span><span><code>1234</code> <button type="button" data-copy="1234">Copiar</button></span></div>
-        <small>Es vista previa: cualquier PIN entra.</small>
-      </div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="https://aglaianails.pages.dev" target="_blank" rel="noopener" data-track="demo_click" data-demo="aglaia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    <a class="btn btn-sm" href="https://aglaianails.pages.dev/admin" target="_blank" rel="noopener" data-track="demo_click" data-demo="aglaia-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir panel</a>
-  </div>
-  </div>
-</article>
-<article class="demo" id="demo-rawssport">
-  <img class="demo-img" src="img/casos/rawssport.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Maqueta navegable</span>
-  <h3>Raws Sport · tienda + panel</h3>
-  <p>Recorre catálogo, ficha, carrito y checkout simulado; luego abre el panel con ventas, inventario y contabilidad.</p>
-  <div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="https://rawssport.pages.dev" target="_blank" rel="noopener" data-track="demo_click" data-demo="rawssport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    <a class="btn btn-sm" href="https://rawssport.pages.dev/admin/" target="_blank" rel="noopener" data-track="demo_click" data-demo="rawssport-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir panel</a>
-  </div>
-  </div>
-</article>
-<article class="demo" id="demo-koncafe">
-  <img class="demo-img" src="img/casos/koncafe.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Prototipo navegable</span>
-  <h3>KonCafe · prototipo</h3>
-  <p>App del cliente, kiosko de autoservicio y panel del gerente, como se construirían bien. Pestañas reales que funcionan en el teléfono.</p>
-  <div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="demos/koncafe/" target="_blank" rel="noopener" data-track="demo_click" data-demo="koncafe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    
-  </div>
-  </div>
-</article>
-<article class="demo" id="demo-gymmachine">
-  <img class="demo-img" src="img/casos/gymmachine.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">Documentación navegable</span>
-  <h3>GymMachine · handoff técnico</h3>
-  <p>Especificación navegable de las 9 vistas de la app del miembro: tokens de diseño, layout y código FXML de cada pantalla.</p>
-  <div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="demos/gymmachine/" target="_blank" rel="noopener" data-track="demo_click" data-demo="gymmachine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg> Abrir demo</a>
-    
-  </div>
-  </div>
-</article></div>
-  </div>
-</section>
+
 
 <section id="sobre-mi">
   <div class="wrap sobre">

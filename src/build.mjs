@@ -48,37 +48,9 @@ const tarjetaCaso = (c) => {
     <p class="resumen">${esc(c.resumen)}</p>
     <div class="caso-acc">
       <a class="btn btn-sm" href="casos/${c.slug}" data-track="caso_abrir" data-caso="${c.slug}">Ver el caso →</a>
-      <a class="btn btn-sm btn-ghost" href="casos/pdf/${nombrePdf(c)}" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="${c.slug}">${ico.pdf} PDF</a>
+      ${c.demo ? `<a class="btn btn-sm" href="${esc(c.demo.url)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}">${ico.ext} Probar demo</a>` : ''}
+      <a class="btn btn-sm btn-ghost" href="casos/pdf/${nombrePdf(c)}" target="_blank" rel="noopener" data-track="caso_pdf" data-caso="${c.slug}" aria-label="PDF de 1 página de ${esc(c.nombre)}">${ico.pdf}</a>
     </div>
-  </div>
-</article>`;
-};
-
-/* ---------- Tarjeta de demo ---------- */
-const tarjetaDemo = (c) => {
-  const d = c.demo;
-  if (!d) return '';
-  const cred = d.credenciales
-    ? `<div class="cred" aria-label="Credenciales de prueba">
-        ${d.credenciales.usuario ? `<div class="row"><span>Usuario</span><span><code>${esc(d.credenciales.usuario)}</code> <button type="button" data-copy="${esc(d.credenciales.usuario)}">Copiar</button></span></div>` : ''}
-        <div class="row"><span>${esc(d.credenciales.etiqueta || 'Contraseña')}</span><span><code>${esc(d.credenciales.clave)}</code> <button type="button" data-copy="${esc(d.credenciales.clave)}">Copiar</button></span></div>
-        ${d.credenciales.nota ? `<small>${esc(d.credenciales.nota)}</small>` : ''}
-      </div>`
-    : d.solicitar
-      ? `<div class="cred"><div class="row"><span>Cuenta de prueba</span><a href="${wa(`Hola Alan, quiero una cuenta de prueba de ${d.titulo}`)}" target="_blank" rel="noopener" data-track="demo_solicitar" data-demo="${c.slug}" style="color:var(--accent);font-weight:700">Pedir por WhatsApp →</a></div></div>`
-      : `<div class="cred"><small>Sin registro: entra y juega con la interfaz.</small></div>`;
-  return `
-<article class="demo" id="demo-${c.slug}">
-  <img class="demo-img" src="img/casos/${c.slug}.jpg" alt="" loading="lazy" width="1000" height="625">
-  <div class="demo-body">
-  <span class="tipo">${esc(d.tipo)}</span>
-  <h3>${esc(d.titulo)}</h3>
-  <p>${esc(d.descripcion)}</p>
-  ${cred}
-  <div class="demo-acc">
-    <a class="btn btn-accent btn-sm" href="${esc(d.url)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}">${ico.ext} Abrir demo</a>
-    ${d.urlPanel ? `<a class="btn btn-sm" href="${esc(d.urlPanel)}" target="_blank" rel="noopener" data-track="demo_click" data-demo="${c.slug}-panel">${ico.ext} Abrir panel</a>` : ''}
-  </div>
   </div>
 </article>`;
 };
@@ -199,7 +171,6 @@ ${fuentesHead}
     <a class="brand" href="#"><span class="dot"></span>Alan Méndez</a>
     <ul>
       <li><a href="#casos">Casos</a></li>
-      <li><a href="#demos">Demos</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -223,7 +194,7 @@ ${fuentesHead}
       </div>
       <div class="proof">
         <span><b>${casos.filter((c) => c.estado === 'produccion' || c.estado === 'entregado').length}</b> sistemas en producción</span>
-        <span><b>${casos.length}</b> casos documentados</span>
+        <span><b>${casos.filter((c) => c.demo).length}</b> demos que puedes probar</span>
         <span><b>MVP</b> en 2 semanas</span>
         <span><b>0</b> agencias de por medio</span>
       </div>
@@ -246,9 +217,10 @@ ${fuentesHead}
   </div>
 </section>
 
+<span id="demos"></span>
 <section id="casos">
   <div class="wrap">
-    <div class="sec-head"><h2>Casos de estudio.</h2><p>Negocios reales, problemas reales. Entra a cada uno para ver el antes, el después y la demo.</p></div>
+    <div class="sec-head"><h2>Casos de estudio.</h2><p>Negocios reales, problemas reales. Lee el caso o entra directo a la demo y juega con ella desde tu celular.</p></div>
     <div class="filtros" role="group" aria-label="Filtrar casos">
       <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
       <button class="chip" data-f="produccion" aria-pressed="false">En producción</button>
@@ -259,12 +231,7 @@ ${fuentesHead}
   </div>
 </section>
 
-<section class="alt" id="demos">
-  <div class="wrap">
-    <div class="sec-head"><h2>Showroom de demos.</h2><p>Juega con la interfaz en vivo desde tu celular. Donde hace falta contraseña, la tienes aquí lista para copiar.</p></div>
-    <div class="demos">${casos.map(tarjetaDemo).join('')}</div>
-  </div>
-</section>
+
 
 <section id="sobre-mi">
   <div class="wrap sobre">
@@ -361,7 +328,7 @@ const paginaCaso = (c, i) => {
 <nav class="nav" aria-label="Principal">
   <div class="wrap">
     <a class="brand" href="../"><span class="dot"></span>Alan Méndez</a>
-    <ul><li><a href="../#casos">Casos</a></li><li><a href="../#demos">Demos</a></li><li><a href="../#sobre-mi">Sobre mí</a></li><li><a href="../#contacto">Contacto</a></li></ul>
+    <ul><li><a href="../#casos">Casos</a></li><li><a href="../#sobre-mi">Sobre mí</a></li><li><a href="../#contacto">Contacto</a></li></ul>
     <div class="nav-acc">
       <button class="tema" type="button" id="tema" aria-label="Cambiar tema claro/oscuro" title="Tema claro / oscuro">${ico.sol}${ico.luna}</button>
       <a class="btn btn-wa btn-sm" href="${wa(`Hola Alan, vi el caso de ${c.nombre} y quiero algo parecido para mi negocio`)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="caso-${c.slug}">${ico.wa} Quiero algo así</a>
