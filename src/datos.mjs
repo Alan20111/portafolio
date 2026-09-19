@@ -5,7 +5,7 @@ export const sitio = {
   nombre: 'Alan Méndez',
   nombreCompleto: 'Alan Daniel Méndez Jiménez',
   titulo: 'Software a medida para negocios locales',
-  dominio: 'https://portafolio-ten-olive-50.vercel.app', // cambia por https://alanmendez.mx cuando conectes el dominio
+  dominio: 'https://alanmendez.vercel.app', // cuando compres alanmendez.dev: vercel domains add alanmendez.dev y cambia esto
   telefonoE164: '524661603682',
   telefonoBonito: '+52 466 160 3682',
   email: 'alannicanor62@gmail.com',

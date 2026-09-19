@@ -61,6 +61,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "portafolio-ten-olive-50.vercel.app"
+        }
+      ],
+      "destination": "https://alanmendez.vercel.app/:path*",
+      "permanent": true
+    },
+    {
       "source": "/demos",
       "destination": "/#casos",
       "permanent": false

@@ -1,9 +1,18 @@
 # Dominio, correo y SEO local
 
+## 0. Hoy
+El sitio vive en **https://alanmendez.vercel.app** (subdominio gratis de Vercel). El viejo `portafolio-ten-olive-50.vercel.app` redirige con 308.
+
 ## 1. Comprar el dominio
 Opciones baratas y sin sorpresas de renovación: **Cloudflare Registrar** (.com ≈ $220 MXN/año, ya lo usas
 para AGLAIA/Raws/Bazar) o **Registro.mx / Akky** para `.mx` (≈ $400–500 MXN/año).
-Sugerencias: `alanmendez.mx`, `alanmendez.dev`, `mendezsoftware.mx`.
+Sugerencia: **`alanmendez.dev`** (≈ US$12–15/año). Se puede comprar directo en Vercel (dashboard → Domains → Buy) o en Cloudflare Registrar; `.dev` obliga HTTPS, que Vercel ya da. Después, desde la carpeta del sitio:
+
+```bash
+vercel domains add alanmendez.dev
+```
+
+y cambias `sitio.dominio` en `src/datos.mjs`, corres `node src/build.mjs && ./src/generar-pdf.sh` y publicas.
 
 ## 2. Conectarlo a Vercel
 1. Vercel → proyecto `portafolio` → *Settings → Domains* → agrega `tudominio.mx` y `www.tudominio.mx`.
