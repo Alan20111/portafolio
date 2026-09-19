@@ -186,7 +186,7 @@ ${fuentesHead}
   <div class="wrap">
     <div>
       <span class="kicker">Software a medida · Celaya, Gto.</span>
-      <h1>Tu negocio, <em>sin cuellos de botella</em>.</h1>
+      <h1>Software que <em>trabaja por ti</em>.</h1>
       <p class="lead">Tiendas en línea, agendas de citas y paneles de ventas hechos para ti.</p>
       <div class="ctas">
         <a class="btn btn-wa" href="${wa()}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="hero">${ico.wa} Agendar demo</a>
@@ -209,7 +209,7 @@ ${fuentesHead}
   <div class="wrap">
     <div class="sec-head"><h2>Así trabajo.</h2><p>Primero lo que hace dinero, luego lo que ahorra tiempo, al final lo que da información.</p></div>
     <div class="pasos">
-      <div class="paso"><div class="n">1</div><h3>Diagnóstico por WhatsApp</h3><p>Me cuentas cómo vendes hoy. En una llamada de 20 minutos identificamos el cuello de botella y qué lo resuelve.</p></div>
+      <div class="paso"><div class="n">1</div><h3>Diagnóstico por WhatsApp</h3><p>Me cuentas cómo vendes hoy. En una llamada de 20 minutos identificamos qué te quita tiempo y cómo resolverlo.</p></div>
       <div class="paso"><div class="n">2</div><h3>Maqueta navegable</h3><p>Antes de cobrar un peso ves una maqueta con tu logo y tus productos: sabes exactamente qué vas a recibir.</p></div>
       <div class="paso"><div class="n">3</div><h3>MVP en 2 semanas</h3><p>Sale a producción lo que cobra o agenda. Después, entregas semanales hasta cerrar el alcance, y soporte directo conmigo.</p></div>
     </div>
@@ -371,7 +371,7 @@ const paginaCaso = (c, i) => {
   </section>
 
   <section class="wrap det-cta">
-    <h2>¿Tu negocio tiene un cuello de botella parecido?</h2>
+    <h2>¿Tu negocio necesita algo así?</h2>
     <p>Cuéntamelo por WhatsApp y te propongo cómo resolverlo. Sin compromiso.</p>
     <a class="btn btn-wa" href="${wa(`Hola Alan, vi el caso de ${c.nombre} y quiero algo parecido para mi negocio`)}" target="_blank" rel="noopener" data-track="whatsapp_click" data-origen="caso-cta-${c.slug}">${ico.wa} Agendar una demo</a>
     <a class="siguiente" href="${sig.slug}">Siguiente caso: ${esc(sig.nombre)} →</a>
