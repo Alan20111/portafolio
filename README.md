@@ -1,6 +1,6 @@
 # Portafolio comercial — Alan Méndez
 
-Sitio estático (HTML/CSS/JS sin framework ni build en el servidor; estilo "galería blanca" tipo Apple definido en `src/estilos.mjs`) para vender software a medida a
+Sitio estático (HTML/CSS/JS sin framework ni build en el servidor; sistema de estilo definido en `src/estilos.mjs`: síntesis de Mercury (canvas oscuro, cobalto), Slash (serif Playfair + cobre) y Apple (titular teñido, dos botones)) para vender software a medida a
 negocios locales y PyMEs. Se publica en Vercel desde el repo `Alan20111/portafolio` (rama `main`).
 
 **En vivo:** https://portafolio-ten-olive-50.vercel.app

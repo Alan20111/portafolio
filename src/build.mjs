@@ -4,7 +4,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sitio, casos, faq } from './datos.mjs';
-import { cssIndex, cssCaso } from './estilos.mjs';
+import { cssIndex, cssCaso, fuentesHead } from './estilos.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -178,8 +178,9 @@ const index = `<!DOCTYPE html>
 <meta property="og:image" content="${sitio.dominio}/img/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#171721">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+${fuentesHead}
 <link rel="apple-touch-icon" href="img/icon-180.png">
 <link rel="preload" as="image" href="img/alan.jpg" fetchpriority="high">
 <script type="application/ld+json">${jsonld}</script>
@@ -323,7 +324,7 @@ const index = `<!DOCTYPE html>
 /* ---------- Caso de estudio (1 página, imprimible) ---------- */
 const paginaCaso = (c) => {
   const e = ESTADOS[c.estado];
-  const colores = { 'e-prod': 'color:#03873a;border-color:#03aa49', 'e-prop': 'color:#ed6300;border-color:#ed6300', 'e-acad': 'color:#8668ff;border-color:#8668ff' };
+  const colores = { 'e-prod': 'color:#4f8a58;border-color:#8fb996', 'e-prop': 'color:#b0703f;border-color:#cc9166', 'e-acad': 'color:#5e616e;border-color:#9194a1' };
   const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
   return `<!DOCTYPE html>
 <html lang="es-MX">
@@ -337,6 +338,7 @@ const paginaCaso = (c) => {
 <meta property="og:description" content="${esc(c.resumen)}">
 <meta property="og:image" content="${sitio.dominio}/img/og.png">
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+${fuentesHead}
 <style>${cssCaso}</style>
 </head>
 <body>

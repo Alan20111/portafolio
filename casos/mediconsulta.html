@@ -10,49 +10,56 @@
 <meta property="og:description" content="Programa de escritorio para Windows: pacientes, consultas, recetas con membrete, agenda y respaldos automáticos. Sin internet, sin mensualidades.">
 <meta property="og:image" content="https://portafolio-ten-olive-50.vercel.app/img/og.png">
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap">
 <style>
 :root{
-  --canvas:#f5f5f7; --paper:#ffffff; --ink:#1d1d1f; --charcoal:#333336; --slate:#474747; --iron:#707070;
-  --mist:#e2e2e5; --fog:#d6d6d6;
-  --blue:#0071e3; --link:#0066cc; --green:#03aa49; --green-deep:#03873a; --violet:#8668ff; --orange:#ed6300; --teal:#00a1b3;
-  --font-display:'SF Pro Display',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
-  --font-text:'SF Pro Text',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
-  --r-link:10px; --r-card:28px; --r-pill:980px;
+  --canvas:#171721; --card:#1e1e2a; --panel:#272735; --hair:#2e3038; --hair2:#464853;
+  --steel:#777a88; --fog:#9194a1; --mist:#acafb9; --silver:#c7c9d1; --bone:#e2e3e9; --ivory:#ededf3; --white:#ffffff;
+  --cobalt:#5266eb; --cobalt-hover:#6377f0; --copper:#cc9166; --sage:#8fb996;
+  --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
+  --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --r-card:12px; --r-pill:9999px; --r-sm:4px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--font-text);font-size:17px;line-height:1.47;letter-spacing:-.272px;background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;font-feature-settings:"numr" off}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:dark}
+body{font-family:var(--font-text);font-size:16px;line-height:1.5;background:var(--canvas);color:var(--bone);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 [hidden]{display:none!important}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-h1,h2,h3{font-family:var(--font-display);font-weight:600}
-.wrap{width:min(980px,100% - 40px);margin-inline:auto}
+h1,h2{font-family:var(--font-display);font-weight:400;letter-spacing:.01em;color:var(--white)}
+h3{font-family:var(--font-text);font-weight:500;color:var(--white)}
+::selection{background:var(--cobalt);color:#fff}
+.wrap{width:min(1216px,100% - 48px);margin-inline:auto}
 @media(max-width:480px){.wrap{width:calc(100% - 32px)}}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--copper);text-transform:uppercase}
 
 @page{size:letter;margin:0}
-body{background:#fff}
+html{color-scheme:light}
+body{background:#fff;color:#1c1d22}
+h1,h2{color:#08080a}
 .hoja{width:8.5in;min-height:11in;margin:0 auto;padding:.6in .65in .5in;display:flex;flex-direction:column;gap:.2in;background:#fff}
-.cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid var(--fog);padding-bottom:14px}
-.cab .k{font-size:9pt;letter-spacing:.08em;text-transform:uppercase;color:var(--iron);font-weight:600}
-.cab h1{font-size:24pt;letter-spacing:-.02em;line-height:1.07;margin-top:4px}
-.cab .cli{color:var(--slate);font-size:10pt;margin-top:4px}
-.cab .yo{text-align:right;font-size:9pt;color:var(--slate);line-height:1.45}
-.cab .yo b{display:block;color:var(--ink);font-size:10.5pt;font-weight:600}
-.estado-pdf{display:inline-block;font-size:8pt;font-weight:400;padding:3px 10px;border-radius:980px;border:1px solid;margin-top:8px;background:transparent!important}
-.resumen{font-size:12pt;line-height:1.35;color:var(--ink);text-wrap:pretty}
+.cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid #1c1d22;padding-bottom:14px}
+.cab .k{font-size:9pt;letter-spacing:-.01em;text-transform:uppercase;color:var(--copper);font-weight:600}
+.cab h1{font-size:26pt;letter-spacing:.01em;line-height:1.05;margin-top:6px;font-weight:400}
+.cab .cli{color:#5e616e;font-size:10pt;margin-top:4px}
+.cab .yo{text-align:right;font-size:9pt;color:#5e616e;line-height:1.45}
+.cab .yo b{display:block;color:#08080a;font-size:10.5pt;font-weight:500}
+.estado-pdf{display:inline-block;font-size:8pt;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid;margin-top:8px;background:transparent!important}
+.resumen{font-size:12pt;line-height:1.38;letter-spacing:-.01em;color:#1c1d22;text-wrap:pretty}
 .tres{display:grid;grid-template-columns:1fr;gap:12px}
-.bloque{border-left:1px solid var(--fog);padding:2px 0 2px 14px;break-inside:avoid}
-.bloque h2{font-family:var(--font-text);font-size:8.5pt;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;font-weight:600}
-.bloque.p h2{color:var(--orange)}.bloque.s h2{color:var(--link)}.bloque.r h2{color:var(--green-deep)}
-.bloque ul{padding-left:16px;font-size:10pt;line-height:1.4;color:var(--slate);display:grid;gap:3px}
+.bloque{border-top:1px solid #d6d6d6;padding-top:8px;break-inside:avoid}
+.bloque h2{font-family:var(--font-text);font-size:8.5pt;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:5px;font-weight:600;color:var(--copper)}
+.bloque ul{padding-left:16px;font-size:10pt;line-height:1.42;color:#2e3038;display:grid;gap:3px}
 .stack-pdf{display:flex;flex-wrap:wrap;gap:5px}
-.stack-pdf span{font-size:8pt;background:var(--canvas);border-radius:980px;padding:3px 9px;color:var(--slate)}
-.pie{margin-top:auto;border-top:1px solid var(--fog);padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9pt;color:var(--slate)}
-.pie .cta{background:var(--blue);color:#fff;font-weight:600;padding:8px 14px;border-radius:980px;font-size:9.5pt;white-space:nowrap}
-.pie a{color:var(--link)}
-.barra{display:flex;gap:8px;justify-content:center;padding:14px;background:var(--canvas);border-bottom:1px solid var(--fog);font-size:14px}
-.barra a,.barra button{background:var(--mist);border-radius:980px;padding:8px 16px;font-weight:600;color:var(--charcoal)}
+.stack-pdf span{font-size:8pt;border:1px solid #c7c9d1;border-radius:9999px;padding:3px 9px;color:#5e616e}
+.pie{margin-top:auto;border-top:1px solid #d6d6d6;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:9pt;color:#5e616e}
+.pie .cta{background:var(--cobalt);color:#fff;font-weight:500;padding:8px 16px;border-radius:9999px;font-size:9.5pt;white-space:nowrap}
+.pie a{color:var(--copper)}
+.barra{display:flex;gap:8px;justify-content:center;padding:14px;background:var(--canvas);font-size:14px}
+.barra a,.barra button{border:1px solid var(--ivory);color:var(--ivory);border-radius:9999px;padding:8px 16px;font-weight:500}
 @media print{.barra{display:none}.hoja{margin:0;min-height:auto;height:11in}}
 @media screen and (max-width:700px){.hoja{width:100%;padding:24px 16px}}
 </style>
@@ -65,7 +72,7 @@ body{background:#fff}
       <div class="k">Caso de estudio · Salud</div>
       <h1>MediConsulta</h1>
       <div class="cli">Consultorio médico privado · Jul – Ago 2026</div>
-      <span class="estado-pdf" style="color:#03873a;border-color:#03aa49">Entregado · en uso</span>
+      <span class="estado-pdf" style="color:#4f8a58;border-color:#8fb996">Entregado · en uso</span>
     </div>
     <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
   </header>
