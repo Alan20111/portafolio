@@ -21,20 +21,20 @@
   .hoja{width:8.5in;height:11in;padding:.5in .75in;display:grid;grid-template-columns:repeat(2,3.5in);grid-template-rows:repeat(5,2in);page-break-after:always}
   .t{position:relative;border:.5pt solid var(--hair);padding:.2in .22in;display:flex;justify-content:space-between;gap:.12in;overflow:hidden;background:#fff}
   .izq{display:flex;flex-direction:column;height:100%}
-  .marca{display:flex;align-items:center;gap:5pt;margin-bottom:6pt}
-  .marca .punto{width:5pt;height:5pt;border-radius:50%;background:var(--copper)}
-  .marca b{font-family:var(--serif);font-weight:500;font-size:13pt;letter-spacing:.01em;line-height:1;white-space:nowrap}
-  .rol{font-size:5.8pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.55;font-weight:500}
-  .nombre-largo{font-size:5.8pt;color:var(--muted);letter-spacing:.02em;margin-top:3pt}
-  .slogan{font-family:var(--serif);font-size:10pt;line-height:1.18;letter-spacing:.01em;margin:9pt 0 0}
+  .marca{display:flex;align-items:center;gap:6pt;margin-bottom:5pt}
+  .marca .punto{width:6pt;height:6pt;border-radius:50%;background:var(--copper);flex:none}
+  .marca b{font-family:var(--serif);font-weight:500;font-size:17pt;letter-spacing:.01em;line-height:1;white-space:nowrap}
+  .rol{font-size:6pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.5;font-weight:500}
+  .slogan{font-family:var(--serif);font-size:13pt;line-height:1.16;letter-spacing:.01em;margin:auto 0 0}
   .slogan em{font-style:italic;color:var(--copper)}
-  .datos{font-size:6.6pt;line-height:1.62;color:var(--ink);border-top:.5pt solid var(--hair);padding-top:6pt;margin-top:auto}
+  .datos{font-size:7.4pt;line-height:1.55;color:var(--ink);margin-top:9pt}
+  .datos b{font-weight:500}
   .datos span{color:var(--muted)}
   .der{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4pt;flex:none;width:.95in}
   .qr{width:.88in;height:.88in;display:flex;align-items:center;justify-content:center}
   .qr canvas,.qr img{width:.88in!important;height:.88in!important}
   .pie-qr{font-size:5.2pt;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.35}
-  .pie-qr b{display:block;color:var(--cobalt);font-weight:600;letter-spacing:.02em;text-transform:none;font-size:6pt}
+  .pie-qr b{display:block;color:var(--cobalt);font-weight:600;letter-spacing:.02em;text-transform:none;font-size:6.4pt}
   @media screen{body{background:#e9e9ec;padding:24px 0}.hoja{margin:0 auto 24px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.12)}}
 </style>
 </head>
@@ -47,16 +47,14 @@
     + '<div class="t">'
     +   '<div class="izq">'
     +     '<div class="marca"><span class="punto"></span><b>Alan Méndez</b></div>'
-    +     '<div class="rol">Técnico en Programación<br>Desarrollador de software freelance</div>'
-    +     '<div class="nombre-largo">Alan Daniel Méndez Jiménez</div>'
-    +     '<div class="slogan">Software que <em>trabaja por ti</em>.</div>'
+    +     '<div class="rol">Técnico en Programación · Desarrollador freelance</div>'
+    +     '<div class="slogan">Software que<br><em>trabaja por ti</em>.</div>'
     +     '<div class="datos">'
-    +       'WhatsApp <span>+52 466 160 3682</span><br>'
-    +       'alannicanor62@gmail.com<br>'
-    +       'alanmendez.vercel.app <span>· Celaya, Gto.</span>'
+    +       '<b>+52 466 160 3682</b> <span>· WhatsApp</span><br>'
+    +       'alanmendez.vercel.app'
     +     '</div>'
     +   '</div>'
-    +   '<div class="der"><div class="qr"></div><div class="pie-qr"><b>Ver mi trabajo</b>casos y demos</div></div>'
+    +   '<div class="der"><div class="qr"></div><div class="pie-qr"><b>Ver mi trabajo</b></div></div>'
     + '</div>';
   var hoja = document.getElementById('hoja');
   hoja.innerHTML = Array(10).fill(tarjeta).join('');
