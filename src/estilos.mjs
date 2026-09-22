@@ -130,6 +130,7 @@ section{padding:112px 0}
 .e-prod{color:var(--sage);border-color:var(--sage)}
 .e-prop{color:var(--copper);border-color:var(--copper)}
 .e-acad{color:var(--mist);border-color:var(--steel)}
+.e-demo{color:var(--ivory);border-color:var(--ivory)}
 .caso .resumen{color:var(--fog);font-size:15px;line-height:1.5}
 .psr{display:grid;gap:12px}
 .psr div{border-top:1px solid var(--hair);padding-top:12px}

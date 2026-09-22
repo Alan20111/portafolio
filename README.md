@@ -23,6 +23,8 @@ Para verlo en local: `npx serve .` y abre http://localhost:3000.
 
 ```
 index.html            página principal (generada)
+tarjetas/             PDF de tarjetas de presentación (10 por hoja carta, QR al sitio)
+src/tarjetas.html     fuente de las tarjetas · ./src/generar-tarjetas.sh las regenera
 casos/<slug>.html     página completa de cada caso (generada); src/pdf/<slug>.html es la hoja imprimible de la que sale el PDF
 casos/pdf/*.pdf       PDF de 1 página por caso (generado)
 demos/                prototipos autocontenidos hospedados aquí (KonCafe, MediConsulta, GymMachine)

@@ -15,6 +15,7 @@ const ESTADOS = {
   produccion: { txt: 'En producción', cls: 'e-prod' },
   entregado: { txt: 'Entregado', cls: 'e-prod' },
   propuesta: { txt: 'Propuesta', cls: 'e-prop' },
+  demo: { txt: 'Demo en vivo', cls: 'e-demo' },
   academico: { txt: 'Académico', cls: 'e-acad' },
 };
 const nombrePdf = (c) => `Caso-${c.nombre.replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '')}.pdf`;
@@ -223,6 +224,7 @@ ${fuentesHead}
     <div class="filtros" role="group" aria-label="Filtrar casos">
       <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
       <button class="chip" data-f="produccion" aria-pressed="false">En producción</button>
+      <button class="chip" data-f="demo" aria-pressed="false">Demos en vivo</button>
       <button class="chip" data-f="propuesta" aria-pressed="false">Propuestas y auditorías</button>
       <button class="chip" data-f="academico" aria-pressed="false">Académicos</button>
     </div>
@@ -389,7 +391,7 @@ const paginaCaso = (c, i) => {
 /* ---------- Hoja imprimible (fuente del PDF de 1 página; se guarda en src/pdf/) ---------- */
 const hojaImprimible = (c) => {
   const e = ESTADOS[c.estado];
-  const colores = { 'e-prod': 'color:#4f8a58;border-color:#8fb996', 'e-prop': 'color:#b0703f;border-color:#cc9166', 'e-acad': 'color:#5e616e;border-color:#9194a1' };
+  const colores = { 'e-prod': 'color:#4f8a58;border-color:#8fb996', 'e-prop': 'color:#b0703f;border-color:#cc9166', 'e-acad': 'color:#5e616e;border-color:#9194a1', 'e-demo': 'color:#1c1d22;border-color:#1c1d22' };
   const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
   return `<!DOCTYPE html>
 <html lang="es-MX">

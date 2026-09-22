@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<title>Tarjetas de presentación · Alan Méndez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+  /* Hoja carta con 10 tarjetas de 3.5 × 2 in (tamaño estándar).
+     Tema claro del sitio: papel blanco, tinta #1d1d1f, cobre para el acento, cobalto solo en el QR. */
+  :root{
+    --ink:#1d1d1f; --muted:#5e616e; --hair:#d6d6d6;
+    --copper:#a8663a; --cobalt:#0071e3;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'Inter',-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @page{ size:letter; margin:0 }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .hoja{width:8.5in;height:11in;padding:.5in .75in;display:grid;grid-template-columns:repeat(2,3.5in);grid-template-rows:repeat(5,2in);page-break-after:always}
+  .t{position:relative;border:.5pt solid var(--hair);padding:.2in .22in;display:flex;justify-content:space-between;gap:.12in;overflow:hidden;background:#fff}
+  .izq{display:flex;flex-direction:column;height:100%}
+  .marca{display:flex;align-items:center;gap:5pt;margin-bottom:6pt}
+  .marca .punto{width:5pt;height:5pt;border-radius:50%;background:var(--copper)}
+  .marca b{font-family:var(--serif);font-weight:500;font-size:13pt;letter-spacing:.01em;line-height:1;white-space:nowrap}
+  .rol{font-size:5.8pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.55;font-weight:500}
+  .nombre-largo{font-size:5.8pt;color:var(--muted);letter-spacing:.02em;margin-top:3pt}
+  .slogan{font-family:var(--serif);font-size:10pt;line-height:1.18;letter-spacing:.01em;margin:9pt 0 0}
+  .slogan em{font-style:italic;color:var(--copper)}
+  .datos{font-size:6.6pt;line-height:1.62;color:var(--ink);border-top:.5pt solid var(--hair);padding-top:6pt;margin-top:auto}
+  .datos span{color:var(--muted)}
+  .der{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4pt;flex:none;width:.95in}
+  .qr{width:.88in;height:.88in;display:flex;align-items:center;justify-content:center}
+  .qr canvas,.qr img{width:.88in!important;height:.88in!important}
+  .pie-qr{font-size:5.2pt;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.35}
+  .pie-qr b{display:block;color:var(--cobalt);font-weight:600;letter-spacing:.02em;text-transform:none;font-size:6pt}
+  @media screen{body{background:#e9e9ec;padding:24px 0}.hoja{margin:0 auto 24px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.12)}}
+</style>
+</head>
+<body>
+<div class="hoja" id="hoja"></div>
+<script src="vendor/qrcode.min.js"></script>
+<script>
+  var URL_SITIO = 'https://alanmendez.vercel.app';
+  var tarjeta = ''
+    + '<div class="t">'
+    +   '<div class="izq">'
+    +     '<div class="marca"><span class="punto"></span><b>Alan Méndez</b></div>'
+    +     '<div class="rol">Técnico en Programación<br>Desarrollador de software freelance</div>'
+    +     '<div class="nombre-largo">Alan Daniel Méndez Jiménez</div>'
+    +     '<div class="slogan">Software que <em>trabaja por ti</em>.</div>'
+    +     '<div class="datos">'
+    +       'WhatsApp <span>+52 466 160 3682</span><br>'
+    +       'alannicanor62@gmail.com<br>'
+    +       'alanmendez.vercel.app <span>· Celaya, Gto.</span>'
+    +     '</div>'
+    +   '</div>'
+    +   '<div class="der"><div class="qr"></div><div class="pie-qr"><b>Ver mi trabajo</b>casos y demos</div></div>'
+    + '</div>';
+  var hoja = document.getElementById('hoja');
+  hoja.innerHTML = Array(10).fill(tarjeta).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.qr'), function (el) {
+    new QRCode(el, { text: URL_SITIO, width: 320, height: 320, colorDark: '#1d1d1f', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  });
+</script>
+</body>
+</html>
