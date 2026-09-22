@@ -42,9 +42,9 @@
 <div class="hoja" id="hoja"></div>
 <script src="vendor/qrcode.min.js"></script>
 <script>
-  // OJO: esta URL queda impresa en el papel (dentro del QR) y no se puede cambiar después.
-  // Si algún día usas otro dominio, NO borres alanmendez.vercel.app en Vercel: redirígelo al nuevo.
-  var URL_SITIO = 'https://alanmendez.vercel.app';
+  // Enlace corto propio: el papel apunta SIEMPRE a /qr y el destino se cambia en vercel.json
+  // (redirección temporal, nunca permanente). Si mañana usas otro dominio, deja vivo este host redirigiendo.
+  var URL_SITIO = 'https://alanmendez.vercel.app/qr';
   var tarjeta = ''
     + '<div class="t">'
     +   '<div class="izq">'

@@ -72,6 +72,11 @@
       "permanent": true
     },
     {
+      "source": "/qr",
+      "destination": "/?src=qr",
+      "permanent": false
+    },
+    {
       "source": "/demos",
       "destination": "/#casos",
       "permanent": false

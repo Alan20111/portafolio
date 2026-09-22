@@ -498,6 +498,8 @@ footer a{color:var(--copper)}
     window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',GA);}
   function track(nombre,props){try{window.va('event',{name:nombre,data:props||{}});if(window.gtag)gtag('event',nombre,props||{});}catch(e){}}
   window.track=track;
+  // Llegada desde el QR de las tarjetas (/qr -> /?src=qr): registra el escaneo y limpia la URL
+  try{if(new URLSearchParams(location.search).get('src')==='qr'){track('qr_scan',{origen:'tarjeta'});history.replaceState({},'',location.pathname+location.hash);}}catch(e){}
   document.addEventListener('click',function(ev){
     var el=ev.target.closest('[data-track]');if(!el)return;
     var p={};['caso','demo','origen'].forEach(function(k){if(el.dataset[k])p[k]=el.dataset[k]});
