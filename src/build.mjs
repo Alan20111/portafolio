@@ -202,7 +202,7 @@ ${fuentesHead}
       </div>
     </div>
     <div class="foto">
-      <img src="img/alan.jpg" width="460" height="460" alt="Alan Méndez, desarrollador de software" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
+      <img src="img/alan.jpg" width="900" height="900" alt="Alan Méndez, desarrollador de software" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
       <div class="tag"><b>${esc(sitio.nombreCompleto)}</b>Desarrollador full-stack</div>
     </div>
   </div>
@@ -238,7 +238,7 @@ ${fuentesHead}
 
 <section id="sobre-mi">
   <div class="wrap sobre">
-    <img src="img/alan.jpg" width="460" height="460" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
+    <img src="img/alan.jpg" width="900" height="900" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
     <div>
       <div class="sec-head"><h2>Hola, soy Alan Méndez.</h2></div>
       <p>Desarrollo software para negocios de Celaya y la región desde 2024. Estudio Ingeniería en Sistemas Computacionales en el TecNM Celaya y he entregado sistemas que hoy usan un consultorio médico, un bazar, y cientos de docentes.</p>
