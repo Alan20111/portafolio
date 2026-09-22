@@ -3,6 +3,11 @@
 ## 0. Hoy
 El sitio vive en **https://alanmendez.vercel.app** (subdominio gratis de Vercel). El viejo `portafolio-ten-olive-50.vercel.app` redirige con 308.
 
+## ⚠️ Antes de cambiar de dominio
+Las tarjetas impresas llevan un QR a **alanmendez.vercel.app** (el dominio no va escrito, solo dentro del QR).
+Si algún día usas `alanmendez.dev`, **no borres el proyecto ni ese subdominio en Vercel**: déjalo y redirígelo al nuevo
+(en `vercel.json` ya hay una redirección de ese tipo para el dominio viejo). Así las tarjetas que ya repartiste siguen funcionando.
+
 ## 1. Comprar el dominio
 Opciones baratas y sin sorpresas de renovación: **Cloudflare Registrar** (.com ≈ $220 MXN/año, ya lo usas
 para AGLAIA/Raws/Bazar) o **Registro.mx / Akky** para `.mx` (≈ $400–500 MXN/año).

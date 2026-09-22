@@ -42,6 +42,8 @@
 <div class="hoja" id="hoja"></div>
 <script src="vendor/qrcode.min.js"></script>
 <script>
+  // OJO: esta URL queda impresa en el papel (dentro del QR) y no se puede cambiar después.
+  // Si algún día usas otro dominio, NO borres alanmendez.vercel.app en Vercel: redirígelo al nuevo.
   var URL_SITIO = 'https://alanmendez.vercel.app';
   var tarjeta = ''
     + '<div class="t">'
@@ -50,8 +52,7 @@
     +     '<div class="rol">Técnico en Programación · Desarrollador freelance</div>'
     +     '<div class="slogan">Software que<br><em>trabaja por ti</em>.</div>'
     +     '<div class="datos">'
-    +       '<b>+52 466 160 3682</b> <span>· WhatsApp</span><br>'
-    +       'alanmendez.vercel.app'
+    +       '<b>+52 466 160 3682</b> <span>· WhatsApp</span>'
     +     '</div>'
     +   '</div>'
     +   '<div class="der"><div class="qr"></div><div class="pie-qr"><b>Ver mi trabajo</b></div></div>'
