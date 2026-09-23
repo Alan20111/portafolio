@@ -12,6 +12,7 @@ GYM_PANTALLAS=../../demos/gymmachine/pantallas node componer.mjs   # → out/
 cp out/* ../../img/casos/ && cd ../.. && node src/build.mjs && ./src/generar-pdf.sh
 ```
 
-- Proyecto web → laptop + teléfono. Programa de escritorio (MediConsulta) → solo laptop. App Android (GymMachine) → tres teléfonos.
+- Proyecto web → laptop + teléfono. Si el sitio tiene modo claro y oscuro (`temas: true`), la laptop va en oscuro y el teléfono en claro.
+- Proyecto web (un solo tema) → laptop + teléfono. Programa de escritorio (MediConsulta) → solo laptop. App Android (GymMachine) → tres teléfonos.
 - Evalúa Fácil pide sesión: la laptop usa la captura del panel docente de su ayuda.
 - Las URLs de imagen llevan `?v=<huella>` (lo pone `src/componentes.mjs`), así que un cambio se ve al instante pese a la caché de un año.
