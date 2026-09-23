@@ -14,6 +14,9 @@
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
+  --serif:var(--font-display); --sans:var(--font-text);
+  /* Escala de medios: ninguna imagen de contenido pasa de estos anchos */
+  --media-lg:880px; --media-md:640px;
 }
 /* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
@@ -82,7 +85,7 @@ h1,h2{color:#08080a}
     <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
   </header>
   <p class="resumen">Kiosko, app del cliente, pantalla de cocina y panel del dueño, los cuatro sincronizados en vivo: lo que pasa en uno aparece al instante en los demás.</p>
-  <img class="img-pdf" src="../../img/casos/cafeluna.jpg" alt="Pantalla de Café Luna">
+  <img class="img-pdf" src="../../img/casos/cafeluna.webp" alt="Pantalla de Café Luna">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul><li>En una cafetería con fila, el cliente espera para ordenar y otra vez para pagar.</li><li>Las comandas se gritan o se anotan en papel: se pierden, se repiten y nadie sabe cuál va primero.</li><li>Al cierre del día se sabe cuánto se vendió, pero no cuánto quedó ni qué producto deja más.</li><li>La lealtad se lleva en tarjetas de cartón que el cliente olvida o pierde.</li></ul></section>
     <section class="bloque s"><h2>La solución</h2><ul><li>Kiosko de autoservicio en el mostrador y pedido desde el teléfono del cliente por QR; el cobro se pide desde el teléfono y se aprueba en la terminal.</li><li>Pantalla de cocina con cola por orden de llegada: los pagos con terminal entran solos y solo los de efectivo piden confirmación.</li><li>Panel del dueño: ventas del mes, utilidad neta, margen, ticket promedio, a dónde va cada peso, qué producto deja más, inventario y reinversión sugerida.</li><li>Estrellas de lealtad ligadas al teléfono del cliente, sin tarjetas ni app que instalar.</li><li>Todo se sincroniza por WebSocket con un Durable Object de Cloudflare: un solo estado compartido para las cuatro pantallas.</li></ul></section>

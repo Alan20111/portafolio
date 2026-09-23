@@ -14,6 +14,9 @@
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
+  --serif:var(--font-display); --sans:var(--font-text);
+  /* Escala de medios: ninguna imagen de contenido pasa de estos anchos */
+  --media-lg:880px; --media-md:640px;
 }
 /* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
@@ -82,7 +85,7 @@ h1,h2{color:#08080a}
     <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
   </header>
   <p class="resumen">Catálogo web donde las clientas apartan y un panel desde el celular para pedidos, existencias, cierre del día y publicaciones para WhatsApp.</p>
-  <img class="img-pdf" src="../../img/casos/bazargirl.jpg" alt="Pantalla de The Bazar Girl">
+  <img class="img-pdf" src="../../img/casos/bazargirl.webp" alt="Pantalla de The Bazar Girl">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul><li>Todo se vendía en un grupo de WhatsApp: fotos sueltas, apartados en notas y existencias en la cabeza.</li><li>Productos &quot;congelados&quot; por clientas que apartaban y no respondían; sin forma de saber cuánto se vendió en el día.</li><li>Publicar el catálogo cada semana era armar imágenes y mensajes a mano.</li></ul></section>
     <section class="bloque s"><h2>La solución</h2><ul><li>Catálogo web instalable (PWA) por categorías y tonos; la clienta aparta desde el celular y la dueña confirma por WhatsApp.</li><li>Panel con pedidos en cuatro etapas (por confirmar → confirmados → listos → entregados), caducidad automática a las 48 h que regresa el stock, cierre del día y puntos de entrega con horarios.</li><li>Pestaña &quot;Publicar&quot;: arma la imagen y el mensaje listos para el grupo de WhatsApp.</li><li>Base de datos Supabase con seguridad por filas en las 12 tablas: el costo de cada producto nunca sale al público.</li></ul></section>

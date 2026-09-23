@@ -16,6 +16,9 @@ export const tokens = `
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
+  --serif:var(--font-display); --sans:var(--font-text);
+  /* Escala de medios: ninguna imagen de contenido pasa de estos anchos */
+  --media-lg:880px; --media-md:640px;
 }
 /* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
@@ -254,8 +257,8 @@ export const cssDetalle = `
 .det-cli{margin-top:16px;color:var(--fog);font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .det-lead{margin-top:20px;font-size:20px;line-height:1.38;letter-spacing:-.02em;font-weight:300;color:var(--silver);max-width:60ch}
 .det-acc{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
-.det-img{width:min(1216px,100% - 48px);margin:24px auto 0}
-.det-img img{width:100%;height:auto;border-radius:var(--r-card);background:var(--card)}
+.det-img{width:min(var(--media-lg),100% - 48px);margin:24px auto 0}
+.det-img img{display:block;width:100%;height:auto;border-radius:var(--r-card);background:var(--card)}
 .det-psr{display:grid;gap:16px;margin-top:48px}
 @media(min-width:820px){.det-psr{grid-template-columns:repeat(3,1fr);margin-top:64px}}
 .det-bloque{background:var(--card);border-radius:var(--r-card);padding:28px}
@@ -269,4 +272,85 @@ export const cssDetalle = `
 .det-cta h2{font-size:clamp(28px,4vw,40px);line-height:1.13}
 .det-cta p{color:var(--fog);max-width:52ch}
 .siguiente{margin-top:12px;font-size:14px;color:var(--copper)}
+`;
+
+// Hoja compartida para las páginas de demo (/assets/sistema.css): mismos colores y componentes del sitio.
+// Maqueta "visor": todo cabe en 100dvh; azulejos con ícono; dispositivos (teléfono, tablet, laptop) escalados con visor.js.
+export const cssSistema = tokens + `
+body.visor{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;height:56px;border-bottom:1px solid var(--hair)}
+.top .volver{font-size:14px;color:var(--fog)} .top .volver:hover{color:var(--copper)}
+.top .wa{background:var(--cobalt);color:#fff;border-radius:var(--r-pill);padding:8px 16px;font-size:13px;font-weight:500;white-space:nowrap}
+.visor-main{flex:1;min-height:0;width:min(1320px,100% - 32px);margin:0 auto;padding:16px 0;display:grid;gap:14px;
+  grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:'a' 'b' 'c'}
+.intro{grid-area:a}.escena{grid-area:b}.detalle{grid-area:c}
+.intro h1{font-size:clamp(24px,3.2vw,42px);line-height:1.05;margin:6px 0 8px}
+.intro .lead{color:var(--fog);font-size:15px;line-height:1.45;max-width:52ch}
+.nota{font-size:12px;color:var(--fog);line-height:1.45}.nota a{color:var(--copper)}
+/* Grupos (pestañas tipo píldora) */
+.grupos{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.grupo{border:1px solid var(--hair2);border-radius:var(--r-pill);padding:7px 14px;font-size:13px;font-weight:500}
+.grupo[aria-pressed="true"]{background:var(--white);color:var(--inverse);border-color:var(--white)}
+/* Azulejos con ícono */
+.azulejos{display:grid;gap:10px;position:relative}
+.azulejo{display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;background:var(--card);border:1px solid transparent;border-radius:var(--r-card);padding:14px 12px 12px;min-width:0;transition:border-color .15s}
+.azulejo:hover{border-color:var(--hair2)}
+.azulejo[aria-current="true"]{border-color:var(--copper)}
+.azulejo .ico{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--panel);color:var(--bone);transition:background .15s,color .15s}
+.azulejo .ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.azulejo[aria-current="true"] .ico{background:var(--copper);color:#fff}
+.azulejo b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em;font-weight:500;font-size:13px;line-height:1.25;color:var(--bone)}
+.azulejo .d{display:block;font-size:12px;line-height:1.35;color:var(--fog)}
+.azulejo[aria-current="true"] b{color:var(--copper)}
+.azulejo--fila{flex-direction:row;align-items:center;gap:12px;padding:12px}
+.azulejo--fila b{min-height:0;-webkit-line-clamp:1}
+/* Escena: el dispositivo se dibuja a tamaño real y visor.js lo escala al espacio libre */
+.escena{position:relative;min-height:0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.lienzo{position:relative;flex:1;min-height:0;width:100%}
+.lienzo > .dispositivo{position:absolute;left:50%;top:50%;transform-origin:0 0}
+.lienzo > .dispositivo.oculto{visibility:hidden}
+.pie-escena{flex:none;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;width:min(420px,100%)}
+.pie-escena .txt{flex:1;min-width:0;text-align:center}
+.pie-escena b{display:block;font-family:var(--serif);font-weight:400;font-size:18px;line-height:24px;height:24px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pie-escena span{display:block;font-size:12px;line-height:16px;height:16px;color:var(--fog);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pie-escena a{color:var(--copper)}
+.flecha{flex:none;width:40px;height:40px;border-radius:var(--r-pill);border:1px solid var(--hair2);font-size:20px;display:grid;place-items:center}
+.flecha:hover{background:var(--card)}
+/* Dispositivos */
+.dispositivo{background:#0b0b10;box-shadow:0 0 0 1px #2a2a33 inset}
+.dispositivo .pantalla{position:relative;overflow:hidden;background:#fff}
+.dispositivo .pantalla > img,.dispositivo .pantalla > iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover;object-position:top}
+.dispositivo .pantalla > img.oculto{visibility:hidden}
+.telefono{padding:12px;border-radius:52px}.telefono .pantalla{border-radius:40px}
+.tablet{padding:22px;border-radius:34px}.tablet .pantalla{border-radius:14px}
+.laptop{border-radius:14px;overflow:hidden}.laptop .pantalla{border-radius:0}
+.laptop .barra{height:38px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#1c1c22;color:#9194a1;font:500 14px/1 var(--sans)}
+.laptop .barra i{width:12px;height:12px;border-radius:50%;display:block}
+.laptop .barra i:nth-child(1){background:#ff5f57}.laptop .barra i:nth-child(2){background:#febc2e}.laptop .barra i:nth-child(3){background:#28c840}
+.laptop .barra span{flex:1;text-align:center;background:#101014;border-radius:8px;padding:6px 0;margin:0 60px 0 20px}
+/* Celular: intro compacta arriba, dispositivo al centro, azulejos abajo en tira horizontal */
+@media(max-width:899px){
+  .intro .eyebrow,.intro .lead,.nota{display:none}
+  .intro h1{font-size:24px;margin:0 0 10px}
+  .grupos{margin-top:0}
+  .azulejos--tira{grid-auto-flow:column;grid-auto-columns:96px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .azulejos--tira::-webkit-scrollbar{display:none}
+  .azulejos--tira .azulejo{padding:10px 9px 9px;gap:8px}
+  .azulejos--tira .azulejo .ico{width:30px;height:30px}
+  .azulejos--tira .azulejo b{font-size:11px}
+  .azulejos--tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .azulejos--tres .azulejo--fila{flex-direction:column;align-items:flex-start;gap:8px;padding:10px}
+  .azulejos--tres .d{display:none}
+}
+/* Escritorio: intro + azulejos a la izquierda, dispositivo a la derecha a todo lo alto */
+@media(min-width:900px){
+  .visor-main{grid-template-columns:minmax(0,1fr) minmax(320px,440px);grid-template-rows:auto minmax(0,1fr);grid-template-areas:'a b' 'c b';column-gap:56px;row-gap:22px;padding:28px 0 20px}
+  .visor-main--ancho{grid-template-columns:320px minmax(0,1fr);column-gap:48px}
+  .detalle{min-height:0;display:flex;flex-direction:column}
+  .azulejos--tira{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));grid-auto-rows:max-content;align-content:start;min-height:0;overflow:auto}
+  .detalle .nota{margin-top:auto;padding-top:10px}
+}
+@media(min-width:900px) and (max-height:780px){.intro .lead{display:none}.intro h1{font-size:34px}}
+@media(max-height:520px){body.visor{height:auto;overflow:auto}.lienzo{height:440px;flex:none}}
+@media(prefers-reduced-motion:reduce){.azulejo,.azulejo .ico{transition:none}}
 `;

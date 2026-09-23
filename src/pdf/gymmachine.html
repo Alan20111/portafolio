@@ -14,6 +14,9 @@
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
+  --serif:var(--font-display); --sans:var(--font-text);
+  /* Escala de medios: ninguna imagen de contenido pasa de estos anchos */
+  --media-lg:880px; --media-md:640px;
 }
 /* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
@@ -82,7 +85,7 @@ h1,h2{color:#08080a}
     <div class="yo"><b>Alan Daniel Méndez Jiménez</b>Software a medida · Celaya, Gto.<br>+52 466 160 3682<br>alannicanor62@gmail.com</div>
   </header>
   <p class="resumen">Sistema de gestión de gimnasio: panel de escritorio para el dueño y app Android para administrador, entrenador y miembro, sincronizados en tiempo real.</p>
-  <img class="img-pdf" src="../../img/casos/gymmachine.jpg" alt="Pantalla de GymMachine">
+  <img class="img-pdf" src="../../img/casos/gymmachine.webp" alt="Pantalla de GymMachine">
   <div class="tres">
     <section class="bloque p"><h2>El problema</h2><ul><li>Los gimnasios pequeños llevan miembros, pagos y vencimientos en hojas de cálculo o cuadernos.</li><li>Rutinas y dietas se entregan en papel y nadie da seguimiento al progreso.</li><li>La asistencia se controla a ojo.</li></ul></section>
     <section class="bloque s"><h2>La solución</h2><ul><li>Aplicación de escritorio (JavaFX) para el dueño: indicadores, reportes, historial de pagos y configuración del negocio.</li><li>App Android con tres roles: administrador (cobros), entrenador (rutinas y dietas) y miembro (su plan, su progreso).</li><li>Asistencia por NFC desde el teléfono y sincronización en tiempo real con Cloud Firestore, sin servidor propio.</li></ul></section>

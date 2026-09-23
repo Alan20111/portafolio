@@ -11,92 +11,12 @@
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap">
-<style>
-  :root{
-    --canvas:#171721; --card:#1e1e2a; --panel:#272735; --hair:#2e3038; --hair2:#464853;
-    --fog:#9194a1; --silver:#c7c9d1; --bone:#e2e3e9; --white:#fff; --inverse:#000;
-    --cobalt:#5266eb; --copper:#cc9166;
-    --serif:'Playfair Display',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif;
-  }
-  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-    --canvas:#f5f5f7; --card:#fff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
-    --fog:#5e616e; --silver:#333336; --bone:#1d1d1f; --white:#08080a; --inverse:#fff; --cobalt:#0071e3; --copper:#a8663a;
-  }}
-  :root[data-theme="light"]{
-    --canvas:#f5f5f7; --card:#fff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
-    --fog:#5e616e; --silver:#333336; --bone:#1d1d1f; --white:#08080a; --inverse:#fff; --cobalt:#0071e3; --copper:#a8663a;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  /* Todo en una pantalla: la página mide 100dvh y el teléfono se ajusta al alto disponible */
-  body{font-family:var(--sans);background:var(--canvas);color:var(--bone);-webkit-font-smoothing:antialiased;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
-  a{color:inherit;text-decoration:none}
-  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-  .top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;height:56px;border-bottom:1px solid var(--hair)}
-  .top a.volver{font-size:14px;color:var(--fog)} .top a.volver:hover{color:var(--copper)}
-  .top .wa{background:var(--cobalt);color:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:500;white-space:nowrap}
-  main{flex:1;min-height:0;width:min(1240px,100% - 32px);margin:0 auto;padding:20px 0 16px;display:grid;gap:14px;
-       grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:'a' 'b' 'c'}
-  .intro{grid-area:a}.visor{grid-area:b}.detalle{grid-area:c}
-  .eyebrow{font-size:12px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper)}
-  h1{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.4vw,44px);line-height:1.05;letter-spacing:.01em;color:var(--white);margin:6px 0 8px}
-  .lead{color:var(--fog);font-size:15px;line-height:1.45;max-width:60ch}
-  .roles{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-  .rol{border:1px solid var(--hair2);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500}
-  .rol[aria-pressed="true"]{background:var(--white);color:var(--inverse);border-color:var(--white)}
-  /* Azulejos */
-  .lista{display:grid;gap:10px;position:relative}
-  .item{display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;background:var(--card);border:1px solid transparent;border-radius:12px;padding:14px 12px 12px;min-width:0;transition:border-color .15s,background .15s}
-  .item:hover{border-color:var(--hair2)}
-  .item[aria-current="true"]{border-color:var(--copper)}
-  .item .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--panel);color:var(--bone);transition:background .15s,color .15s}
-  .item .ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-  .item[aria-current="true"] .ico{background:var(--copper);color:#fff}
-  .item b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em;font-weight:500;font-size:13px;line-height:1.25;color:var(--bone)}
-  .item[aria-current="true"] b{color:var(--copper)}
-  .nota{margin-top:10px;font-size:11px;color:var(--fog);line-height:1.4}
-  .nota a{color:var(--copper)}
-  /* Teléfono: su alto manda, el ancho sale de la proporción */
-  .visor{min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .tel{flex:1;min-height:0;display:flex;border-radius:36px;padding:9px;background:#0b0b10;box-shadow:0 0 0 1px #2a2a33 inset;aspect-ratio:540/1200;max-width:100%}
-  .tel .pantalla{position:relative;flex:1;border-radius:28px;overflow:hidden;background:#111}
-  .tel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .tel img.oculta{visibility:hidden}
-  .flechas{flex:none;display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;width:min(360px,100%)}
-  .flecha{flex:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--hair2);font-size:20px;display:grid;place-items:center}
-  .flecha:hover{background:var(--card)}
-  .pie{text-align:center;flex:1;min-width:0}
-  .pie b{display:block;font-family:var(--serif);font-weight:400;font-size:18px;line-height:24px;height:24px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pie span{display:block;font-size:12px;line-height:16px;height:16px;color:var(--fog);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .cuenta{display:none}
-  /* Celular: intro compacta, teléfono al centro y azulejos en tira horizontal */
-  @media(max-width:899px){
-    .eyebrow,.lead,.nota{display:none}
-    h1{font-size:24px;margin:0}
-    .intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
-    .roles{margin-top:0}
-    .lista{grid-auto-flow:column;grid-auto-columns:96px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-    .lista::-webkit-scrollbar{display:none}
-    .item{padding:10px 9px 9px;gap:8px}.item .ico{width:30px;height:30px}.item .ico svg{width:17px;height:17px}.item b{font-size:11px}
-  }
-  /* Escritorio: intro + azulejos a la izquierda, teléfono a la derecha a todo lo alto */
-  @media(min-width:900px){
-    main{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);grid-template-areas:'a b' 'c b';column-gap:56px;row-gap:22px;padding:28px 0 20px}
-    .detalle{min-height:0;display:flex;flex-direction:column}
-    .lista{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));grid-auto-rows:max-content;align-content:start;min-height:0;overflow:auto}
-    .nota{margin-top:auto;padding-top:10px}
-    .visor{height:100%}
-  }
-  @media(min-width:900px) and (max-height:780px){.lead{display:none}h1{font-size:34px}main{padding-top:20px;row-gap:16px}}
-  /* Pantallas muy bajitas: se permite scroll antes que cortar contenido */
-  @media(max-height:560px){body{height:auto;overflow:auto}.tel{flex:none;height:480px}}
-  @media(prefers-reduced-motion:reduce){.item{transition:none}.item:hover{transform:none}}
-</style>
+<link rel="stylesheet" href="/assets/sistema.css">
+<script src="/assets/visor.js" defer></script>
 </head>
-<body>
+<body class="visor">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-login" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
 <symbol id="i-perfil" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
@@ -128,28 +48,29 @@
   <a class="volver" href="/casos/gymmachine">← Caso GymMachine</a>
   <a class="wa" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20la%20app%20de%20GymMachine%20y%20quiero%20algo%20as%C3%AD%20para%20mi%20negocio" target="_blank" rel="noopener">Quiero algo así</a>
 </header>
-<main>
-  <div class="visor" aria-live="polite">
-    <div class="tel"><div class="pantalla" id="pantalla"></div></div>
-    <div class="flechas">
-      <button class="flecha" id="ant" aria-label="Pantalla anterior">‹</button>
-      <div class="pie"><b id="titulo"></b><span id="rolActual"></span></div>
-      <button class="flecha" id="sig" aria-label="Pantalla siguiente">›</button>
-    </div>
-    <div class="cuenta" id="cuenta"></div>
-  </div>
+<main class="visor-main">
   <section class="intro">
     <span class="eyebrow">App Android · capturas reales</span>
     <h1>GymMachine en el teléfono.</h1>
     <p class="lead">Una sola app con tres perfiles: el miembro ve su rutina, dieta y membresía; el entrenador da seguimiento a sus alumnos; el dueño cobra y ve los números del gimnasio.</p>
-    <div class="roles" role="group" aria-label="Perfil">
-      <button class="rol" data-rol="miembro" aria-pressed="true">Miembro</button>
-      <button class="rol" data-rol="entrenador" aria-pressed="false">Entrenador</button>
-      <button class="rol" data-rol="dueno" aria-pressed="false">Dueño</button>
+    <div class="grupos" role="group" aria-label="Perfil">
+      <button class="grupo" data-rol="miembro" aria-pressed="true">Miembro</button>
+      <button class="grupo" data-rol="entrenador" aria-pressed="false">Entrenador</button>
+      <button class="grupo" data-rol="dueno" aria-pressed="false">Dueño</button>
     </div>
   </section>
+  <div class="escena">
+    <div class="lienzo" id="lienzo">
+      <div class="dispositivo telefono" id="tel"><div class="pantalla" id="pantalla" style="width:390px;height:867px"></div></div>
+    </div>
+    <div class="pie-escena">
+      <button class="flecha" id="ant" aria-label="Pantalla anterior">‹</button>
+      <div class="txt"><b id="titulo"></b><span id="sub"></span></div>
+      <button class="flecha" id="sig" aria-label="Pantalla siguiente">›</button>
+    </div>
+  </div>
   <section class="detalle">
-    <div class="lista" id="lista"></div>
+    <div class="azulejos azulejos--tira" id="lista"></div>
     <p class="nota">Capturas reales de la app Android con datos de demostración. <a href="handoff">Ver documentación técnica (FXML)</a>.</p>
   </section>
 </main>
@@ -192,52 +113,45 @@ var P = {
 };
 var ICO = {"00-login":"login","10-miembro-perfil":"perfil","11-miembro-rutina":"rutina","15-miembro-sesion-activa":"sesion","12-miembro-dieta":"dieta","17-miembro-comida-detalle":"comida","13-miembro-asistencia":"asistencia","14-miembro-plan":"plan","18-miembro-mi-progreso":"progreso","16-miembro-mi-entrenador":"entrenador","20-entrenador-inicio":"inicio","21-entrenador-mis-usuarios":"usuarios","22-entrenador-detalle-usuario":"alumno","23-entrenador-rutinas":"lista","28-entrenador-crear-rutina":"crear","24-entrenador-dietas":"dieta","27-entrenador-editar-dieta":"editar","26-entrenador-registrar-medicion":"medicion","25-entrenador-progreso":"grafica","29-entrenador-asistencia":"envivo","29b-entrenador-calendario":"calendario","30-dueno-inicio":"panel","33-dueno-cobrar":"cobrar","34-dueno-historial-pagos":"historial","32-dueno-miembros":"usuarios","31-dueno-entrenadores":"entrenador","35-dueno-planes":"planes","37-dueno-configuracion":"config"};
 var NOM = { miembro: 'Miembro', entrenador: 'Entrenador', dueno: 'Dueño' };
-var rol = 'miembro', i = 0;
-var $p = document.getElementById('pantalla'), $l = document.getElementById('lista');
-var imgs = {}; // una <img> por pantalla, precargadas bajo demanda
-function img(k){ if(!imgs[k]){ var e=new Image(); e.src='pantallas/'+k+'.jpg'; e.alt=''; e.className='oculta'; e.decoding='async'; $p.appendChild(e); imgs[k]=e; } return imgs[k]; }
-function pinta(){
-  var L = P[rol], s = L[i];
-  Object.keys(imgs).forEach(function(k){ imgs[k].classList.add('oculta'); });
-  var e = img(s[0]); e.alt = s[1] + ' · GymMachine'; e.classList.remove('oculta');
-  if (L[i+1]) img(L[i+1][0]); // precarga la siguiente
-  document.getElementById('titulo').textContent = s[1];
-  document.getElementById('rolActual').textContent = NOM[rol] + ' · ' + s[2];
-  document.getElementById('cuenta').textContent = (i+1) + ' de ' + L.length;
-  if ($l.dataset.rol !== rol) {
-    $l.innerHTML = L.map(function(x,j){ return '<button class="item" data-i="'+j+'" title="'+x[1]+' · '+x[2]+'"><span class="ico"><svg aria-hidden="true"><use href="#i-'+(ICO[x[0]]||'perfil')+'"/></svg></span><b>'+x[1]+'</b></button>'; }).join('');
-    $l.dataset.rol = rol; $l.scrollLeft = 0; $l.scrollTop = 0; var nuevo = true;
-    L.forEach(function(x){ var im = new Image(); im.src = 'pantallas/'+x[0]+'.jpg'; }); // precarga del perfil completo
+document.addEventListener('DOMContentLoaded', function () {
+  var rol = 'miembro', i = 0, marca = null, imgs = {};
+  var $p = document.getElementById('pantalla'), $l = document.getElementById('lista'), $tel = document.getElementById('tel'), $lz = document.getElementById('lienzo');
+  function img(k) { // una <img> por pantalla; se reutiliza, nunca se vuelve a descargar
+    if (!imgs[k]) { var e = new Image(); e.src = 'pantallas/' + k + '.jpg'; e.alt = ''; e.decoding = 'async'; e.className = 'oculto'; $p.appendChild(e); imgs[k] = e; }
+    return imgs[k];
   }
-  var btns = $l.children, act = null;
-  for (var k = 0; k < btns.length; k++) { var on = k === i; btns[k].setAttribute('aria-current', String(on)); if (on) act = btns[k]; }
-  // Solo se desplaza la tira/cuadrícula de azulejos, nunca la página
-  if (act) {
-    if ($l.scrollWidth > $l.clientWidth) { var x = act.offsetLeft - ($l.clientWidth - act.offsetWidth) / 2; if (nuevo) $l.scrollLeft = x; else $l.scrollTo({ left: x, behavior: 'smooth' }); }
-    else if ($l.scrollHeight > $l.clientHeight) { var t = act.offsetTop, b = t + act.offsetHeight; if (t < $l.scrollTop) $l.scrollTop = t; else if (b > $l.scrollTop + $l.clientHeight) $l.scrollTop = b - $l.clientHeight; }
+  function perfil(r) {
+    rol = r;
+    marca = Visor.azulejos($l, P[rol].map(function (x) { return { icono: ICO[x[0]] || 'perfil', titulo: x[1], desc: x[2] }; }), function (j) { i = j; pinta(); });
+    document.querySelectorAll('.grupo').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.rol === rol)); });
+    P[rol].forEach(function (x) { img(x[0]); }); // precarga del perfil
   }
-  try{ history.replaceState(null,'','#'+rol+'-'+(i+1)); }catch(err){}
-}
-function ir(d){ var n = P[rol].length; i = (i + d + n) % n; pinta(); }
-document.getElementById('ant').onclick = function(){ ir(-1); };
-document.getElementById('sig').onclick = function(){ ir(1); };
-$l.onclick = function(ev){ var b = ev.target.closest('.item'); if(!b) return; i = +b.dataset.i; pinta();  };
-document.querySelectorAll('.rol').forEach(function(b){ b.onclick = function(){
-  document.querySelectorAll('.rol').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-  b.setAttribute('aria-pressed','true'); rol = b.dataset.rol; i = 0; pinta();
-}; });
-document.addEventListener('keydown', function(ev){ if(ev.key==='ArrowRight') ir(1); if(ev.key==='ArrowLeft') ir(-1); });
-var x0 = null; // deslizar con el dedo
-$p.addEventListener('touchstart', function(ev){ x0 = ev.touches[0].clientX; }, {passive:true});
-$p.addEventListener('touchend', function(ev){ if(x0===null) return; var dx = ev.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) ir(dx < 0 ? 1 : -1); x0 = null; });
-function desdeHash(){
-  var h = location.hash.slice(1).match(/^(miembro|entrenador|dueno)-(\d+)$/); if (!h) return false;
-  rol = h[1]; i = Math.max(0, Math.min(+h[2]-1, P[rol].length-1));
-  document.querySelectorAll('.rol').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.rol===rol)); });
-  return true;
-}
-window.addEventListener('hashchange', function(){ if (desdeHash()) pinta(); });
-desdeHash(); pinta();
+  function pinta() {
+    var s = P[rol][i];
+    Object.keys(imgs).forEach(function (k) { imgs[k].classList.toggle('oculto', k !== s[0]); });
+    img(s[0]).alt = s[1] + ' · GymMachine';
+    document.getElementById('titulo').textContent = s[1];
+    document.getElementById('sub').textContent = NOM[rol] + ' · ' + s[2];
+    marca.marcar(i);
+    try { history.replaceState(null, '', '#' + rol + '-' + (i + 1)); } catch (e) {}
+  }
+  function ir(d) { var n = P[rol].length; i = (i + d + n) % n; pinta(); }
+  document.getElementById('ant').onclick = function () { ir(-1); };
+  document.getElementById('sig').onclick = function () { ir(1); };
+  document.querySelectorAll('.grupo').forEach(function (b) { b.onclick = function () { perfil(b.dataset.rol); i = 0; pinta(); }; });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'ArrowRight') ir(1); if (ev.key === 'ArrowLeft') ir(-1); });
+  var x0 = null; // deslizar con el dedo sobre el teléfono
+  $lz.addEventListener('touchstart', function (ev) { x0 = ev.touches[0].clientX; }, { passive: true });
+  $lz.addEventListener('touchend', function (ev) { if (x0 === null) return; var dx = ev.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) ir(dx < 0 ? 1 : -1); x0 = null; });
+  function desdeHash() {
+    var h = location.hash.slice(1).match(/^(miembro|entrenador|dueno)-(\d+)$/); if (!h) return false;
+    if (h[1] !== rol || !marca) perfil(h[1]); i = Math.max(0, Math.min(+h[2] - 1, P[rol].length - 1)); return true;
+  }
+  window.addEventListener('hashchange', function () { if (desdeHash()) pinta(); });
+  if (!desdeHash()) perfil('miembro');
+  pinta();
+  Visor.observar($lz, function () { return $tel; });
+});
 </script>
 </body>
 </html>

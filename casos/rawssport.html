@@ -7,13 +7,15 @@
 <meta name="description" content="Tienda en línea con tallas, meses sin intereses, envíos cotizados al momento y panel de ventas, inventario y utilidad real.">
 <link rel="canonical" href="https://alanmendez.vercel.app/casos/rawssport">
 <meta property="og:type" content="article"><meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="Alan Méndez · Software a medida">
 <meta property="og:title" content="Raws Sport · Caso de estudio · Alan Méndez"><meta property="og:description" content="Tienda en línea con tallas, meses sin intereses, envíos cotizados al momento y panel de ventas, inventario y utilidad real.">
-<meta property="og:url" content="https://alanmendez.vercel.app/casos/rawssport"><meta property="og:image" content="https://alanmendez.vercel.app/img/casos/rawssport.jpg?v=0bea14d2">
+<meta property="og:url" content="https://alanmendez.vercel.app/casos/rawssport"><meta property="og:image" content="https://alanmendez.vercel.app/img/casos/rawssport.jpg?v=fee9ea8f">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap">
@@ -25,6 +27,9 @@
   --font-display:'Playfair Display',"Ivy Presto",Georgia,"Times New Roman",serif;
   --font-text:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --r-card:12px; --r-pill:9999px; --r-sm:4px;
+  --serif:var(--font-display); --sans:var(--font-text);
+  /* Escala de medios: ninguna imagen de contenido pasa de estos anchos */
+  --media-lg:880px; --media-md:640px;
 }
 /* Tema claro: la misma voz (serif, cobre, cobalto, sin sombras) sobre el lienzo blanco de la referencia Apple */
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
@@ -222,8 +227,8 @@ footer a{color:var(--copper)}
 .det-cli{margin-top:16px;color:var(--fog);font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .det-lead{margin-top:20px;font-size:20px;line-height:1.38;letter-spacing:-.02em;font-weight:300;color:var(--silver);max-width:60ch}
 .det-acc{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
-.det-img{width:min(1216px,100% - 48px);margin:24px auto 0}
-.det-img img{width:100%;height:auto;border-radius:var(--r-card);background:var(--card)}
+.det-img{width:min(var(--media-lg),100% - 48px);margin:24px auto 0}
+.det-img img{display:block;width:100%;height:auto;border-radius:var(--r-card);background:var(--card)}
 .det-psr{display:grid;gap:16px;margin-top:48px}
 @media(min-width:820px){.det-psr{grid-template-columns:repeat(3,1fr);margin-top:64px}}
 .det-bloque{background:var(--card);border-radius:var(--r-card);padding:28px}
@@ -240,6 +245,7 @@ footer a{color:var(--copper)}
 </style>
 </head>
 <body>
+
 <nav class="nav" aria-label="Principal">
   <div class="wrap">
     <a class="brand" href="../"><span class="dot"></span>Alan Méndez</a>
@@ -266,7 +272,7 @@ footer a{color:var(--copper)}
     </div>
   </header>
 
-  <figure class="wrap det-img"><img src="../img/casos/rawssport.jpg?v=0bea14d2" alt="Pantalla de Raws Sport" width="1000" height="625"></figure>
+  <figure class="det-img"><img class="" src="../img/casos/rawssport.webp?v=ed3188cf" alt="Raws Sport en laptop y teléfono" width="1600" height="1000"></figure>
 
   <section class="wrap det-psr">
     <div class="det-bloque"><span class="eyebrow">El problema</span><ul><li>Ventas por Instagram y WhatsApp una conversación a la vez: &quot;¿cuánto es con envío?&quot;, &quot;te mando el comprobante&quot;.</li><li>Sin tarjeta ni meses sin intereses se pierde al cliente que no tiene el efectivo hoy.</li><li>Inventario, apartados y preventas en notas y capturas; se sabe cuánto se vendió, no cuánto quedó.</li></ul></div>
@@ -294,7 +300,13 @@ footer a{color:var(--copper)}
   </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 Alan Daniel Méndez Jiménez · Celaya, Guanajuato</span><span><a href="../">Inicio</a> · <a href="https://github.com/Alan20111" target="_blank" rel="noopener">GitHub</a></span></div></footer>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Alan Daniel Méndez Jiménez · Celaya, Guanajuato</span>
+    <span><a href="../">Inicio</a> · <a href="https://github.com/Alan20111" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:alannicanor62@gmail.com">Correo</a> · <a href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20tu%20sitio%20web%20y%20quiero%20agendar%20una%20demo%20para%20mi%20negocio" target="_blank" rel="noopener">WhatsApp</a></span>
+  </div>
+</footer>
 <a class="wa-float" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20tu%20sitio%20web%20y%20quiero%20agendar%20una%20demo%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-track="whatsapp_click" data-origen="flotante"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 1.67c4.54 0 8.23 3.7 8.23 8.24 0 4.54-3.7 8.23-8.23 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg><span>Agendar demo</span></a>
 <script>
 (function(){

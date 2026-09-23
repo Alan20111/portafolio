@@ -22,19 +22,25 @@ Para verlo en local: `npx serve .` y abre http://localhost:3000.
 ## Estructura
 
 ```
-index.html            página principal (generada)
-tarjetas/             PDF de tarjetas de presentación (10 por hoja carta, QR al sitio)
-src/tarjetas.html     fuente de las tarjetas · ./src/generar-tarjetas.sh las regenera
-casos/<slug>.html     página completa de cada caso (generada); src/pdf/<slug>.html es la hoja imprimible de la que sale el PDF
-casos/pdf/*.pdf       PDF de 1 página por caso (generado)
-demos/                prototipos autocontenidos hospedados aquí (KonCafe, MediConsulta, GymMachine)
-img/alan.jpg          tu foto (hoy es el avatar de GitHub, 460 px; se muestra a 220 px). Sustitúyela por una de ≥600 px cuadrada cuando quieras.
-img/casos/<slug>.jpg  imagen representativa de cada caso (./src/capturar.sh las regenera desde las demos)
-img/og.png            imagen para WhatsApp/redes (1200×630)
-src/datos.mjs         ← contenido
-src/build.mjs         generador
-vercel.json           URLs limpias, cabeceras de seguridad y caché
+src/datos.mjs         ← contenido (casos, demos, FAQ, contacto)
+src/estilos.mjs       ← sistema de diseño: tokens de color/tipografía, CSS del sitio, del caso, del PDF y de las demos
+src/componentes.mjs   ← piezas HTML reutilizables: cabecera(), navegacion(), pie(), portada(), iconos, huella ?v=
+src/build.mjs         ← arma las páginas con los componentes (no repite HTML a mano)
+assets/sistema.css    ← (generado) estilos compartidos de las demos: azulejos, teléfono, tablet, laptop, visor 100dvh
+assets/visor.js       ← comportamiento común de los visores: escalar el dispositivo y azulejos sin mover la página
+index.html, casos/    ← (generado) principal y una página por caso; src/pdf/ es la fuente de cada PDF de 1 página
+demos/<x>/            ← demos alojadas; los visores usan /assets/sistema.css + /assets/visor.js
+img/casos/<slug>.webp ← portada 1600×1000 (se muestra ≤ 880 px: nítida en retina); .jpg 1200×750 para WhatsApp
+herramientas/         ← scripts para regenerar portadas y capturas de GymMachine
 ```
+
+### Reglas de tamaño
+- Imágenes de contenido: máximo `--media-lg` (880 px) de ancho en pantalla; la fuente siempre es ~2× para que se vea nítida.
+- Visores de demo: todo cabe en 100dvh; el dispositivo se dibuja a tamaño real y `Visor.escalar` lo ajusta.
+
+### Nuevo visor de demo
+Copia `demos/koncafe/index.html` (dispositivos con HTML vivo) o `demos/gymmachine/index.html` (capturas),
+cambia los datos del arreglo y los íconos del `<svg>` de símbolos. El CSS y el JS ya vienen de `/assets/`.
 
 ## Agregar un caso nuevo
 

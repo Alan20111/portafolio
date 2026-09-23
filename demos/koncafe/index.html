@@ -11,91 +11,12 @@
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap">
-<style>
-  :root{
-    --canvas:#171721; --card:#1e1e2a; --panel:#272735; --hair:#2e3038; --hair2:#464853;
-    --fog:#9194a1; --silver:#c7c9d1; --bone:#e2e3e9; --white:#fff; --inverse:#000;
-    --cobalt:#5266eb; --copper:#cc9166;
-    --serif:'Playfair Display',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif;
-  }
-  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-    --canvas:#f5f5f7; --card:#fff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
-    --fog:#5e616e; --silver:#333336; --bone:#1d1d1f; --white:#08080a; --inverse:#fff; --cobalt:#0071e3; --copper:#a8663a;
-  }}
-  :root[data-theme="light"]{
-    --canvas:#f5f5f7; --card:#fff; --panel:#e2e2e5; --hair:#d6d6d6; --hair2:#c7c9d1;
-    --fog:#5e616e; --silver:#333336; --bone:#1d1d1f; --white:#08080a; --inverse:#fff; --cobalt:#0071e3; --copper:#a8663a;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  /* Todo en una pantalla: la página mide 100dvh y el dispositivo se escala al espacio disponible */
-  body{font-family:var(--sans);background:var(--canvas);color:var(--bone);-webkit-font-smoothing:antialiased;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
-  a{color:inherit;text-decoration:none}
-  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-  .top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;height:56px;border-bottom:1px solid var(--hair)}
-  .top a.volver{font-size:14px;color:var(--fog)} .top a.volver:hover{color:var(--copper)}
-  .top .wa{background:var(--cobalt);color:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:500;white-space:nowrap}
-  main{flex:1;min-height:0;width:min(1320px,100% - 32px);margin:0 auto;padding:16px 0;display:grid;gap:14px;
-       grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:'a' 'b' 'c'}
-  .intro{grid-area:a}.escena{grid-area:b}.detalle{grid-area:c}
-  .eyebrow{font-size:12px;font-weight:600;letter-spacing:-.02em;text-transform:uppercase;color:var(--copper)}
-  h1{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.2vw,42px);line-height:1.05;letter-spacing:.01em;color:var(--white);margin:6px 0 8px}
-  .lead{color:var(--fog);font-size:15px;line-height:1.45;max-width:46ch}
-  /* Perfiles como azulejos con ícono */
-  .perfiles{display:grid;gap:10px}
-  .perfil{display:flex;align-items:center;gap:12px;text-align:left;background:var(--card);border:1px solid transparent;border-radius:12px;padding:12px;min-width:0;transition:border-color .15s}
-  .perfil:hover{border-color:var(--hair2)}
-  .perfil[aria-pressed="true"]{border-color:var(--copper)}
-  .perfil .ico{flex:none;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--panel);color:var(--bone);transition:background .15s,color .15s}
-  .perfil .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-  .perfil[aria-pressed="true"] .ico{background:var(--copper);color:#fff}
-  .perfil b{display:block;font-weight:500;font-size:14px;color:var(--bone)}
-  .perfil[aria-pressed="true"] b{color:var(--copper)}
-  .perfil span.d{display:block;font-size:12px;line-height:1.35;color:var(--fog);margin-top:2px}
-  .nota{font-size:12px;color:var(--fog);line-height:1.45}
-  /* Escena: el dispositivo se dibuja a tamaño real y se escala con transform */
-  .escena{position:relative;min-height:0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .lienzo{position:relative;flex:1;min-height:0;width:100%}
-  .disp{position:absolute;left:50%;top:50%;transform-origin:0 0;visibility:hidden}
-  .disp.activo{visibility:visible}
-  .disp iframe{display:block;border:0;background:#fff}
-  .disp.tel{padding:12px;border-radius:52px;background:#0b0b10;box-shadow:0 0 0 1px #2a2a33 inset}
-  .disp.tel iframe{border-radius:40px}
-  .disp.tab{padding:22px;border-radius:34px;background:#0b0b10;box-shadow:0 0 0 1px #2a2a33 inset}
-  .disp.tab iframe{border-radius:14px}
-  .disp.lap{border-radius:14px;overflow:hidden;background:#0b0b10;box-shadow:0 0 0 1px #2a2a33 inset}
-  .disp.lap .barra{height:38px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#1c1c22;color:#9194a1;font:500 14px/1 var(--sans)}
-  .disp.lap .barra i{width:12px;height:12px;border-radius:50%;background:#3a3a44;display:block}
-  .disp.lap .barra i:nth-child(1){background:#ff5f57}.disp.lap .barra i:nth-child(2){background:#febc2e}.disp.lap .barra i:nth-child(3){background:#28c840}
-  .disp.lap .barra span{flex:1;text-align:center;background:#101014;border-radius:8px;padding:6px 0;margin:0 60px 0 20px}
-  .pie{flex:none;text-align:center;margin-top:10px;min-width:0;max-width:100%}
-  .pie b{display:block;font-family:var(--serif);font-weight:400;font-size:18px;line-height:24px;height:24px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pie span{display:block;font-size:12px;line-height:16px;height:16px;color:var(--fog);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pie a{color:var(--copper)}
-  /* Celular: título + perfiles arriba, dispositivo abajo */
-  @media(max-width:899px){
-    .eyebrow,.lead{display:none}
-    h1{font-size:24px;margin:0 0 10px}
-    .perfiles{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .perfil{flex-direction:column;align-items:flex-start;gap:8px;padding:10px}
-    .perfil .ico{width:32px;height:32px}.perfil .ico svg{width:18px;height:18px}
-    .perfil span.d{display:none}
-    .detalle{display:none}
-  }
-  /* Escritorio: intro + perfiles a la izquierda, dispositivo a la derecha */
-  @media(min-width:900px){
-    main{grid-template-columns:320px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);grid-template-areas:'a b' 'c b';column-gap:48px;row-gap:20px;padding:24px 0 18px}
-    .perfiles{margin-top:18px}
-    .detalle{align-self:end}
-  }
-  @media(min-width:900px) and (max-height:760px){.lead{display:none}}
-  @media(max-height:520px){body{height:auto;overflow:auto}.lienzo{height:420px;flex:none}}
-</style>
+<link rel="stylesheet" href="/assets/sistema.css">
+<script src="/assets/visor.js" defer></script>
 </head>
-<body>
+<body class="visor">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-tel" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></symbol>
   <symbol id="i-kiosko" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M12 16v5M8 21h8M9 9.5l2 2 4-4"/></symbol>
@@ -105,61 +26,53 @@
   <a class="volver" href="/casos/koncafe">← Caso KonCafe</a>
   <a class="wa" href="https://wa.me/524661603682?text=Hola%20Alan%2C%20vi%20el%20prototipo%20de%20KonCafe%20y%20quiero%20algo%20as%C3%AD%20para%20mi%20negocio" target="_blank" rel="noopener">Quiero algo así</a>
 </header>
-<main>
+<main class="visor-main visor-main--ancho">
   <section class="intro">
     <span class="eyebrow">Prototipo navegable</span>
     <h1>KonCafe, bien construido.</h1>
     <p class="lead">Así se vería la app de la cafetería hecha desde cero: el cliente pide desde su teléfono, el kiosko cobra en mostrador y el gerente ve ventas e inventario en vivo.</p>
-    <div class="perfiles" role="group" aria-label="Perfil">
-      <button class="perfil" data-p="cliente" aria-pressed="true"><span class="ico"><svg aria-hidden="true"><use href="#i-tel"/></svg></span><span><b>Cliente</b><span class="d">Menú, recompensas y pedir-y-recoger</span></span></button>
-      <button class="perfil" data-p="kiosko" aria-pressed="false"><span class="ico"><svg aria-hidden="true"><use href="#i-kiosko"/></svg></span><span><b>Kiosko</b><span class="d">Autoservicio táctil en el mostrador</span></span></button>
-      <button class="perfil" data-p="gerente" aria-pressed="false"><span class="ico"><svg aria-hidden="true"><use href="#i-panel"/></svg></span><span><b>Gerente</b><span class="d">Ventas por hora, inventario y corte de caja</span></span></button>
-    </div>
+    <div class="azulejos azulejos--tres" id="perfiles" style="margin-top:18px" role="group" aria-label="Perfil"></div>
   </section>
   <div class="escena">
     <div class="lienzo" id="lienzo"></div>
-    <div class="pie"><b id="titulo"></b><span id="sub"></span></div>
+    <div class="pie-escena"><div class="txt"><b id="titulo"></b><span id="sub"></span></div></div>
   </div>
   <section class="detalle">
     <p class="nota">Toca y navega dentro del dispositivo: es el prototipo real, no una captura. Los datos son de ejemplo.</p>
   </section>
 </main>
 <script>
-var D = {
-  cliente: { src: 'app-cliente.html', tipo: 'tel', w: 390, h: 844, titulo: 'App del cliente', sub: 'Menú, recompensas, pedido y seguimiento en vivo' },
-  kiosko:  { src: 'kiosko.html',      tipo: 'tab', w: 1180, h: 820, titulo: 'Kiosko de autoservicio', sub: 'Categorías, carrito, para llevar o en mesa y cobro' },
-  gerente: { src: 'dashboard.html',   tipo: 'lap', w: 1280, h: 800, titulo: 'Panel del gerente', sub: 'Ventas por hora, más vendidos, inventario y corte' },
-};
-var $lz = document.getElementById('lienzo'), actual = 'cliente', els = {};
-// Cada dispositivo se crea una sola vez: al volver a un perfil conserva lo que hiciste en él
-function crea(p){
-  if (els[p]) return els[p];
-  var d = D[p], e = document.createElement('div');
-  e.className = 'disp ' + d.tipo;
-  var ifr = '<iframe src="' + d.src + '" width="' + d.w + '" height="' + d.h + '" title="' + d.titulo + ' · KonCafe"></iframe>';
-  e.innerHTML = d.tipo === 'lap' ? '<div class="barra"><i></i><i></i><i></i><span>koncafe.mx/gerente</span></div>' + ifr : ifr;
-  $lz.appendChild(e); els[p] = e; return e;
-}
-function escala(){
-  var e = els[actual]; if (!e) return;
-  e.style.transform = 'none';
-  var W = e.offsetWidth, H = e.offsetHeight, bw = $lz.clientWidth, bh = $lz.clientHeight;
-  var k = Math.min(bw / W, bh / H, 1);
-  e.style.transform = 'translate(' + (-W * k / 2) + 'px,' + (-H * k / 2) + 'px) scale(' + k + ')';
-}
-function muestra(p){
-  actual = p; crea(p);
-  Object.keys(els).forEach(function(k){ els[k].classList.toggle('activo', k === p); });
-  document.querySelectorAll('.perfil').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.p === p)); });
-  document.getElementById('titulo').textContent = D[p].titulo;
-  document.getElementById('sub').innerHTML = D[p].sub + ' · <a href="' + D[p].src.replace('.html', '') + '" target="_blank" rel="noopener">pantalla completa ↗</a>';
-  escala();
-  try{ history.replaceState(null, '', '#' + p); }catch(err){}
-}
-document.querySelectorAll('.perfil').forEach(function(b){ b.onclick = function(){ muestra(b.dataset.p); }; });
-new ResizeObserver(escala).observe($lz);
-window.addEventListener('hashchange', function(){ var h = location.hash.slice(1); if (D[h]) muestra(h); });
-muestra(D[location.hash.slice(1)] ? location.hash.slice(1) : 'cliente');
+var D = [
+  { id: 'cliente', icono: 'tel', titulo: 'Cliente', desc: 'Menú, recompensas y pedir-y-recoger', src: 'app-cliente.html', tipo: 'telefono', w: 390, h: 844, nombre: 'App del cliente' },
+  { id: 'kiosko', icono: 'kiosko', titulo: 'Kiosko', desc: 'Autoservicio táctil en el mostrador', src: 'kiosko.html', tipo: 'tablet', w: 1180, h: 820, nombre: 'Kiosko de autoservicio' },
+  { id: 'gerente', icono: 'panel', titulo: 'Gerente', desc: 'Ventas por hora, inventario y corte de caja', src: 'dashboard.html', tipo: 'laptop', w: 1280, h: 800, nombre: 'Panel del gerente' },
+];
+document.addEventListener('DOMContentLoaded', function () {
+  var $lz = document.getElementById('lienzo'), els = {}, actual = 0;
+  var marca = Visor.azulejos(document.getElementById('perfiles'), D.map(function (d) { return { icono: d.icono, titulo: d.titulo, desc: d.desc, fila: true }; }), muestra);
+  // Cada dispositivo se crea una sola vez: al volver a un perfil conserva lo que hiciste en él
+  function crea(d) {
+    if (els[d.id]) return els[d.id];
+    var e = document.createElement('div');
+    e.className = 'dispositivo ' + d.tipo;
+    e.innerHTML = (d.tipo === 'laptop' ? '<div class="barra"><i></i><i></i><i></i><span>koncafe.mx/gerente</span></div>' : '')
+      + '<div class="pantalla" style="width:' + d.w + 'px;height:' + d.h + 'px"><iframe src="' + d.src + '" title="' + d.nombre + ' · KonCafe"></iframe></div>';
+    $lz.appendChild(e); els[d.id] = e; return e;
+  }
+  function muestra(j) {
+    actual = j; var d = D[j], e = crea(d);
+    Object.keys(els).forEach(function (k) { els[k].classList.toggle('oculto', k !== d.id); });
+    marca.marcar(j);
+    document.getElementById('titulo').textContent = d.nombre;
+    document.getElementById('sub').innerHTML = d.desc + ' · <a href="' + d.src.replace('.html', '') + '" target="_blank" rel="noopener">pantalla completa ↗</a>';
+    Visor.escalar($lz, e);
+    try { history.replaceState(null, '', '#' + d.id); } catch (err) {}
+  }
+  Visor.observar($lz, function () { return els[D[actual].id]; });
+  function desdeHash() { var h = location.hash.slice(1); for (var j = 0; j < D.length; j++) if (D[j].id === h) return j; return 0; }
+  window.addEventListener('hashchange', function () { muestra(desdeHash()); });
+  muestra(desdeHash());
+});
 </script>
 </body>
 </html>
