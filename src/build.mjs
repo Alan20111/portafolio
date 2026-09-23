@@ -1,6 +1,7 @@
 // Genera index.html, casos/*.html, sitemap.xml y robots.txt a partir de src/datos.mjs.
 // Uso: node src/build.mjs   (después: ./src/generar-pdf.sh para los PDFs de 1 página)
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sitio, casos, faq } from './datos.mjs';
@@ -10,6 +11,8 @@ const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const wa = (texto = sitio.mensajeWhatsApp) => `https://wa.me/${sitio.telefonoE164}?text=${encodeURIComponent(texto)}`;
 const hoy = new Date().toISOString().slice(0, 10);
+// /img/ se sirve con caché de un año (vercel.json): la URL lleva una huella del archivo para que un cambio se vea al instante
+const v = (rel) => { try { return `${rel}?v=${createHash('sha1').update(readFileSync(join(raiz, rel))).digest('hex').slice(0, 8)}`; } catch { return rel; } };
 
 const ESTADOS = {
   produccion: { txt: 'En producción', cls: 'e-prod' },
@@ -39,7 +42,7 @@ const tarjetaCaso = (c) => {
   return `
 <article class="caso" data-estado="${c.estado}" data-sector="${esc(c.sector)}" id="caso-${c.slug}">
   <a class="caso-link" href="casos/${c.slug}" data-track="caso_abrir" data-caso="${c.slug}" aria-label="Ver caso ${esc(c.nombre)}">
-    <img class="caso-img" src="img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}" loading="lazy" width="1000" height="625">
+    <img class="caso-img" src="${v(`img/casos/${c.slug}.jpg`)}" alt="Pantalla de ${esc(c.nombre)}" loading="lazy" width="1000" height="625">
   </a>
   <div class="caso-body">
     <div class="caso-top">
@@ -66,7 +69,7 @@ const jsonld = JSON.stringify([
     url: sitio.dominio,
     telephone: `+${sitio.telefonoE164}`,
     email: sitio.email,
-    image: `${sitio.dominio}/img/og.png`,
+    image: `${sitio.dominio}/${v('img/og.png')}`,
     priceRange: '$$',
     areaServed: [{ '@type': 'City', name: 'Celaya' }, { '@type': 'State', name: 'Guanajuato' }, { '@type': 'Country', name: 'México' }],
     address: { '@type': 'PostalAddress', addressLocality: sitio.ciudad, addressRegion: sitio.region, addressCountry: 'MX' },
@@ -154,7 +157,7 @@ const index = `<!DOCTYPE html>
 <meta property="og:title" content="Software a medida y automatización para tu negocio local">
 <meta property="og:description" content="Tiendas en línea, sistemas de citas, paneles de ventas y apps. Casos reales con demos que puedes probar. Trato directo, sin agencias.">
 <meta property="og:url" content="${sitio.dominio}/">
-<meta property="og:image" content="${sitio.dominio}/img/og.png">
+<meta property="og:image" content="${sitio.dominio}/${v('img/og.png')}">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
@@ -163,7 +166,7 @@ const index = `<!DOCTYPE html>
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 ${fuentesHead}
 <link rel="apple-touch-icon" href="img/icon-180.png">
-<link rel="preload" as="image" href="img/alan.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="${v('img/alan.jpg')}" fetchpriority="high">
 <script type="application/ld+json">${jsonld}</script>
 <style>${cssIndex}</style>
 </head>
@@ -202,7 +205,7 @@ ${fuentesHead}
       </div>
     </div>
     <div class="foto">
-      <img src="img/alan.jpg" width="900" height="900" alt="Alan Méndez, desarrollador de software" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
+      <img src="${v('img/alan.jpg')}" width="900" height="900" alt="Alan Méndez, desarrollador de software" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
       <div class="tag"><b>${esc(sitio.nombreCompleto)}</b>Desarrollador full-stack</div>
     </div>
   </div>
@@ -238,7 +241,7 @@ ${fuentesHead}
 
 <section id="sobre-mi">
   <div class="wrap sobre">
-    <img src="img/alan.jpg" width="900" height="900" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
+    <img src="${v('img/alan.jpg')}" width="900" height="900" alt="${esc(sitio.nombreCompleto)}" loading="lazy" onerror="this.onerror=null;this.src='https://github.com/Alan20111.png?size=400'">
     <div>
       <div class="sec-head"><h2>Hola, soy Alan Méndez.</h2></div>
       <p>Desarrollo software para negocios de Celaya y la región desde 2024. Estudio Ingeniería en Sistemas Computacionales en el TecNM Celaya y he entregado sistemas que hoy usan un consultorio médico, un bazar, y cientos de docentes.</p>
@@ -324,7 +327,7 @@ const paginaCaso = (c, i) => {
   const sig = casos[(i + 1) % casos.length];
   const li = (arr) => arr.map((t) => `<li>${esc(t)}</li>`).join('');
   const d = c.demo;
-  return `${cabeceraComun(`${c.nombre} · Caso de estudio · Alan Méndez`, c.resumen, `${sitio.dominio}/casos/${c.slug}`, `${sitio.dominio}/img/casos/${c.slug}.jpg`)}
+  return `${cabeceraComun(`${c.nombre} · Caso de estudio · Alan Méndez`, c.resumen, `${sitio.dominio}/casos/${c.slug}`, `${sitio.dominio}/${v(`img/casos/${c.slug}.jpg`)}`)}
 <style>${cssIndex}${cssDetalle}</style>
 </head>
 <body>
@@ -354,7 +357,7 @@ const paginaCaso = (c, i) => {
     </div>
   </header>
 
-  <figure class="wrap det-img"><img src="../img/casos/${c.slug}.jpg" alt="Pantalla de ${esc(c.nombre)}" width="1000" height="625"></figure>
+  <figure class="wrap det-img"><img src="../${v(`img/casos/${c.slug}.jpg`)}" alt="Pantalla de ${esc(c.nombre)}" width="1000" height="625"></figure>
 
   <section class="wrap det-psr">
     <div class="det-bloque"><span class="eyebrow">El problema</span><ul>${li(c.problema)}</ul></div>
