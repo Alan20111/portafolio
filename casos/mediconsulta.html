@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MediConsulta · Caso de estudio · Alan Méndez</title>
 <meta name="description" content="Programa de escritorio para Windows: pacientes, consultas, recetas con membrete, agenda y respaldos automáticos. Sin internet, sin mensualidades.">
-<link rel="canonical" href="https://alanmendez.vercel.app/casos/mediconsulta">
+<link rel="canonical" href="https://alanmendez.dev/casos/mediconsulta">
 <meta property="og:type" content="article"><meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="Alan Méndez · Software a medida">
 <meta property="og:title" content="MediConsulta · Caso de estudio · Alan Méndez"><meta property="og:description" content="Programa de escritorio para Windows: pacientes, consultas, recetas con membrete, agenda y respaldos automáticos. Sin internet, sin mensualidades.">
-<meta property="og:url" content="https://alanmendez.vercel.app/casos/mediconsulta"><meta property="og:image" content="https://alanmendez.vercel.app/img/casos/mediconsulta.jpg?v=5fc77845">
+<meta property="og:url" content="https://alanmendez.dev/casos/mediconsulta"><meta property="og:image" content="https://alanmendez.dev/img/casos/mediconsulta.jpg?v=5fc77845">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#171721" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
@@ -117,6 +117,15 @@ section{padding:112px 0}
 .paso h3{font-size:18px;margin-bottom:8px}
 .paso p{color:var(--fog);font-size:16px}
 
+/* Planes: renta o compra */
+.formas{display:grid;gap:16px}
+@media(min-width:720px){.formas{grid-template-columns:repeat(2,1fr)}}
+.forma{background:var(--card);border-radius:var(--r-card);padding:32px;display:flex;flex-direction:column;gap:12px}
+.forma h3{font-size:22px}
+.forma p{color:var(--fog);font-size:16px}
+.forma ul{margin:4px 0 0;padding-left:18px;color:var(--fog);font-size:15px;display:grid;gap:6px}
+.forma .ideal{margin-top:auto;padding-top:8px;color:var(--ivory);font-weight:500}
+
 /* Filtros */
 .filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
 .chip{border:1px solid var(--steel);background:transparent;color:var(--ivory);border-radius:var(--r-pill);padding:8px 14px;font-size:13px;font-weight:500}
@@ -199,6 +208,14 @@ input::placeholder,textarea::placeholder{color:var(--steel)}
 textarea{border-radius:16px;min-height:120px;resize:vertical}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ivory)}
 .form-note{font-size:12px;color:var(--fog)}
+.presupuesto{display:grid;gap:8px}
+.pres-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pres-h output{font-size:16px;font-weight:600;color:var(--ivory)}
+input[type=range]{padding:0;border:0;border-radius:0;height:32px;accent-color:var(--copper);cursor:pointer;touch-action:manipulation}
+input[type=range]:disabled{opacity:.35;cursor:not-allowed}
+.pres-t{display:flex;justify-content:space-between;font-size:12px;color:var(--fog)}
+label.check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mist);min-height:44px}
+label.check input{width:20px;height:20px;padding:0;border:0;accent-color:var(--copper)}
 .dato{display:flex;gap:14px;align-items:flex-start;margin-bottom:24px}
 .dato svg{width:20px;height:20px;color:var(--steel);flex:none;margin-top:2px}
 .dato b{display:block;color:var(--white);font-weight:500}
@@ -350,10 +367,16 @@ footer a{color:var(--copper)}
   })});
   // Formulario → WhatsApp (sin backend, sin fricción)
   var form=document.getElementById('form-contacto');
+  var INV=['$300','$500','$800','$1,000','$1,500','$2,000','$3,000','$4,000','$5,000 o más'];
+  var inv=document.getElementById('inv'),invOut=document.getElementById('inv-out'),nose=document.getElementById('inv-nose');
+  function pintaInv(){if(!inv)return;var t=INV[+inv.value]+' al mes';invOut.textContent=nose.checked?'Aún no lo sé':t;inv.setAttribute('aria-valuetext',t);inv.disabled=nose.checked;}
+  if(inv){inv.addEventListener('input',pintaInv);nose.addEventListener('change',pintaInv);pintaInv();}
   if(form)form.addEventListener('submit',function(ev){
     ev.preventDefault();var d=new FormData(form);
     var msg='Hola Alan, soy '+d.get('nombre')+' de '+(d.get('negocio')||'mi negocio')+'.\n'+
-      'Necesito: '+d.get('mensaje')+'\n'+(d.get('tel')?'Mi teléfono: '+d.get('tel'):'');
+      'Necesito: '+d.get('mensaje')+'\n'+
+      (d.get('nose')?'Aún no sé cuánto invertir al mes.\n':'Puedo invertir al mes: '+INV[+d.get('inversion')]+'\n')+
+      (d.get('tel')?'Mi teléfono: '+d.get('tel'):'');
     track('form_submit',{origen:'contacto'});
     window.open('https://wa.me/524661603682?text='+encodeURIComponent(msg),'_blank','noopener');
     var alt=document.getElementById('form-alt');if(alt){alt.href='mailto:alannicanor62@gmail.com?subject='+encodeURIComponent('Demo para '+(d.get('negocio')||'mi negocio'))+'&body='+encodeURIComponent(msg);alt.hidden=false;}

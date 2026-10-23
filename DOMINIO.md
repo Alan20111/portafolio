@@ -1,7 +1,7 @@
 # Dominio, correo y SEO local
 
 ## 0. Hoy
-El sitio vive en **https://alanmendez.vercel.app** (subdominio gratis de Vercel). El viejo `portafolio-ten-olive-50.vercel.app` redirige con 308.
+El sitio vive en **https://alanmendez.dev** (comprado en Cloudflare Registrar el 21 oct 2026; DNS en Cloudflare: A `@` → 76.76.21.21 y CNAME `www` → cname.vercel-dns.com, ambos *DNS only*). `alanmendez.vercel.app` redirige con 307 (temporal, para que el QR de las tarjetas viejas siga siendo controlable), `www` y `portafolio-ten-olive-50.vercel.app` con 308. En `vercel.json` hay reglas explícitas para `/` porque `/:path*` no atrapa la raíz.
 
 ## ⚠️ El QR de las tarjetas apunta a /qr
 Las tarjetas impresas llevan un QR a **alanmendez.vercel.app/qr** (el dominio no va escrito, solo dentro del QR).

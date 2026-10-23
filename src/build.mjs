@@ -99,10 +99,16 @@ const js = `
   })});
   // Formulario → WhatsApp (sin backend, sin fricción)
   var form=document.getElementById('form-contacto');
+  var INV=['$300','$500','$800','$1,000','$1,500','$2,000','$3,000','$4,000','$5,000 o más'];
+  var inv=document.getElementById('inv'),invOut=document.getElementById('inv-out'),nose=document.getElementById('inv-nose');
+  function pintaInv(){if(!inv)return;var t=INV[+inv.value]+' al mes';invOut.textContent=nose.checked?'Aún no lo sé':t;inv.setAttribute('aria-valuetext',t);inv.disabled=nose.checked;}
+  if(inv){inv.addEventListener('input',pintaInv);nose.addEventListener('change',pintaInv);pintaInv();}
   if(form)form.addEventListener('submit',function(ev){
     ev.preventDefault();var d=new FormData(form);
     var msg='Hola Alan, soy '+d.get('nombre')+' de '+(d.get('negocio')||'mi negocio')+'.\\n'+
-      'Necesito: '+d.get('mensaje')+'\\n'+(d.get('tel')?'Mi teléfono: '+d.get('tel'):'');
+      'Necesito: '+d.get('mensaje')+'\\n'+
+      (d.get('nose')?'Aún no sé cuánto invertir al mes.\\n':'Puedo invertir al mes: '+INV[+d.get('inversion')]+'\\n')+
+      (d.get('tel')?'Mi teléfono: '+d.get('tel'):'');
     track('form_submit',{origen:'contacto'});
     window.open('https://wa.me/${sitio.telefonoE164}?text='+encodeURIComponent(msg),'_blank','noopener');
     var alt=document.getElementById('form-alt');if(alt){alt.href='mailto:${sitio.email}?subject='+encodeURIComponent('Demo para '+(d.get('negocio')||'mi negocio'))+'&body='+encodeURIComponent(msg);alt.hidden=false;}
@@ -127,7 +133,7 @@ const index = `${cabecera({
 })}
 </head>
 <body>
-${navegacion({ enlaces: [['Casos', '#casos'], ['Sobre mí', '#sobre-mi'], ['FAQ', '#faq'], ['Contacto', '#contacto']] })}
+${navegacion({ enlaces: [['Casos', '#casos'], ['Planes', '#planes'], ['Sobre mí', '#sobre-mi'], ['FAQ', '#faq'], ['Contacto', '#contacto']] })}
 
 <header class="hero">
   <div class="wrap">
@@ -163,6 +169,37 @@ ${navegacion({ enlaces: [['Casos', '#casos'], ['Sobre mí', '#sobre-mi'], ['FAQ'
   </div>
 </section>
 
+<section id="planes">
+  <div class="wrap">
+    <div class="sec-head"><h2>Dos formas de tenerlo.</h2><p>No siempre tienes que comprar el software. Puedes rentarlo y empezar a usarlo sin pagar el desarrollo completo.</p></div>
+    <div class="formas">
+      <div class="forma">
+        <span class="eyebrow">Renta mensual</span>
+        <h3>Lo usas y pagas cada mes</h3>
+        <p>Un alta pequeña y una mensualidad por negocio. Empiezas sin pagar el desarrollo completo.</p>
+        <ul>
+          <li>Incluye hosting, dominio, respaldos, actualizaciones y soporte.</li>
+          <li>Tus datos son tuyos: si cancelas, te los entrego en un archivo.</li>
+          <li>El sistema y el código siguen siendo míos; tú pagas por usarlo.</li>
+          <li>Cancelas avisando con 30 días, sin penalización.</li>
+        </ul>
+        <p class="ideal">Ideal si quieres empezar ya, con poca inversión.</p>
+      </div>
+      <div class="forma">
+        <span class="eyebrow">Compra del proyecto</span>
+        <h3>El software es tuyo</h3>
+        <p>Desarrollo a la medida con alcance cerrado y precio fijo, que puedes pagar en mensualidades.</p>
+        <ul>
+          <li>Al liquidarlo te entrego el código, los accesos y la documentación.</li>
+          <li>Hosting, dominio y soporte del primer año incluidos; después, opcionales.</li>
+          <li>Puedes llevarlo a otro hosting o con otro desarrollador cuando quieras.</li>
+        </ul>
+        <p class="ideal">Ideal si quieres ser dueño del sistema o adaptarlo a fondo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <span id="demos"></span>
 <section id="casos">
   <div class="wrap">
@@ -189,7 +226,7 @@ ${navegacion({ enlaces: [['Casos', '#casos'], ['Sobre mí', '#sobre-mi'], ['FAQ'
       <p>No soy una agencia: hablas conmigo, quien diseña, programa y da soporte. Sin intermediarios que encarecen y sin burocracia para cambiar un botón.</p>
       <ul class="ventajas">
         <li>${ico.check}<span><b>Trato directo.</b> Mi WhatsApp, no un formulario de tickets.</span></li>
-        <li>${ico.check}<span><b>El código es tuyo.</b> Repositorio, accesos y documentación a tu nombre.</span></li>
+        <li>${ico.check}<span><b>Rentas o compras.</b> Úsalo por una mensualidad, o cómpralo y el código, los accesos y la documentación quedan a tu nombre.</span></li>
         <li>${ico.check}<span><b>Alcance cerrado y precio fijo.</b> Mensualidades sin anticipo dimensionadas para que el sistema se pague solo.</span></li>
         <li>${ico.check}<span><b>Seguridad desde el diseño.</b> Auditorías, reglas de acceso y pruebas automáticas en cada proyecto.</span></li>
       </ul>
@@ -219,10 +256,16 @@ ${navegacion({ enlaces: [['Casos', '#casos'], ['Sobre mí', '#sobre-mi'], ['FAQ'
       <div class="dato">${ico.gh}<div><b>GitHub</b><span><a href="${sitio.github}" target="_blank" rel="noopener">github.com/Alan20111</a></span></div></div>
     </div>
     <form id="form-contacto" novalidate>
-      <label>Tu nombre <input name="nombre" required autocomplete="name" placeholder="Ej. Valeria"></label>
-      <label>Tu negocio <input name="negocio" autocomplete="organization" placeholder="Ej. Bazar Girl"></label>
-      <label>Tu WhatsApp (opcional) <input name="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="466 123 4567"></label>
-      <label>¿Qué te quita tiempo hoy? <textarea name="mensaje" required placeholder="Ej. Cotizo envíos a mano y pierdo ventas de noche"></textarea></label>
+      <label>Tu nombre <input name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
+      <label>Tu negocio <input name="negocio" autocomplete="organization" placeholder="Nombre de tu negocio"></label>
+      <label>Tu WhatsApp (opcional) <input name="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="10 dígitos"></label>
+      <label>¿Qué te quita tiempo hoy? <textarea name="mensaje" required placeholder="Cuéntame en una o dos líneas qué te gustaría resolver"></textarea></label>
+      <div class="presupuesto">
+        <div class="pres-h"><label for="inv">¿Cuánto podrías invertir al mes?</label><output id="inv-out" for="inv" aria-live="polite">$1,000 al mes</output></div>
+        <input id="inv" name="inversion" type="range" min="0" max="8" step="1" value="3">
+        <div class="pres-t" aria-hidden="true"><span>$300</span><span>$5,000 o más</span></div>
+        <label class="check"><input id="inv-nose" type="checkbox" name="nose"> Aún no lo sé</label>
+      </div>
       <button class="btn btn-wa" type="submit">${ico.wa} Enviar por WhatsApp</button>
       <a id="form-alt" class="btn btn-sm" href="#" hidden>${ico.mail} O envíalo por correo</a>
       <span class="form-note">Se abre WhatsApp con tu mensaje ya escrito. No guardo tus datos en ningún servidor.</span>

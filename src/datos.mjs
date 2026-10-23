@@ -5,7 +5,7 @@ export const sitio = {
   nombre: 'Alan Méndez',
   nombreCompleto: 'Alan Daniel Méndez Jiménez',
   titulo: 'Software a medida para negocios locales',
-  dominio: 'https://alanmendez.vercel.app', // cuando compres alanmendez.dev: vercel domains add alanmendez.dev y cambia esto
+  dominio: 'https://alanmendez.dev', // alanmendez.vercel.app sigue vivo y redirige aquí (las tarjetas viejas apuntan a /qr de ese host)
   telefonoE164: '524661603682',
   telefonoBonito: '+52 466 160 3682',
   email: 'alannicanor62@gmail.com',
@@ -317,7 +317,7 @@ export const faq = [
   },
   {
     p: '¿El software es mío?',
-    r: 'Sí. Al liquidar el proyecto, el código y los datos son tuyos: te entrego el repositorio, los accesos y la documentación. Si algún día quieres llevarlo a otro hosting o con otro desarrollador, puedes hacerlo sin costo.',
+    r: 'Depende de cómo lo contrates. Si lo compras, al liquidar el proyecto el código y los datos son tuyos: te entrego el repositorio, los accesos y la documentación, y puedes llevarlo a otro hosting o con otro desarrollador. Si lo rentas, el sistema y el código siguen siendo míos y pagas por usarlo; tus datos siempre son tuyos y, si cancelas, te los entrego en un archivo.',
   },
   {
     p: '¿Cuánto tarda el desarrollo?',
@@ -325,7 +325,7 @@ export const faq = [
   },
   {
     p: '¿Cuánto cuesta y cómo se paga?',
-    r: 'Cada propuesta lleva un alcance cerrado y un precio fijo; lo que se sale del alcance se cotiza aparte por hora. Suelo proponer mensualidades sin anticipo a 12 meses que incluyen hosting, dominio y soporte del primer año, dimensionadas para que el sistema se pague con las ventas extra que genera.',
+    r: 'Hay dos formas. En renta pagas un alta pequeña y una mensualidad por negocio que incluye hosting, actualizaciones y soporte, sin pagar el desarrollo completo. En compra, cada propuesta lleva un alcance cerrado y un precio fijo (lo que se sale del alcance se cotiza aparte por hora), y puedes pagarlo en mensualidades. En los dos casos el precio se dimensiona para que el sistema se pague con las ventas extra que genera.',
   },
   {
     p: '¿Necesito saber de tecnología?',
@@ -333,6 +333,6 @@ export const faq = [
   },
   {
     p: '¿Qué pasa con hosting, dominio y correos?',
-    r: 'Los incluyo el primer año y los dejo a tu nombre. Uso infraestructura moderna (Cloudflare, Vercel, Firebase, Supabase) que para un negocio local cuesta entre $0 y unos cientos de pesos al año.',
+    r: 'En renta van incluidos mientras uses el sistema. En compra los incluyo el primer año y los dejo a tu nombre. Uso infraestructura moderna (Cloudflare, Vercel, Firebase, Supabase) que para un negocio local cuesta entre $0 y unos cientos de pesos al año.',
   },
 ];

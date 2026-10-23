@@ -61,6 +61,39 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "alanmendez.vercel.app"
+        }
+      ],
+      "destination": "https://alanmendez.dev/",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.alanmendez.dev"
+        }
+      ],
+      "destination": "https://alanmendez.dev/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "portafolio-ten-olive-50.vercel.app"
+        }
+      ],
+      "destination": "https://alanmendez.dev/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -68,7 +101,29 @@
           "value": "portafolio-ten-olive-50.vercel.app"
         }
       ],
-      "destination": "https://alanmendez.vercel.app/:path*",
+      "destination": "https://alanmendez.dev/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "alanmendez.vercel.app"
+        }
+      ],
+      "destination": "https://alanmendez.dev/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.alanmendez.dev"
+        }
+      ],
+      "destination": "https://alanmendez.dev/:path*",
       "permanent": true
     },
     {

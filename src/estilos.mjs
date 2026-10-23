@@ -108,6 +108,15 @@ section{padding:112px 0}
 .paso h3{font-size:18px;margin-bottom:8px}
 .paso p{color:var(--fog);font-size:16px}
 
+/* Planes: renta o compra */
+.formas{display:grid;gap:16px}
+@media(min-width:720px){.formas{grid-template-columns:repeat(2,1fr)}}
+.forma{background:var(--card);border-radius:var(--r-card);padding:32px;display:flex;flex-direction:column;gap:12px}
+.forma h3{font-size:22px}
+.forma p{color:var(--fog);font-size:16px}
+.forma ul{margin:4px 0 0;padding-left:18px;color:var(--fog);font-size:15px;display:grid;gap:6px}
+.forma .ideal{margin-top:auto;padding-top:8px;color:var(--ivory);font-weight:500}
+
 /* Filtros */
 .filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
 .chip{border:1px solid var(--steel);background:transparent;color:var(--ivory);border-radius:var(--r-pill);padding:8px 14px;font-size:13px;font-weight:500}
@@ -190,6 +199,14 @@ input::placeholder,textarea::placeholder{color:var(--steel)}
 textarea{border-radius:16px;min-height:120px;resize:vertical}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ivory)}
 .form-note{font-size:12px;color:var(--fog)}
+.presupuesto{display:grid;gap:8px}
+.pres-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pres-h output{font-size:16px;font-weight:600;color:var(--ivory)}
+input[type=range]{padding:0;border:0;border-radius:0;height:32px;accent-color:var(--copper);cursor:pointer;touch-action:manipulation}
+input[type=range]:disabled{opacity:.35;cursor:not-allowed}
+.pres-t{display:flex;justify-content:space-between;font-size:12px;color:var(--fog)}
+label.check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mist);min-height:44px}
+label.check input{width:20px;height:20px;padding:0;border:0;accent-color:var(--copper)}
 .dato{display:flex;gap:14px;align-items:flex-start;margin-bottom:24px}
 .dato svg{width:20px;height:20px;color:var(--steel);flex:none;margin-top:2px}
 .dato b{display:block;color:var(--white);font-weight:500}
