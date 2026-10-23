@@ -21,10 +21,12 @@
   .hoja{width:8.5in;height:11in;padding:.5in .75in;display:grid;grid-template-columns:repeat(2,3.5in);grid-template-rows:repeat(5,2in);page-break-after:always}
   .t{position:relative;border:.5pt solid var(--hair);padding:.2in .22in;display:flex;justify-content:space-between;gap:.12in;overflow:hidden;background:#fff}
   .izq{display:flex;flex-direction:column;height:100%}
-  .marca{display:flex;align-items:center;gap:6pt;margin-bottom:5pt}
+  .cab{display:flex;align-items:center;gap:8pt}
+  .cab .foto{width:.58in;height:.58in;border-radius:50%;object-fit:cover;flex:none}
+  .marca{display:flex;align-items:center;gap:6pt;margin-bottom:4pt}
   .marca .punto{width:6pt;height:6pt;border-radius:50%;background:var(--copper);flex:none}
-  .marca b{font-family:var(--serif);font-weight:500;font-size:17pt;letter-spacing:.01em;line-height:1;white-space:nowrap}
-  .rol{font-size:6pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.5;font-weight:500}
+  .marca b{font-family:var(--serif);font-weight:500;font-size:15pt;letter-spacing:.01em;line-height:1;white-space:nowrap}
+  .rol{font-size:6.8pt;letter-spacing:.01em;color:var(--muted);line-height:1.4;font-weight:500;white-space:nowrap}
   .slogan{font-family:var(--serif);font-size:13pt;line-height:1.16;letter-spacing:.01em;margin:auto 0 0}
   .slogan em{font-style:italic;color:var(--copper)}
   .datos{font-size:7.4pt;line-height:1.55;color:var(--ink);margin-top:9pt}
@@ -48,8 +50,9 @@
   var tarjeta = ''
     + '<div class="t">'
     +   '<div class="izq">'
-    +     '<div class="marca"><span class="punto"></span><b>Alan Méndez</b></div>'
-    +     '<div class="rol">Técnico en Programación · Desarrollador freelance</div>'
+    +     '<div class="cab"><img class="foto" src="../img/alan-circulo.png" alt="">'
+    +       '<div><div class="marca"><b>Alan Méndez</b></div><div class="rol">Técnico en Programación<br>Desarrollador freelance</div></div>'
+    +     '</div>'
     +     '<div class="slogan">Software que<br><em>trabaja por ti</em>.</div>'
     +     '<div class="datos">'
     +       '<b>+52 466 160 3682</b> <span>· WhatsApp</span>'
